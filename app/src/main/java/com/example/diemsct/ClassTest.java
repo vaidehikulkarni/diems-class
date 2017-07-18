@@ -25,7 +25,7 @@ public class ClassTest extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(ClassTest.this, Home.class);
+                Intent i = new Intent(ClassTest.this, stud_login.class);
                 startActivity(i);
                 finish();
             }

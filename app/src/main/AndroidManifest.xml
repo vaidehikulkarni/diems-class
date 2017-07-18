@@ -9,18 +9,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ClassTest">
+
+        </activity>
+        <activity android:name=".staff_login" />
+        <activity android:name=".stud_info" />
+        <activity android:name=".Staff_Act" />
+        <activity android:name=".stud_login" />
+        <activity android:name=".MarksView" />
+        <activity android:name=".GraphView" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".staff_login" />
-        <activity android:name=".stud_info" />
-        <activity android:name=".Staff_Act" />
-        <activity android:name=".Home" />
-        <activity android:name=".MarksView" />
-        <activity android:name=".GraphView"></activity>
     </application>
 
 </manifest>

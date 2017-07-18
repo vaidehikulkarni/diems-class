@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/DarkCyan"
     android:orientation="vertical"
-    tools:context="com.example.diemsct.Home">
+    tools:context="com.example.diemsct.stud_login">
 
     <TextView
         android:id="@+id/textView1"

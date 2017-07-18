@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DIEMSCT.iml" filepath="$PROJECT_DIR$/DIEMSCT.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diems-class-test.iml" filepath="$PROJECT_DIR$/diems-class-test.iml" />
     </modules>
   </component>
 </project>
