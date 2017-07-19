@@ -8,4 +8,12 @@
     tools:context="com.example.diemsct.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/login">
+
+
+</RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

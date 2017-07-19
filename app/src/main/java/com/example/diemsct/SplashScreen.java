@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class ClassTest extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
     int SPLASH_TIME_OUT = 2500;
 
@@ -25,7 +25,7 @@ public class ClassTest extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(ClassTest.this, MainActivity.class);
+                Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }
