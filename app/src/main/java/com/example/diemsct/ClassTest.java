@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 public class ClassTest extends AppCompatActivity {
 
-    int SPLASH_TIME_OUT = 3000;
+    int SPLASH_TIME_OUT = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class ClassTest extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(ClassTest.this, stud_login.class);
+                Intent i = new Intent(ClassTest.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }
