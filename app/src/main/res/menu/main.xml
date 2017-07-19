@@ -2,14 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/sign_in"
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/sign_in"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/contact"
-        android:orderInCategory="100"
-        android:title="@string/contact"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>
