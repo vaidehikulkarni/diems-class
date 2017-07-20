@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.diemsct.SignIn"
     android:background="@color/white"
     android:orientation="vertical">
@@ -34,29 +35,49 @@
             android:id="@+id/spinner"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button3"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="54dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:gravity="center"
             android:hint="Select user"/>
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="203dp"
-        android:text="Continue"
-        android:backgroundTint="@color/colorAccent"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:layout_margin="25dp"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_height="wrap_content"
+            android:layout_width="240dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:hint="Enter Username"
+            app:met_floatingLabel="highlight"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_height="wrap_content"
+            android:layout_width="240dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="8dp"
+            app:met_floatingLabel="highlight"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/button3"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="203dp"
+            android:text="Continue"
+            android:elevation="2dp"
+
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"/>
     </LinearLayout>
 
 </LinearLayout>

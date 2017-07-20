@@ -47,8 +47,7 @@ public class SignIn extends Fragment {
 
             }
         });
-
-                return view;
+        return view;
     }
 
 }
