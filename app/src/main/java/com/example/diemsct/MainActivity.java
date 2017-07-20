@@ -1,5 +1,8 @@
 package com.example.diemsct;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager manager;
     RelativeLayout rl;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.login, new HomeAct())
+                .commit();
 
         rl = (RelativeLayout)findViewById(R.id.login);
 
@@ -52,6 +61,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        Drawable drawable = menu.findItem(R.id.notification).getIcon();
+        if (drawable != null) {
+            drawable.mutate();
+            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        }
+        drawable = menu.findItem(R.id.profile).getIcon();
+        if (drawable != null) {
+            drawable.mutate();
+            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        }
         return true;
     }
 
@@ -61,10 +80,15 @@ public class MainActivity extends AppCompatActivity
         manager = getSupportFragmentManager();
 
         if (id == R.id.sign_in) {
-          manager.beginTransaction().replace(R.id.login,new SignIn(),new SignIn().getTag()).commit();
+            manager.beginTransaction().replace(R.id.login,new SignIn()).commit();
         }
         if(id == R.id.contact) {
         return true;
+        }
+
+        for(int i=0;i<navigationView.getMenu().size();i++)
+        {
+            navigationView.getMenu().getItem(i).setChecked(false);
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,14 +100,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_about) {
-
-        } else if (id == R.id.nav_academics) {
-
-        } else if (id == R.id.nav_student) {
-
+        switch (id)
+        {
+            case R.id.nav_home:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, new HomeAct())
+                        .commit();
+                navigationView.getMenu().getItem(0).setChecked(true);
+                break;
+            case R.id.nav_about:
+                navigationView.getMenu().getItem(1).setChecked(true);
+                break;
+            case R.id.nav_academics:
+                navigationView.getMenu().getItem(2).setChecked(true);
+                break;
+            case R.id.nav_student:
+                navigationView.getMenu().getItem(3).setChecked(true);
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
