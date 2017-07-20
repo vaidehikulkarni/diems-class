@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
         android:id="@+id/sign_in"
         android:orderInCategory="100"
@@ -12,5 +13,18 @@
         android:title="@string/contact"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_item_one"
+        android:title="Notification"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_item_two"
+        android:title="Profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        app:showAsAction="always" />
+
 
 </menu>
+

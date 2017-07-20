@@ -26,7 +26,7 @@ public class staff_login extends AppCompatActivity {
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
 
-                Intent i = new Intent(getApplicationContext(), Staff_Act.class);
+                Intent i = new Intent(getApplicationContext(), Staff_Activity.class);
                 startActivity(i);
             }
         });

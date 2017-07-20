@@ -2,6 +2,7 @@
     <string name="app_name">DIEMS CT</string>
     <string name="staff_login">Staff Login</string>
     <string name="prn">Enter PRN number</string>
+    <string name="pass">Enter Password</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
