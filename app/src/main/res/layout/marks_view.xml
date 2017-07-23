@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Student Name"
-        android:textStyle="bold"
-       />
+        android:textStyle="bold" />
     <EditText
         android:id="@+id/editname"
         android:layout_width="match_parent"
@@ -39,8 +38,7 @@
 
    <ScrollView
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       >
+       android:layout_height="match_parent">
 
 
 
@@ -348,11 +346,12 @@
             android:layout_height="wrap_content"
             android:text="Graph View:"
             android:paddingBottom="20dp"
-            android:textAllCaps="true"
+            android:textColor="@color/Black"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"/>
 
 
-           <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+           <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -361,10 +360,12 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barchart"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"></com.github.mikephil.charting.charts.BarChart>
+                android:layout_height="400dp">
+
+            </com.github.mikephil.charting.charts.BarChart>
 
 
-            </RelativeLayout>
+            </LinearLayout>
 
     </LinearLayout>
 

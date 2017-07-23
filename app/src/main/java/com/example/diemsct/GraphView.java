@@ -57,8 +57,6 @@ public class GraphView extends AppCompatActivity {
 
         BarData data = new BarData(theDates, dataSets);
         barChart.setData(data);
-//        BarData gasfk = BarData()
-
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
