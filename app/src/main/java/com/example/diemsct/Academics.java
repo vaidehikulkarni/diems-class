@@ -3,9 +3,9 @@ package com.example.diemsct;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -54,7 +54,7 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
         viewPager = (ViewPager)view.findViewById(R.id.pager);
 
         //Creating our pager adapter
-        Pager adapter = new Pager(((AppCompatActivity)getActivity()).getSupportFragmentManager(), tabLayout.getTabCount());
+        Pager adapter = new Pager(((AppCompatActivity)getActivity()).getFragmentManager(), tabLayout.getTabCount());
 
         setupViewPager(viewPager);
         //Adding adapter to pager
@@ -106,7 +106,7 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getFragmentManager());
         adapter.addFragment(new AcdFE(), "FE");
         adapter.addFragment(new AcdCse(), "CSE");
         adapter.addFragment(new AcdMech(), "MECH");

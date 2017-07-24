@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.diemsct.Staff_Activity"
+    tools:context="com.example.diemsct.StaffDashboard"
     android:orientation="vertical">
 
 
@@ -12,7 +12,10 @@
         android:id="@+id/cv1"
         android:layout_marginTop="60dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:animateLayoutChanges="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true">
 
 
         <LinearLayout
@@ -45,7 +48,9 @@
         android:layout_height="120dp"
         android:paddingTop="15dp"
         android:id="@+id/cv2"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true">
 
         <LinearLayout
             android:layout_width="match_parent"

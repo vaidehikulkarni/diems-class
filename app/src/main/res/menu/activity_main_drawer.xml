@@ -17,19 +17,25 @@
             android:title="Student" />
     </group>
 
-    <item
-        android:title="More"
-        android:id="@+id/nav_more"
-        android:visible="false">
-        <menu>
-            <group android:checkableBehavior="none">
+    <!--<item-->
+        <!--android:id="@+id/nav_account"-->
+        <!--android:visible="false">-->
+        <!--<menu>-->
+            <group android:checkableBehavior="single"
+                android:id="@+id/nav_account">
                 <item
-                    android:id="@+id/nav_share"
-                    android:title="Share" />
+                    android:id="@+id/nav_dashboard"
+                    android:title="Dashboard" />
                 <item
-                    android:id="@+id/nav_send"
-                    android:title="Send" />
+                    android:id="@+id/nav_class_test"
+                    android:title="Class Test" />
+                <item
+                    android:id="@+id/nav_attendance"
+                    android:title="Attendance" />
+                <item
+                    android:id="@+id/nav_signout"
+                    android:title="Sign Out" />
             </group>
-        </menu>
-    </item>
+        <!--</menu>-->
+    <!--</item>-->
 </menu>
