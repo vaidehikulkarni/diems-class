@@ -1,5 +1,6 @@
 package com.example.diemsct;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -87,7 +88,9 @@ public class MainActivity extends AppCompatActivity
             drawable.mutate();
             drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         }
+
         return true;
+
     }
 
     @Override
@@ -107,6 +110,9 @@ public class MainActivity extends AppCompatActivity
             navigationView.getMenu().getItem(i).setChecked(false);
         }
 
+        if(id == R.id.profile){
+            manager.beginTransaction().replace(R.id.login,new StudInfo()).commit();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -133,6 +139,10 @@ public class MainActivity extends AppCompatActivity
                 navigationView.getMenu().getItem(1).setChecked(true);
                 break;
             case R.id.nav_academics:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, new Academics())
+                        .commit();
                 navigationView.getMenu().getItem(2).setChecked(true);
                 break;
             case R.id.nav_student:

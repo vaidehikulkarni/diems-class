@@ -1,28 +1,38 @@
 package com.example.diemsct;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class GraphView extends AppCompatActivity {
+
+public class ClasstestView extends Fragment {
 
     BarChart barChart;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.graph_view);
+    public ClasstestView() {
+        // Required empty public constructor
+    }
 
-        barChart = (BarChart) findViewById(R.id.barchart);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_classtest_view, container, false);
+
+        barChart = (BarChart)view.findViewById(R.id.barchart);
 
         ArrayList<BarEntry> classTest1 = new ArrayList<BarEntry>();
         classTest1.add(new BarEntry(14f, 0));
@@ -60,5 +70,8 @@ public class GraphView extends AppCompatActivity {
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
+
+        return view;
     }
+
 }

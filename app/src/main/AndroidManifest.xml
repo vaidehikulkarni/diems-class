@@ -15,12 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".staff_login" />
-        <activity android:name=".stud_info" />
-        <activity android:name=".Staff_Act" />
-        <activity android:name=".stud_login" />
         <activity android:name=".MarksView" />
-        <activity android:name=".GraphView" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

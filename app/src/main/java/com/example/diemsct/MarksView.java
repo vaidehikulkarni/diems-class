@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class MarksView extends AppCompatActivity {
 
-    Button gv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

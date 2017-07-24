@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 public class Stud_Activity extends Fragment {
 
+    FragmentManager manager;
     CardView ct;
     public Stud_Activity() {
         // Required empty public constructor
@@ -29,8 +30,12 @@ public class Stud_Activity extends Fragment {
         ct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent redirect=new Intent(getActivity(),MarksView.class);
-                getActivity().startActivity(redirect);
+                //Intent redirect=new Intent(getActivity(),ClasstestView.class);
+                //getActivity().startActivity(redirect);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, new ClasstestView())
+                        .commit();
             }
         });
 
