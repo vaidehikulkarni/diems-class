@@ -4,6 +4,8 @@ package com.example.diemsct;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Academics extends Fragment implements TabLayout.OnTabSelectedListener {
@@ -30,19 +35,19 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
         View view= inflater.inflate(R.layout.fragment_academics, container, false);
 
         //Adding toolbar to the activity
-        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbar);
+//        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         //Initializing the tablayout
         tabLayout = (TabLayout)view.findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("FE"));
-        tabLayout.addTab(tabLayout.newTab().setText("CSE"));
-        tabLayout.addTab(tabLayout.newTab().setText("Civil"));
-        tabLayout.addTab(tabLayout.newTab().setText("Mech"));
-        tabLayout.addTab(tabLayout.newTab().setText("E&TC"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+//        tabLayout.addTab(tabLayout.newTab().setText("FE"));
+//        tabLayout.addTab(tabLayout.newTab().setText("CSE"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Civil"));
+//        tabLayout.addTab(tabLayout.newTab().setText("Mech"));
+//        tabLayout.addTab(tabLayout.newTab().setText("E&TC"));
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
         //Initializing viewPager
@@ -51,11 +56,13 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
         //Creating our pager adapter
         Pager adapter = new Pager(((AppCompatActivity)getActivity()).getSupportFragmentManager(), tabLayout.getTabCount());
 
+        setupViewPager(viewPager);
         //Adding adapter to pager
-        viewPager.setAdapter(adapter);
+//        viewPager.setAdapter(adapter);
 
         //Adding onTabSelectedListener to swipe views
         tabLayout.setOnTabSelectedListener(this);
+        tabLayout.setupWithViewPager(viewPager);
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -98,4 +105,42 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
 
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        adapter.addFragment(new AcdFE(), "FE");
+        adapter.addFragment(new AcdCse(), "CSE");
+        adapter.addFragment(new AcdMech(), "MECH");
+        adapter.addFragment(new AcdEtc(), "E&TC");
+        adapter.addFragment(new AcdCivil(), "CIVIL");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }

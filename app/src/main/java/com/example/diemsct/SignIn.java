@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 
 import static android.R.attr.fragment;
 import static android.R.attr.spinnerMode;
+import static com.example.diemsct.MainActivity.notification;
+import static com.example.diemsct.MainActivity.profile;
+import static com.example.diemsct.MainActivity.signin;
+import static com.example.diemsct.MainActivity.signout;
 
 
 public class SignIn extends Fragment {
@@ -63,20 +68,25 @@ public class SignIn extends Fragment {
         cont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sp.getText().toString().equals("Student Login"))
+                {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.login, new Stud_Activity())
+                            .commit();
+                }
+                else {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.login, new Staff_Activity())
+                            .commit();
+                }
+                MainActivity.signedin = true;
 
-            if(sp.getText().toString().equals("Student Login"))
-            {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.login, new Stud_Activity())
-                        .commit();
-            }
-            else {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.login, new Staff_Activity())
-                        .commit();
-            }
+                profile.setVisible(true);
+                notification.setVisible(true);
+                signout.setVisible(true);
+                signin.setVisible(false);
             }
         });
 
