@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/textView25"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about_diems"
             android:textColor="@color/Black"
@@ -33,9 +33,9 @@
             android:id="@+id/aboutDiems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:textColor="@color/Black"
             android:textSize="15sp"
+            android:text="@string/about_diems1"
             android:layout_margin="15dp" />
 
     </LinearLayout>

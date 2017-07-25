@@ -14,12 +14,21 @@
     <string name="sign_out">Sign Out</string>
     <string name="contact">Contact</string>
     <string name="about_diems">Deogiri Institute of Engineering and Management Studies</string>
-    <string name="about_diems1">
+    <string name="about_diems1" formatted="false">
         <![CDATA[
         In pursuance with the policies of the Government of India to start Engineering colleges in emerging technologies, the Deogiri Institute of Engineering and Management Studies is established at Aurangabad during the academic year 2009-10. &#10;
         Deogiri Institute of Engineering and Management Studies is affiliated to the Dr. Babasaheb Ambedkar Technological University, Lonere and is developed as per the norms of the All India Council of Technical Education (A.I.C.T.E), Government of India.&#13;
         The Institute is consistently among the top institutes of Dr. B.A.M. University in examination results. The student-centric teaching learning environment, state of the art infrastructure, well-equipped laboratories, library with good number of books, experienced and dedicated team of faculties are the key features of the Institute.
         ]]>
+    </string>
+
+    <string name="about_metorship1">Mentorship Programme</string>
+    <string name="about_mentorship2">“Mentor: Someone whose hindsight can become your foresight”</string>
+    <string name="about_metoship3" formatted="false">
+        <![CDATA[
+        It takes more than a degree to induct college-graduates into the society and transform them into responsible citizens. And a lot more to recognise the potential in a student and make them realise the contemporary scenario. However, it all starts with a small step : mentor-ship from the experienced. In a survey of Fortune 500 companies, 96% of executives credited mentoring as an important developmental tool. 75% said mentoring played a key role in their career success. Who else could share a stronger bond with the students of an institute and guide them through the ground realities of the work-a-day world than the alumni of the institute?&#10;
+        Hence, Deogiri Institute of Engineering and Management Studies, is looking forward to fostering and nurturing a Student “Mentorship Programme”. The prototype of the proposed mentorship programme aims at a healthy interaction between an interested mentor and an eager protege. This programme matches the profiles of the applicant and the alumni based on common goals and career interest.The mentors would advice the protege on any sort of problems faced by them and would be able to provide information related to professional and career development. Issues related to career path, resumes, course selection, international perspectives and work/family could be discussed with the mentors.The students have the opportunity to remain in contact with the mentors even after graduating.
+         ]]>
     </string>
 
     <string name="action_settings">Settings</string>
