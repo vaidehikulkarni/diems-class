@@ -22,8 +22,8 @@ import me.relex.circleindicator.CircleIndicator;
 public class HomeAct extends Fragment {
     private static ViewPager mPager;
     private static int currentPage = 0;
-    private static final Integer[] XMEN= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
-    private ArrayList<Integer> XMENArray = new ArrayList<Integer>();
+    private static final Integer[] Pics= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
+    private ArrayList<Integer> PicsArray = new ArrayList<Integer>();
 
     public HomeAct() {
         // Required empty public constructor
@@ -40,19 +40,19 @@ public class HomeAct extends Fragment {
     }
 
     private void init() {
-        for(int i=0;i<XMEN.length;i++)
-            XMENArray.add(XMEN[i]);
+        for(int i=0;i<Pics.length;i++)
+            PicsArray.add(Pics[i]);
 
         mPager = (ViewPager) view.findViewById(R.id.pager);
-        mPager.setAdapter(new MyAdapter(getActivity(),XMENArray));
-        CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
-        indicator.setViewPager(mPager);
+        mPager.setAdapter(new MyAdapter(getActivity(),PicsArray));
+      //  CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
+       // indicator.setViewPager(mPager);
 
         // Auto start of viewpager
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (currentPage == XMEN.length) {
+                if (currentPage == Pics.length) {
                     currentPage = 0;
                 }
                 mPager.setCurrentItem(currentPage++, true);
