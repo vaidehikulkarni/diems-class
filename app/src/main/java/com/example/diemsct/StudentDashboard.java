@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 public class StudentDashboard extends Fragment {
 
     FragmentManager manager;
-    CardView ct;
+    CardView ct,ct2;
     public StudentDashboard() {
         // Required empty public constructor
     }
@@ -25,6 +25,7 @@ public class StudentDashboard extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stud_dash, container, false);
         ct = (CardView)view.findViewById(R.id.cv1);
+        ct2 = (CardView)view.findViewById(R.id.cv2);
         ct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +37,14 @@ public class StudentDashboard extends Fragment {
                         .commit();
             }
         });
+        ct2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent redirect=new Intent(getActivity(),ClasstestView.class);
+                //getActivity().startActivity(redirect);
 
+            }
+        });
         return view;
     }
 
