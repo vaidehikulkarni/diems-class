@@ -203,6 +203,9 @@ public class MainActivity extends AppCompatActivity
                 title = "Academics";
                 break;
             case R.id.nav_student:
+                manager.beginTransaction()
+                        .replace(R.id.login, new Students())
+                        .commit();
                 navigationView.getMenu().findItem(R.id.nav_student).setChecked(true);
                 title = "Student";
                 break;
