@@ -1,8 +1,6 @@
 package com.example.diemsct;
 
-import android.app.Dialog;
 import android.app.Fragment;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -37,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     static String loginType;
     static Menu actionBarMenu,navigationBarMenu;
     FragmentTransaction transaction;
+    String prevFragment = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +54,16 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getChildAt(0).setVerticalScrollBarEnabled(false);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        getFragmentManager()
+        manager = getFragmentManager();
+
+        manager
                 .beginTransaction()
-                .add(R.id.login, new HomeAct())
+                .add(R.id.login, new HomeFragment())
                 .commit();
 
-        manager = getFragmentManager();
         navigationBarMenu = navigationView.getMenu();
         rl = (RelativeLayout)findViewById(R.id.login);
 
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 signedin = false;
                                 checksignin();
-                                transaction.replace(R.id.login,new HomeAct()).commit();
+                                transaction.replace(R.id.login,new HomeFragment()).commit();
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
                                 MainActivity.title = "DIEMS";
                                 //redundant code because this is working asynchronously
@@ -179,24 +180,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         String title = "DIEMS";
+        transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
         switch (item.getItemId())
         {
             case R.id.nav_home:
-                manager.beginTransaction()
-                        .replace(R.id.login, new HomeAct())
+                transaction
+                        .replace(R.id.login, new HomeFragment())
                         .commit();
                 navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
                 title = (String) getSupportActionBar().getTitle();
                 break;
             case R.id.nav_about:
-                manager.beginTransaction()
+                transaction
                         .replace(R.id.login, new AboutDiems())
                         .commit();
                 navigationView.getMenu().findItem(R.id.nav_about).setChecked(true);
                 title = "About";
                 break;
             case R.id.nav_academics:
-                manager.beginTransaction()
+                transaction
                         .replace(R.id.login, new Academics())
                         .commit();
                 navigationView.getMenu().findItem(R.id.nav_academics).setChecked(true);
@@ -210,10 +212,10 @@ public class MainActivity extends AppCompatActivity
                 title = "Student";
                 break;
             case R.id.nav_class_test:
-                navigationView.getMenu().findItem(R.id.nav_class_test).setChecked(true);
-                manager.beginTransaction()
+                transaction
                         .replace(R.id.login, new ClasstestView())
                         .commit();
+                navigationView.getMenu().findItem(R.id.nav_class_test).setChecked(true);
                 title = "Class Test";
                 break;
             case R.id.nav_attendance:
@@ -225,12 +227,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_dashboard:
                 if(loginType.equals("student")) {
-                    manager.beginTransaction()
+                    transaction
                             .replace(R.id.login, new StudentDashboard())
                             .commit();
                 }
                 else if(loginType.equals("staff")) {
-                    manager.beginTransaction()
+                    transaction
                             .replace(R.id.login, new StaffDashboard())
                             .commit();
                 }

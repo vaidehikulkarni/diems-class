@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,20 +31,16 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_students, container, false);
-        //Initializing the tablayout
-        tabLayout = (TabLayout)view.findViewById(R.id.tabLayout);
-        //Initializing viewPager
-        viewPager = (ViewPager)view.findViewById(R.id.pager);
 
-        //Creating our pager adapter
-        studPager adapter = new studPager(((AppCompatActivity)getActivity()).getFragmentManager(), tabLayout.getTabCount());
+        View view= inflater.inflate(R.layout.fragment_students, container, false);
+
+        tabLayout = (TabLayout)view.findViewById(R.id.tabLayout);
+
+        viewPager = (ViewPager)view.findViewById(R.id.pager);
 
         setupViewPager(viewPager);
 
-        //Adding onTabSelectedListener to swipe views
-        tabLayout.setOnTabSelectedListener(this);
+        tabLayout.addOnTabSelectedListener(this);
         tabLayout.setupWithViewPager(viewPager);
 
         return view;
@@ -64,9 +61,9 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
 
     }
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new RedhatAcademy(), "Redhat Academy");
-        adapter.addFragment(new MentorshipProg(), "Mentorship Programme");
+        adapter.addFragment(new MentorshipProg(), "Mentorship\nProgramme");
         viewPager.setAdapter(adapter);
     }
 

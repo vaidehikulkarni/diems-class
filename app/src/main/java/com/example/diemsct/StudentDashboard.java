@@ -33,6 +33,7 @@ public class StudentDashboard extends Fragment {
                 //getActivity().startActivity(redirect);
                 getFragmentManager()
                         .beginTransaction()
+                        .setCustomAnimations(R.animator.fade_in,R.animator.fade_out)
                         .replace(R.id.login, new ClasstestView())
                         .commit();
             }

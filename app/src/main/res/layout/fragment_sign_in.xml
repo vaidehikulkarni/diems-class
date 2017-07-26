@@ -1,96 +1,106 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.diemsct.SignIn"
+    android:layout_gravity="center"
     android:background="@color/white"
+    android:gravity="center"
     android:orientation="vertical"
-    android:id="@+id/sign_in">
+    tools:context="com.example.diemsct.SignIn">
 
-
-    <!--<TextView-->
-        <!--android:id="@+id/textView21"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:text="Sign In"-->
-        <!--android:layout_marginTop="70dp"-->
-        <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-        <!--android:textColor="@color/Black"-->
-        <!--android:textSize="30sp"-->
-        <!--android:textStyle="bold" />-->
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/spinner"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="25dp"
-            android:ems="10"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:hint="Select user"
-            android:backgroundTint="@color/colorPrimary"
-            app:met_primaryColor="@color/colorPrimary"/>
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <!--<TextView-->
+            <!--android:id="@+id/textView21"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Sign In"-->
+            <!--android:layout_marginTop="70dp"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+            <!--android:textColor="@color/Black"-->
+            <!--android:textSize="30sp"-->
+            <!--android:textStyle="bold" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/Gray">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_height="wrap_content"
-            android:layout_width="240dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:hint="Enter Username"
-            app:met_floatingLabel="highlight"
-            android:backgroundTint="@color/colorPrimary"
-            app:met_primaryColor="@color/colorPrimary"
-            app:met_floatingLabelTextColor="@color/colorPrimary"
-            android:textCursorDrawable="@drawable/cursor_color"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select user type"
+                    android:visibility="invisible"/>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_height="wrap_content"
-            android:layout_width="240dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="8dp"
-            app:met_floatingLabel="highlight"
-            android:hint="Enter Password"
-            android:inputType="textPassword"
-            android:layout_marginRight="8dp"
-            android:backgroundTint="@color/colorPrimary"
-            app:met_primaryColor="@color/colorPrimary"
-            app:met_helperTextColor="@color/colorPrimary"
-            android:textCursorDrawable="@drawable/cursor_color"/>
+            </LinearLayout>
 
-        <Button
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/btncont"
-            android:layout_width="200dp"
-            android:padding="20dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="203dp"
-            android:text="Continue"
-            android:elevation="2dp"
 
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:layout_margin="25dp"/>
-    </LinearLayout>
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Select user"
+                app:met_primaryColor="@color/colorPrimary" />
 
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:hint="Enter Username"
+                android:textCursorDrawable="@drawable/cursor_color"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/colorPrimary"
+                app:met_primaryColor="@color/colorPrimary"
+                android:id="@+id/username"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:textCursorDrawable="@drawable/cursor_color"
+                app:met_floatingLabel="highlight"
+                app:met_helperTextColor="@color/colorPrimary"
+                app:met_primaryColor="@color/colorPrimary"
+                android:id="@+id/password"/>
+
+            <Button
+                android:id="@+id/btncont"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="25dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="2dp"
+                android:padding="20dp"
+                android:text="Continue"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
