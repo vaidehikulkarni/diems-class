@@ -41,6 +41,7 @@
                 android:paddingTop="10dp"
                 android:textStyle="bold"
                 android:text="Courses"
+                android:paddingBottom="10dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
@@ -51,7 +52,8 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="*">
+                    android:stretchColumns="*"
+                    android:background="@drawable/border">
 
                     <TableRow>
 
@@ -202,7 +204,8 @@
                     </TableRow>
 
 
-                    <TableRow>
+                    <TableRow
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
