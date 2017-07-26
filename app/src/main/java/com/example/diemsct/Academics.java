@@ -38,10 +38,6 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
         tabLayout = (TabLayout)view.findViewById(R.id.tabLayout);
         //Initializing viewPager
         viewPager = (ViewPager)view.findViewById(R.id.pager);
-
-        //Creating our pager adapter
-        Pager adapter = new Pager(((AppCompatActivity)getActivity()).getFragmentManager(), tabLayout.getTabCount());
-
         setupViewPager(viewPager);
 
         //Adding onTabSelectedListener to swipe views
@@ -70,7 +66,7 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new AcdFE(), "FE");
         adapter.addFragment(new AcdCse(), "CSE");
         adapter.addFragment(new AcdMech(), "MECH");
