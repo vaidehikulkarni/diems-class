@@ -19,13 +19,13 @@ import me.relex.circleindicator.CircleIndicator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeAct extends Fragment {
+public class HomeFragment extends Fragment {
     private static ViewPager mPager;
     private static int currentPage = 0;
     private static final Integer[] Pics= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
     private ArrayList<Integer> PicsArray = new ArrayList<Integer>();
 
-    public HomeAct() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
