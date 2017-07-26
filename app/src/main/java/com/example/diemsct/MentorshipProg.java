@@ -3,11 +3,14 @@ package com.example.diemsct;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class MentorshipProg extends Fragment {
+    TextView mentorship;
 
 
     public MentorshipProg() {
@@ -19,7 +22,10 @@ public class MentorshipProg extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mentorship_prog, container, false);
+        View view = inflater.inflate(R.layout.fragment_mentorship_prog, container, false);
+        mentorship = (TextView)view.findViewById(R.id.textView28);
+        mentorship.setText(Html.fromHtml(getString(R.string.about_metoship3)));
+        return view;
     }
 
 }
