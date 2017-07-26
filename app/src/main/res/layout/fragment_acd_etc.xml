@@ -15,228 +15,236 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="16dp"
             android:paddingTop="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:text="Department of Electronics And Telecommunications Engineering"
-                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:textStyle="bold" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:textAlignment="center"
                 android:text="Year of Establishment -2009"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:textStyle="bold"
                 android:text="Courses"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:textStyle="bold" />
 
-            <TableLayout
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:shrinkColumns="*">
+                android:layout_height="match_parent">
 
-                <TableRow>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Title"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="B.E. E and TC Engineering"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:text="M.E. E and TC Engineering"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:text="M.E. E and TC Engineering (2nd Shift)"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="Title"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark" />
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="B.E. E and TC Engineering"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                </TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="M.E. E and TC Engineering"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                <TableRow>
-                    <TextView
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Full Time/Part Time"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:text="Full Time"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Full Time"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Full Time"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="M.E. E and TC Engineering (2nd Shift)"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
+                    </TableRow>
 
-                </TableRow>
+                    <TableRow>
 
-                <TableRow>
-                    <TextView
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Duration"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="Full Time/Part Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="4 Years/8 sem"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="2 Years/4 sem"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="2 Years/4 sem"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Intake"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="120"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="18"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="@string/twentyfour"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                </TableRow>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="Duration"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="4 Years/8 sem"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="2 Years/4 sem"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="2 Years/4 sem"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                <TableRow>
+                    </TableRow>
 
-                    <TextView
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Established"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                    <TableRow>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="2009"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="2012"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="Intake"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="2012"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="120"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="18"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="@string/twentyfour"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
+                    </TableRow>
 
-                </TableRow>
 
-            </TableLayout>
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="Established"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="2009"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="2012"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="2012"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+
+                    </TableRow>
+
+                </TableLayout>
+            </HorizontalScrollView>
 
 
             <TextView
@@ -244,15 +252,15 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:text="Vision"
-                android:textStyle="bold"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
                 android:text="To provide valuable resources for industry and society through excellence in technical education and research."
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
@@ -261,33 +269,33 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:text="Mission"
-                android:textStyle="bold"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
                 android:text="* Educating students with requisite technical expertise to meet the growing challenges of the industry ."
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
                 android:text="* Promoting research through constant interaction with research bodies and various industries ."
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="10dp"
                 android:text="* Equipping students with fundamental subject knowledge to enable them for continuing education."
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
 
 
         </LinearLayout>

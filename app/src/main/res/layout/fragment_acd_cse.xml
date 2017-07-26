@@ -48,10 +48,14 @@
             android:textColor="@color/colorPrimaryDark"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:shrinkColumns="*">
+            android:stretchColumns="*">
 
             <TableRow>
                 <TextView
@@ -193,6 +197,7 @@
             </TableRow>
 
         </TableLayout>
+        </HorizontalScrollView>
 
 
         <TextView
