@@ -11,249 +11,250 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Department of Computer Science and Engineering"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Department of Computer Science and Engineering"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="Year of Establishment -2009"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textAlignment="center"
+            android:text="Year of Establishment -2009"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Courses"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"
+            android:text="Courses"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:shrinkColumns="*">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <TableRow>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:background="@drawable/border">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Title"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:textColor="@color/colorPrimaryDark" />
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Title"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="B.E. Computer Engineering"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="B.E. Computer Engineering"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="M.E. Computer Engineering"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Full Time/Part Time"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="Full Time"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="Full Time"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="M.E. Computer Engineering"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                </TableRow>
+            </TableRow>
 
-                <TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Full Time/Part Time"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Duration"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="4 Years/8 sem"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="2 Years/4 sem"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="Full Time"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Full Time"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                </TableRow>
+            </TableRow>
 
-                <TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Duration"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Intake"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="120"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="24"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="4 Years/8 sem"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="2 Years/4 sem"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                </TableRow>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="Intake"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="120"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="24"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="Established"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                        android:textColor="@color/colorPrimaryDark" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="2009"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:paddingTop="10dp"
-                        android:text="2012"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+            </TableRow>
 
 
-                </TableRow>
+            <TableRow
+                android:paddingBottom="10dp">
 
-            </TableLayout>
-
-
-            <TextView
+                <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Vision"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="To impart quality technical education, inculcate professionalism and research environment towards welfare of society."
+                android:text="Established"
+                    android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:text="Mission"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
+                android:text="2009"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="10dp"
-                android:text="* To equip the students with strong analytical and problem solving skills."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:text="2012"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* To promote research environment among the students."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* To inculcate Social, Ethical and Moral values among students."
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-        </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+        </HorizontalScrollView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Vision"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="To impart quality technical education, inculcate professionalism and research environment towards welfare of society."
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Mission"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="* To equip the students with strong analytical and problem solving skills."
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="* To promote research environment among the students."
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="* To inculcate Social, Ethical and Moral values among students."
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+
+
+    </LinearLayout>
 
     </ScrollView>
 
