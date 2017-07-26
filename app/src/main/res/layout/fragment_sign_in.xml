@@ -10,6 +10,29 @@
     android:orientation="vertical"
     tools:context="com.example.diemsct.SignIn">
 
+    <!--<LinearLayout-->
+    <!--android:id="@+id/error"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:background="@color/errorgray"-->
+    <!--android:visibility="gone">-->
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/errorgray"
+        android:ems="10"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:gravity="center"
+        android:text="Please select user type"
+        android:textColor="@color/materialRed"
+        android:visibility="gone" />
+
+    <!--</LinearLayout>-->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,8 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
             <!--<TextView-->
             <!--android:id="@+id/textView21"-->
             <!--android:layout_width="wrap_content"-->
@@ -31,19 +54,6 @@
             <!--android:textColor="@color/Black"-->
             <!--android:textSize="30sp"-->
             <!--android:textStyle="bold" />-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/Gray">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select user type"
-                    android:visibility="invisible"/>
-
-            </LinearLayout>
-
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner"
@@ -61,6 +71,7 @@
                 app:met_primaryColor="@color/colorPrimary" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/username"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -69,12 +80,13 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:hint="Enter Username"
                 android:textCursorDrawable="@drawable/cursor_color"
+                app:met_errorColor="@color/FireBrick"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelTextColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary"
-                android:id="@+id/username"/>
+                app:met_primaryColor="@color/colorPrimary" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -84,10 +96,10 @@
                 android:hint="Enter Password"
                 android:inputType="textPassword"
                 android:textCursorDrawable="@drawable/cursor_color"
+                app:met_errorColor="@color/FireBrick"
                 app:met_floatingLabel="highlight"
                 app:met_helperTextColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary"
-                android:id="@+id/password"/>
+                app:met_primaryColor="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/btncont"

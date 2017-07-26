@@ -3,15 +3,19 @@ package com.example.diemsct;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -25,6 +29,7 @@ public class SignIn extends Fragment {
     String[] login={"Student Login","Staff Login"};
     ArrayAdapter aa;
     FragmentManager manager;
+    TextView error;
     public SignIn() {
         // Required empty public constructor
     }
@@ -39,6 +44,7 @@ public class SignIn extends Fragment {
         sp = (MaterialBetterSpinner) view.findViewById(R.id.spinner);
         username = (MaterialEditText) view.findViewById(R.id.username);
         password = (MaterialEditText) view.findViewById(R.id.password);
+        error = (TextView) view.findViewById(R.id.error);
 
         aa = new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,login);
         sp.setAdapter(aa);
@@ -59,7 +65,7 @@ public class SignIn extends Fragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     if(!password.getText().toString().matches(".+"))
-                        password.setError("Username is required");
+                        password.setError("Password is required");
                 }
             }
         });
@@ -78,6 +84,7 @@ public class SignIn extends Fragment {
         cont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 String title = (String) ((AppCompatActivity)getActivity()).getSupportActionBar().getTitle();
                 MainActivity.signedin = true;
                 FragmentTransaction transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
@@ -98,9 +105,14 @@ public class SignIn extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(getActivity(), "Please select user", Toast.LENGTH_SHORT).show();
+                    error.setVisibility(View.VISIBLE);
                     MainActivity.signedin = false;
                 }
+                username.requestFocus();
+                username.clearFocus();
+                password.requestFocus();
+                password.clearFocus();
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
                 MainActivity.checksignin();
             }

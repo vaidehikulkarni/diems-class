@@ -98,16 +98,16 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         actionBarMenu = menu;
-        Drawable drawable = menu.findItem(R.id.notification).getIcon();
-        if (drawable != null) {
-            drawable.mutate();
-            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        }
-        drawable = menu.findItem(R.id.profile).getIcon();
-        if (drawable != null) {
-            drawable.mutate();
-            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        }
+//        Drawable drawable = menu.findItem(R.id.notification).getIcon();
+//        if (drawable != null) {
+//            drawable.mutate();
+//            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+//        }
+//        drawable = menu.findItem(R.id.profile).getIcon();
+//        if (drawable != null) {
+//            drawable.mutate();
+//            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+//        }
 
         profile = menu.findItem(R.id.profile);
         notification = menu.findItem(R.id.notification);

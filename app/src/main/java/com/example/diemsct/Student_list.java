@@ -2,7 +2,9 @@ package com.example.diemsct;
 
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,78 +13,97 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Student_list extends Fragment {
+import static android.content.ContentValues.TAG;
 
-    private ArrayList<String> students =  new ArrayList<>();
-    private ArrayList<String> name =  new ArrayList<>();
-    private ArrayList<String> attendance =  new ArrayList<>();
-    private DataAdapter adapter,adapter1,adapter2;
+public class Student_list extends Fragment implements OnClickListener {
+
+    private ArrayList countries = new ArrayList<>();
+    private DataAdapter adapter;
     private RecyclerView recyclerView;
+    private AlertDialog.Builder alertDialog;
+    private EditText et_country;
+    private int edit_position;
+    private View view;
+    private boolean add = false;
     private Paint p = new Paint();
+    static int totalScrolled = 0;
+
     public Student_list() {
-        // Required empty public constructor
+
     }
-    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         view= inflater.inflate(R.layout.fragment_student_list, container, false);
 
-        initViews();  return  view;
-        //initDialog();
+        view = inflater.inflate(R.layout.fragment_student_list, container, false);
+        initViews();
+//        initDialog();
+        if (totalScrolled != 0) {
+            recyclerView.setVisibility(View.INVISIBLE);
+            recyclerView.smoothScrollBy(0, totalScrolled);
+            recyclerView.setVisibility(View.VISIBLE);
+            totalScrolled = 0;
+        }
+        return view;
     }
 
-    private void initViews(){
-
-        recyclerView = (RecyclerView)view.findViewById(R.id.card_recycler_view);
+    private void initViews() {
+        recyclerView = (RecyclerView) view.findViewById(R.id.card_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new DataAdapter(students);
+        adapter = new DataAdapter(countries);
         recyclerView.setAdapter(adapter);
-        //add entries here
-        students.add("A");
-        students.add("B");
-        students.add("C");
-        students.add("D");
-        students.add("E");
-    /*    adapter1 = new DataAdapter(name);
-        recyclerView.setAdapter(adapter1);
-        //add entries here
-        students.add("A");
-        students.add("B");
-        students.add("C");
-        students.add("D");
-        students.add("E");
-        adapter2 = new DataAdapter(attendance);
-        recyclerView.setAdapter(adapter2);
-        //add entries here
-        students.add("A");
-        students.add("B");
-        students.add("C");
-        students.add("D");
-        students.add("E");*/
+        countries.add("Australia");
+        countries.add("India");
+        countries.add("United States of America");
+        countries.add("Germany");
+        countries.add("Russia");
+        for (int i = 0; i < 10; i++) {
+            countries.add("Mayank");
+        }
         adapter.notifyDataSetChanged();
         initSwipe();
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalScrolled += dy;
+            }
+        });
 
     }
-    private void initSwipe(){
+
+    private void initSwipe() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -92,72 +113,55 @@ public class Student_list extends Fragment {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
 
-                if (direction == ItemTouchHelper.LEFT){
-                    //adapter.removeItem(position);
-                    Toast.makeText(getActivity(), "left", Toast.LENGTH_SHORT).show();
-                    Intent callIntent = new Intent(Intent.ACTION_CALL); //use ACTION_CALL class
-                    callIntent.setData(Uri.parse("tel:9922939145"));    //this is the phone number calling
-                    //check permission
-                    //If the device is running Android 6.0 (API level 23) and the app's targetSdkVersion is 23 or higher,
-                    //the system asks the user to grant approval.
-                    if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        //request permission from user if the app hasn't got the required permission
-                        ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{Manifest.permission.CALL_PHONE},   //request specific permission from user
-                                10);
-                        //  return;
-                    }else {     //have got permission
-                        try{
-                            startActivity(callIntent);  //call activity and make phone call
-                        }
-                        catch (android.content.ActivityNotFoundException ex){
-                            Toast.makeText(getActivity(),"yourActivity is not founded", Toast.LENGTH_SHORT).show();
-                        }
+                if (direction == ItemTouchHelper.LEFT) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:9999999999"));
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 1);
+                    } else {
+                        startActivity(callIntent);
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Right", Toast.LENGTH_SHORT).show();
-
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"
-                            + "9922939145")));
-
-//Make sure you set phoneNumber to the phone number that you want to send the message to
-
-//You can add a message to the SMS with (from comments):
-
-//Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
-//intent.putExtra("sms_body", message);
-//startActivity(intent);
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS}, 1);
+                    } else {
+                        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                        sendIntent.putExtra("address", "9999999999");
+                        sendIntent.setType("vnd.android-dir/mms-sms");
+                        startActivity(sendIntent);
+                    }
 
                 }
+
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, new Student_list())
+                        .commit();
 
             }
 
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-
-                Bitmap icon;
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
 
                     View itemView = viewHolder.itemView;
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
 
-                    if(dX > 0){
-                        p.setColor(Color.parseColor("#FDFEFE"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.sma);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
-                    } else {
-                        p.setColor(Color.parseColor("#FDFEFE"));
-                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());
-                        c.drawRect(background,p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.call);
-                        RectF icon_dest = new RectF((float) itemView.getRight() - 2*width ,(float) itemView.getTop() + width,(float) itemView.getRight() - width,(float)itemView.getBottom() - width);
-                        c.drawBitmap(icon,null,icon_dest,p);
+                    if (dX > 0) {
+                        p.setColor(ResourcesCompat.getColor(getResources(), R.color.materialYellow, null));
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        c.drawRect(background, p);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(drawableToBitmap(getResources().getDrawable(R.drawable.ic_message, null)), null, icon_dest, p);
+                    } else if (dX < 0) {
+                        p.setColor(ResourcesCompat.getColor(getResources(), R.color.materialGreen, null));
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        c.drawRect(background, p);
+                        RectF icon_dest = new RectF((float) itemView.getRight() - 2 * width, (float) itemView.getTop() + width, (float) itemView.getRight() - width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(drawableToBitmap(getResources().getDrawable(R.drawable.ic_phone, null)), null, icon_dest, p);
                     }
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -165,6 +169,53 @@ public class Student_list extends Fragment {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void removeView() {
+        if (view.getParent() != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
+    }
+
+    private void initDialog() {
+        alertDialog = new AlertDialog.Builder(getActivity());
+        view = getActivity().getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        alertDialog.setView(view);
+        alertDialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (add) {
+                    add = false;
+                    adapter.addItem(et_country.getText().toString());
+                    dialog.dismiss();
+                } else {
+                    countries.set(edit_position, et_country.getText().toString());
+                    adapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+
+            }
+        });
+        et_country = (EditText) view.findViewById(R.id.et_country);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
 }
