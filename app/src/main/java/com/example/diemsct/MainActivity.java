@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
                 title = "Contact";
                 break;
             case R.id.notification:
-                title = "Notification";
+                startActivity(new Intent(this, Notification.class));
                 break;
             case R.id.profile:
                 Intent intent = new Intent(this, Profile.class);
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.login, new HomeFragment())
                         .commit();
                 navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-                title = (String) getSupportActionBar().getTitle();
+                title = "DIEMS";
                 break;
             case R.id.nav_about:
                 transaction

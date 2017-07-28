@@ -25,8 +25,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        viewHolder.tv_country.setText(countries.get(i).toString());
-
+        viewHolder.tv_country.setText((String)countries.get(i));
     }
 
     @Override
@@ -44,14 +43,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, countries.size());
     }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv_country;
-
         public ViewHolder(View view) {
             super(view);
 
-            tv_country = (TextView) view.findViewById(R.id.tv_country);
+            tv_country = (TextView)view.findViewById(R.id.tv_country);
         }
     }
 }

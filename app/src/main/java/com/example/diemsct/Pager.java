@@ -4,12 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
-import com.example.diemsct.AcdCivil;
-import com.example.diemsct.AcdCse;
-import com.example.diemsct.AcdEtc;
-import com.example.diemsct.AcdFE;
-import com.example.diemsct.AcdMech;
-
 
 public class Pager extends FragmentStatePagerAdapter {
 

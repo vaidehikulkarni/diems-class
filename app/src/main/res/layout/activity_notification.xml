@@ -2,10 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Notification" >
+    tools:context=".Notification">
 
-<com.example.mrunal.tt1.AnimatedExpandableListView
-    android:id="@+id/animlistview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+
+    <include layout="@layout/app_bar_main"/>
+
+    <com.example.diemsct.AnimatedExpandableListView
+        android:id="@+id/animlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:groupIndicator="@null"
+        android:layout_marginTop="?attr/actionBarSize"/>
 </RelativeLayout>

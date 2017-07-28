@@ -1,8 +1,8 @@
 package com.example.diemsct;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +31,7 @@ public class StaffDashboard extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in,R.animator.fade_out)
-                        .replace(R.id.login, new Student_list())
+                        .replace(R.id.login, new StudentList())
                         .commit();
             }
         });
@@ -43,7 +43,7 @@ public class StaffDashboard extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in,R.animator.fade_out)
-                        .replace(R.id.login, new Attstud_list())
+                        .replace(R.id.login, new StudentList())
                         .commit();
             }
         });

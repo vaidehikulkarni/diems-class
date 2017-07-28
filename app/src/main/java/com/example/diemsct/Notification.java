@@ -1,9 +1,12 @@
 package com.example.diemsct;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -20,17 +23,28 @@ import java.util.List;
  * where each group has from 1 to 100 children (so the first group will have one
  * child, the second will have two children and so on...).
  */
-public class Notification extends Activity {
+public class Notification extends AppCompatActivity {
     private AnimatedExpandableListView listView;
     private ExampleAdapter adapter;
+    private ActionBar actionBar;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-        
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Notification");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         List<GroupItem> items = new ArrayList<GroupItem>();
-        
+
+        actionBar = getSupportActionBar();
         // Populate our list with groups and it's children
         for(int i = 1; i < 100; i++) {
             GroupItem item = new GroupItem();
