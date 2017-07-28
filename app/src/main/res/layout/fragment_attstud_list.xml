@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.diemsct.MainActivity"
+    tools:context="com.example.diemsct.Attstud_list"
     android:orientation="vertical">
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/autoCompleteTextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -17,10 +15,10 @@
         android:textAlignment="center"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/card_recycler_view"
+        android:id="@+id/card_recycler_view1"
         android:scrollbars="vertical"
         android:layout_width="368dp"
         android:layout_height="495dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
