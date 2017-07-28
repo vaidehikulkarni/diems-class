@@ -1,6 +1,7 @@
 package com.example.diemsct;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -142,7 +143,8 @@ public class MainActivity extends AppCompatActivity
                 title = "Notification";
                 break;
             case R.id.profile:
-                transaction.replace(R.id.login,new StudInfo()).commit();
+                Intent intent = new Intent(this, Profile.class);
+                startActivity(intent);
                 title = "Profile";
                 break;
             case R.id.sign_out:

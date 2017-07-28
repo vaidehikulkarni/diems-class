@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import static com.example.diemsct.R.animator.fade_out;
-
 public class StaffDashboard extends Fragment {
 
     CardView ct,ct2;
@@ -45,7 +43,7 @@ public class StaffDashboard extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in,R.animator.fade_out)
-                        .replace(R.id.login, new Student_list())
+                        .replace(R.id.login, new Attstud_list())
                         .commit();
             }
         });

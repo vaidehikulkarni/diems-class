@@ -2,7 +2,6 @@ package com.example.diemsct;
 
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +13,7 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -26,8 +26,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Student_list extends Fragment {
 
+public class Attstud_list extends Fragment {
     String[] language ={"C","C++","Java",".NET","iPhone","Android","ASP.NET","PHP"};
 
     private ArrayList<String> students =  new ArrayList<>();
@@ -36,7 +36,7 @@ public class Student_list extends Fragment {
     private DataAdapter adapter,adapter1,adapter2;
     private RecyclerView recyclerView;
     private Paint p = new Paint();
-    public Student_list() {
+    public Attstud_list() {
         // Required empty public constructor
     }
     View view;
@@ -45,12 +45,12 @@ public class Student_list extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         view= inflater.inflate(R.layout.fragment_student_list, container, false);
+        view= inflater.inflate(R.layout.fragment_attstud_list, container, false);
 
         //Creating the instance of ArrayAdapter containing list of language names
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,language);
         //Getting the instance of AutoCompleteTextView
-        AutoCompleteTextView actv= (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextView);
+        AutoCompleteTextView actv= (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextView1);
         actv.setThreshold(1);//will start working from first character
         actv.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
         actv.setTextColor(Color.RED);
@@ -62,7 +62,7 @@ public class Student_list extends Fragment {
 
     private void initViews(){
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.card_recycler_view);
+        recyclerView = (RecyclerView)view.findViewById(R.id.card_recycler_view1);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

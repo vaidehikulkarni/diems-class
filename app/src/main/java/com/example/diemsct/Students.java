@@ -63,7 +63,7 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new RedhatAcademy(), "Redhat Academy");
-        adapter.addFragment(new MentorshipProg(), "Mentorship\nProgramme");
+        adapter.addFragment(new MentorshipProg(), "Mentorship Programme");
         viewPager.setAdapter(adapter);
     }
 
