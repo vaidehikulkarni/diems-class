@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="Department of Mechanical Engineering"
                 android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
@@ -278,45 +278,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/mech"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="10dp"
-                android:text="* To impart high quality education to the students to develop technical skills and make them a competitive mechanical engineer."
+                android:text="@string/acd_mech"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* To educate, prepare, inspire and mentor students to excel professionally and personally to serve the society."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* To produce graduates who meet the requirements of employers from all sectors."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* Promote inter-disciplinary research with in itself."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* Recruit excellent staff and improve their advance skills through appropriate training and development"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-
-
 
         </LinearLayout>
 

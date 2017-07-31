@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Department of Electronics And Telecommunications Engineering"
                 android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
@@ -279,27 +279,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/etc"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="10dp"
-                android:text="* Educating students with requisite technical expertise to meet the growing challenges of the industry ."
+                android:text="@string/acd_etc"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* Promoting research through constant interaction with research bodies and various industries ."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:paddingTop="10dp"
-                android:text="* Equipping students with fundamental subject knowledge to enable them for continuing education."
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
 
         </LinearLayout>
 

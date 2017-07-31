@@ -13,10 +13,9 @@
         android:layout_height="wrap_content" />
 
     <ScrollView
-        android:layout_width="368dp"
-        android:layout_height="551dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,19 +53,17 @@
                         android:id="@+id/textView1"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
+                        android:padding="10dp"
                         android:text="PRN No.:"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black" />
 
 
-                    <EditText
-                        android:id="@+id/editText"
+                    <TextView
+                        android:id="@+id/txtprn"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="number"
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
+
 
                 </LinearLayout>
 
@@ -85,14 +82,10 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black" />
 
-                    <EditText
-                        android:id="@+id/editText3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text=""
-                        android:visibility="invisible" />
+                    <TextView
+                    android:id="@+id/studName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -112,14 +105,10 @@
                         android:textColor="@android:color/black" />
 
 
-                    <EditText
-                        android:id="@+id/editText4"
+                    <TextView
+                        android:id="@+id/txtBranch"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text=""
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -137,14 +126,10 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black" />
 
-                    <EditText
-                        android:id="@+id/editText5"
+                    <TextView
+                        android:id="@+id/txtClass"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text=""
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -155,14 +140,10 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black" />
 
-                    <EditText
-                        android:id="@+id/editText6"
+                    <TextView
+                        android:id="@+id/txtDiv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text=""
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
 
 
                 </LinearLayout>
@@ -182,13 +163,10 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black" />
 
-                    <EditText
-                        android:id="@+id/editText9"
+                    <TextView
+                        android:id="@+id/txtBirth"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="date"
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -207,13 +185,10 @@
                         android:textColor="@android:color/black" />
 
 
-                    <EditText
-                        android:id="@+id/editText8"
+                    <TextView
+                        android:id="@+id/txtMail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textEmailAddress"
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -231,13 +206,10 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/black" />
 
-                    <EditText
-                        android:id="@+id/editText7"
+                    <TextView
+                        android:id="@+id/txtMob"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="number"
-                        android:visibility="invisible" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>

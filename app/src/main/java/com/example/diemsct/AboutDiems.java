@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class AboutDiems extends Fragment {
 
-    TextView aboutDiems;
+    TextView aboutDiems,abtDiems;
 
     public AboutDiems() {
         // Required empty public constructor
@@ -27,6 +27,8 @@ public class AboutDiems extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about_diems, container, false);
         aboutDiems = (TextView) view.findViewById(R.id.aboutDiems);
         aboutDiems.setText(Html.fromHtml(getString(R.string.about_diems1)));
+        abtDiems = (TextView) view.findViewById(R.id.abtdiems);
+        abtDiems.setText(Html.fromHtml(getString(R.string.abtdiems)));
         return view;
     }
 

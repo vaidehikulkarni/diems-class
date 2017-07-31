@@ -38,12 +38,47 @@
     </string>
     <string name="about_fe3" formatted="false">
      <![CDATA[
-     <ul>
-     <li>Promoting sound academic environment for student’s brilliance.</li> <li>Developing basic concepts of applied science and engineering subjects of the students.</li>
-     <li>Educating the students to bridge the gap in between problem- based study and academics.</li><li>Motivating students with moral philosophy and social awareness.</li>
-     </ul>
+     \u2022 Promoting sound academic environment for student’s brilliance.<br>\u2022 Developing basic concepts of applied science and engineering subjects of the students.<br>
+     \u2022 Educating the students to bridge the gap in between problem- based study and academics.<br>\u2022 Motivating students with moral philosophy and social awareness.
      ]]>
     </string>
+
+    <string name="acd_civil" formatted="false">
+     <![CDATA[
+     \u2022 Develop advanced skills and knowledge in state of the art research and design in areas of civil engineering.<br>\u2022 Develop strong Industry-Institution interaction.<br>\u2022 Department serves the society through consultancy.
+      ]]>
+    </string>
+
+    <string name="acd_cse" formatted="false">
+     <![CDATA[
+     \u2022 To equip the students with strong analytical and problem solving skills.<br>\u2022 To promote research environment among the students.<br>\u2022 To inculcate Social, Ethical and Moral values among students.
+    ]]>
+    </string>
+
+    <string name="acd_etc" formatted="false">
+     <![CDATA[
+     \u2022 Educating students with requisite technical expertise to meet the growing challenges of the industry.<br>\u2022 Equipping students with fundamental subject knowledge to enable them for continuing education.<br>
+      \u2022 Promoting research through constant interaction with research bodies and various industries .
+     ]]>
+      </string>
+
+    <string name="acd_mech" formatted="false">
+     <![CDATA[
+    \u2022 To impart high quality education to the students to develop technical skills and make them a competitive mechanical engineer.<br>
+    \u2022 To educate, prepare, inspire and mentor students to excel professionally and personally to serve the society.<br>
+    \u2022 To produce graduates who meet the requirements of employers from all sectors.<br>
+    \u2022 Promote inter-disciplinary research with in itself.<br>
+    \u2022 Recruit excellent staff and improve their advance skills through appropriate training and development
+      ]]>
+    </string>
+    <string name="abtdiems" formatted="false">
+     <![CDATA[
+     \u2022 To develop the students for best academic and industrial practices by implementing innovative teaching learning methodologies, promoting all round development by giving exposure to series of activities.<br>
+    \u2022 To prepare the students to face global challenges by equipping them with requisite technical expertise and developing entrepreneurship skills among them.<br>
+    \u2022 To promote research attitude among faculty and students.
+    ]]>
+      </string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="twentyfour">24</string>

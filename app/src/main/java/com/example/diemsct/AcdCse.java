@@ -3,17 +3,16 @@ package com.example.diemsct;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AcdCse extends Fragment {
 
-
+TextView cse;
     public AcdCse() {
         // Required empty public constructor
     }
@@ -23,7 +22,11 @@ public class AcdCse extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_acd_cse, container, false);
+        View view=  inflater.inflate(R.layout.fragment_acd_cse, container, false);
+        cse = (TextView) view.findViewById(R.id.cse);
+        cse.setText(Html.fromHtml(getString(R.string.acd_cse)));
+
+        return view;
     }
 
 }
