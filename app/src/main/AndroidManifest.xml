@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -39,7 +41,7 @@
         <activity
             android:name=".Notification"
             android:screenOrientation="portrait" />
-        <activity android:name=".RedhatVideo"></activity>
+        <activity android:name=".RedhatVideo"/>
     </application>
 
 </manifest>

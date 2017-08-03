@@ -85,7 +85,6 @@ public class SignInFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                MainActivity.signedin = true;
                 FragmentTransaction transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
                 if (sp.getText().toString().equals("Student Login")) {
                     transaction
@@ -102,14 +101,14 @@ public class SignInFragment extends Fragment {
                 }
                 else if (sp.getText().toString().equals("Admin Login")) {
                     transaction
-                            .replace(R.id.login, new StaffDashboard())
+                            .replace(R.id.login, new AdminDashBoard())
                             .addToBackStack(null)
                             .commit();
                     MainActivity.loginType = "admin";
                 }
                 else {
                     error.setVisibility(View.VISIBLE);
-                    MainActivity.signedin = false;
+                    MainActivity.loginType = "";
                 }
                 username.requestFocus();
                 username.clearFocus();

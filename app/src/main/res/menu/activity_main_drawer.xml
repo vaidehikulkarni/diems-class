@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -18,9 +18,9 @@
     </group>
 
     <!--<item-->
-        <!--android:id="@+id/nav_account"-->
-        <!--android:visible="false">-->
-        <!--<menu>-->
+    <!--android:id="@+id/nav_account"-->
+    <!--android:visible="false">-->
+    <!--<menu>-->
     <group
         android:id="@+id/nav_account"
         android:checkableBehavior="single">
@@ -38,12 +38,16 @@
             android:title="Sign Out" />
     </group>
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/nav_admin">
+    <group
+        android:id="@+id/nav_admin"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_admin_dashboard"
+            android:title="Dashboard" />
         <item
             android:id="@+id/nav_upload"
             android:title="Upload Notice" />
     </group>
-        <!--</menu>-->
+    <!--</menu>-->
     <!--</item>-->
 </menu>

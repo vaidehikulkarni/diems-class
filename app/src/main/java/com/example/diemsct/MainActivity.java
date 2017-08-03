@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
-        // TODO : Replace 'false' with value from database
-        signedin = false;
+        // TODO : Replace empty string with value from database
+        loginType = "";
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -145,13 +145,13 @@ public class MainActivity extends AppCompatActivity
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                signedin = false;
                                 transaction.replace(R.id.login, new HomeFragment())
                                         .commit();
                                 for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
                                     fragmentManager.popBackStack();
                                 }
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
+                                loginType = "";
                                 checksignin();
                             }
                         })
@@ -220,6 +220,18 @@ public class MainActivity extends AppCompatActivity
                             .commit();
                 }
                 break;
+            case R.id.nav_upload:
+                transaction
+                        .replace(R.id.login, new UploadNotice())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_admin_dashboard:
+                transaction
+                        .replace(R.id.login, new AdminDashBoard())
+                        .addToBackStack(null)
+                        .commit();
+                break;
         }
 
         checksignin();
@@ -261,12 +273,14 @@ public class MainActivity extends AppCompatActivity
                 signin.setVisible(false);
                 navigationBarMenu.setGroupVisible(R.id.nav_account, true);
                 navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
+                break;
             case "admin":
                 profile.setVisible(true);
                 signout.setVisible(true);
                 signin.setVisible(false);
                 navigationBarMenu.setGroupVisible(R.id.nav_account, false);
                 navigationBarMenu.setGroupVisible(R.id.nav_admin, true);
+                break;
         }
     }
 }

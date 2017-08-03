@@ -20,20 +20,28 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--android:padding="10dp"-->
-        <!--android:weightSum="1">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
 
-        <!--<ImageView-->
-            <!--android:id="@+id/ivImage"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/imgthumb"-->
-            <!--android:layout_weight="0.54" />-->
-    <!--</LinearLayout>-->
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.54" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:id="@+id/btn_continue"
+        android:layout_gravity="center"
+        android:visibility="visible"/>
 
 </LinearLayout>
