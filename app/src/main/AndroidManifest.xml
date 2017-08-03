@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -36,6 +39,7 @@
         <activity
             android:name=".Notification"
             android:screenOrientation="portrait" />
+        <activity android:name=".RedhatVideo"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -18,17 +20,17 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    private ViewPager mPager;
-    private static int currentPage = 0;
-    private static final Integer[] Pics = {R.drawable.diems1, R.drawable.diems2, R.drawable.diems3, R.drawable.place, R.drawable.diems5};
-    private ArrayList<Integer> PicsArray = new ArrayList<>();
+//    private static ViewPager mPager;
+//    private static int currentPage = 0;
+    ViewFlipper viewFlipper;
+//    private static final Integer[] Pics= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
+//    private ArrayList<Integer> PicsArray = new ArrayList<Integer>();
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
     View view;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,21 +39,24 @@ public class HomeFragment extends Fragment {
         MainActivity.navigationBarMenu.findItem(R.id.nav_home).setChecked(true);
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-        init();
+        view= inflater.inflate(R.layout.fragment_home, container, false);
+       // init();
+        viewFlipper=(ViewFlipper)view.findViewById(R.id.view_flipper);
+        viewFlipper.setAutoStart(true);
+        viewFlipper.setFlipInterval(1000);
+        viewFlipper.startFlipping();
+        viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.animator.fade_in));
         return view;
     }
 
     private void init() {
-
-        for (int pic : Pics) {
-            PicsArray.add(pic);
-        }
+        for(int i=0;i<Pics.length;i++)
+            PicsArray.add(Pics[i]);
 
         mPager = (ViewPager) view.findViewById(R.id.pager);
-        mPager.setAdapter(new MyAdapter(getActivity(), PicsArray));
-        //  CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
-        // indicator.setViewPager(mPager);
+        mPager.setAdapter(new MyAdapter(getActivity(),PicsArray));
+      //  CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
+       // indicator.setViewPager(mPager);
 
         // Auto start of viewpager
         final Handler handler = new Handler();
