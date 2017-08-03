@@ -9,14 +9,12 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends PagerAdapter {
+class MyAdapter extends PagerAdapter {
 
     private ArrayList<Integer> images;
     private LayoutInflater inflater;
-    private Context context;
 
-    public MyAdapter(Context context, ArrayList<Integer> images) {
-        this.context = context;
+    MyAdapter(Context context, ArrayList<Integer> images) {
         this.images=images;
         inflater = LayoutInflater.from(context);
     }

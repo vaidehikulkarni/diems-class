@@ -18,15 +18,13 @@ import java.util.List;
 
 /**
  * This is an example usage of the AnimatedExpandableListView class.
- *
+ * <p>
  * It is an activity that holds a listview which is populated with 100 groups
  * where each group has from 1 to 100 children (so the first group will have one
  * child, the second will have two children and so on...).
  */
 public class Notification extends AppCompatActivity {
     private AnimatedExpandableListView listView;
-    private ExampleAdapter adapter;
-    private ActionBar actionBar;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -36,38 +34,41 @@ public class Notification extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        actionBar = getSupportActionBar();
-        actionBar.setTitle("Notification");
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        List<GroupItem> items = new ArrayList<GroupItem>();
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Notification");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
-        actionBar = getSupportActionBar();
+        List<GroupItem> items = new ArrayList<>();
+
         // Populate our list with groups and it's children
-        for(int i = 1; i < 100; i++) {
+        for (int i = 1; i < 100; i++) {
             GroupItem item = new GroupItem();
-            
+
             item.title = "Group " + i;
-            
+
 //            for(int j = 0; j < i; j++) {
-                ChildItem child = new ChildItem();
-                child.title = "Awesome item " ;
-                child.hint = "Too awesome";
-                
-                item.items.add(child);
+            ChildItem child = new ChildItem();
+            child.title = "Awesome item ";
+            child.hint = "Too awesome";
+
+            item.items.add(child);
 //            }
-            
+
             items.add(item);
         }
-        
-        adapter = new ExampleAdapter(this);
+
+        ExampleAdapter adapter = new ExampleAdapter(this);
         adapter.setData(items);
-        
+
         listView = (AnimatedExpandableListView) findViewById(R.id.animlistview);
         listView.setAdapter(adapter);
-        
+
         // In order to show animations, we need to use a custom click handler
         // for our ExpandableListView.
         listView.setOnGroupClickListener(new OnGroupClickListener() {
@@ -84,39 +85,39 @@ public class Notification extends AppCompatActivity {
                 }
                 return true;
             }
-            
+
         });
     }
-    
+
     private static class GroupItem {
         String title;
-        List<ChildItem> items = new ArrayList<ChildItem>();
+        List<ChildItem> items = new ArrayList<>();
     }
-    
+
     private static class ChildItem {
         String title;
         String hint;
     }
-    
+
     private static class ChildHolder {
         TextView title;
         TextView hint;
     }
-    
+
     private static class GroupHolder {
         TextView title;
     }
-    
+
     /**
      * Adapter for our list of {@link GroupItem}s.
      */
     private class ExampleAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
         private LayoutInflater inflater;
-        
+
         private List<GroupItem> items;
-        
-        public ExampleAdapter(Context context) {
-             inflater = LayoutInflater.from(context);
+
+        ExampleAdapter(Context context) {
+            inflater = LayoutInflater.from(context);
         }
 
         public void setData(List<GroupItem> items) {
@@ -146,10 +147,10 @@ public class Notification extends AppCompatActivity {
             } else {
                 holder = (ChildHolder) convertView.getTag();
             }
-            
+
             holder.title.setText(item.title);
             holder.hint.setText(item.hint);
-            
+
             return convertView;
         }
 
@@ -185,9 +186,9 @@ public class Notification extends AppCompatActivity {
             } else {
                 holder = (GroupHolder) convertView.getTag();
             }
-            
+
             holder.title.setText(item.title);
-            
+
             return convertView;
         }
 
@@ -200,7 +201,7 @@ public class Notification extends AppCompatActivity {
         public boolean isChildSelectable(int arg0, int arg1) {
             return true;
         }
-        
+
     }
-    
+
 }

@@ -8,7 +8,7 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 public class Pager extends FragmentStatePagerAdapter {
 
     //integer to count number of tabs
-    int tabCount;
+    private int tabCount;
 
     //Constructor to the class
     public Pager(FragmentManager fm, int tabCount) {
@@ -23,20 +23,15 @@ public class Pager extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position) {
             case 0:
-                AcdFE tab1 = new AcdFE();
-                return tab1;
+                return new AcdFE();
             case 1:
-                AcdCse tab2 = new AcdCse();
-                return tab2;
+                return new AcdCse();
             case 2:
-                AcdCivil tab3 = new AcdCivil();
-                return tab3;
+                return new AcdCivil();
             case 3:
-                AcdMech tab4 = new AcdMech();
-                return tab4;
+                return new AcdMech();
             case 4:
-                AcdEtc tab5 = new AcdEtc();
-                return tab5;
+                return new AcdEtc();
             default:
                 return null;
         }

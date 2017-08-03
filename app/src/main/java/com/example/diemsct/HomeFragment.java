@@ -20,7 +20,7 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-//    private static ViewPager mPager;
+    //    private static ViewPager mPager;
 //    private static int currentPage = 0;
     ViewFlipper viewFlipper;
 //    private static final Integer[] Pics= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
@@ -31,13 +31,18 @@ public class HomeFragment extends Fragment {
     }
 
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        MainActivity.actionBar.setTitle("DIEMS");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_home).setChecked(true);
+
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_home, container, false);
-       // init();
-        viewFlipper=(ViewFlipper)view.findViewById(R.id.view_flipper);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        // init();
+        viewFlipper = (ViewFlipper) view.findViewById(R.id.view_flipper);
         viewFlipper.setAutoStart(true);
         viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
@@ -47,7 +52,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-   // private void init() {
+//    private void init() {
 //        for(int i=0;i<Pics.length;i++)
 //            PicsArray.add(Pics[i]);
 //
@@ -73,5 +78,5 @@ public class HomeFragment extends Fragment {
 //                handler.post(Update);
 //            }
 //        }, 2500, 2500);
-   // }
+//    }
 }
