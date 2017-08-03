@@ -39,9 +39,11 @@ public class HomeFragment extends Fragment {
        // init();
         viewFlipper=(ViewFlipper)view.findViewById(R.id.view_flipper);
         viewFlipper.setAutoStart(true);
-        viewFlipper.setFlipInterval(1000);
+        viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
-        viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.animator.fade_in));
+       viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in));
+        // viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out));
+
         return view;
     }
 
