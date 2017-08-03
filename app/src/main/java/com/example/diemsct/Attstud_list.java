@@ -31,9 +31,6 @@ public class Attstud_list extends Fragment {
     String[] language ={"C","C++","Java",".NET","iPhone","Android","ASP.NET","PHP"};
 
     private ArrayList<String> students =  new ArrayList<>();
-    private ArrayList<String> name =  new ArrayList<>();
-    private ArrayList<String> attendance =  new ArrayList<>();
-    private DataAdapter adapter,adapter1,adapter2;
     private RecyclerView recyclerView;
     private Paint p = new Paint();
     public Attstud_list() {
@@ -48,7 +45,7 @@ public class Attstud_list extends Fragment {
         view= inflater.inflate(R.layout.fragment_attstud_list, container, false);
 
         //Creating the instance of ArrayAdapter containing list of language names
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.select_dialog_item,language);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.select_dialog_item,language);
         //Getting the instance of AutoCompleteTextView
         AutoCompleteTextView actv= (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextView1);
         actv.setThreshold(1);//will start working from first character
@@ -66,7 +63,7 @@ public class Attstud_list extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new DataAdapter(students);
+        DataAdapter adapter = new DataAdapter(students);
         recyclerView.setAdapter(adapter);
         //add entries here
         students.add("A");
@@ -105,7 +102,6 @@ public class Attstud_list extends Fragment {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
                     //adapter.removeItem(position);

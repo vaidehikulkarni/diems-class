@@ -25,18 +25,21 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class StudentList extends Fragment implements View.OnClickListener {
+public class AttendanceFragment extends Fragment implements View.OnClickListener {
 
-    private ArrayList countries = new ArrayList<>();
-    private DataAdapter adapter;
+    private ArrayList<String> countries = new ArrayList<>();
     private RecyclerView recyclerView;
-    static private int position,position_pre;
+    static private int position, position_pre;
     private View view;
     private Paint p = new Paint();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        MainActivity.actionBar.setTitle("Attendance");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_attendance).setChecked(true);
+
         view = inflater.inflate(R.layout.fragment_student_list, container, false);
         position_pre = position;
         position = 0;
@@ -47,10 +50,6 @@ public class StudentList extends Fragment implements View.OnClickListener {
                 recyclerView.scrollBy(0, position_pre);
             }
         }, 1);
-//        if (position != 0) {
-//            recyclerView.smoothScrollBy(0, position);
-//        }
-//        position = 0;
         return view;
     }
 
@@ -66,7 +65,7 @@ public class StudentList extends Fragment implements View.OnClickListener {
                 position += dy;
             }
         });
-        adapter = new DataAdapter(countries);
+        DataAdapter adapter = new DataAdapter(countries);
         recyclerView.setAdapter(adapter);
 
         for (int i = 0; i < 20; i++) {
@@ -103,7 +102,7 @@ public class StudentList extends Fragment implements View.OnClickListener {
 
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.login, new StudentList())
+                        .replace(R.id.login, new AttendanceFragment())
                         .commit();
             }
 
@@ -137,18 +136,12 @@ public class StudentList extends Fragment implements View.OnClickListener {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-    private void removeView() {
-        if (view.getParent() != null) {
-            ((ViewGroup) view.getParent()).removeView(view);
-        }
-    }
-
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-
-        }
+//        switch (v.getId()) {
+//
+//        }
     }
 
     public static Bitmap drawableToBitmap(Drawable drawable) {

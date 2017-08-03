@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class AboutDiems extends Fragment {
 
-    TextView aboutDiems,abtDiems;
+    TextView aboutDiems, abtDiems;
 
     public AboutDiems() {
         // Required empty public constructor
@@ -23,6 +23,9 @@ public class AboutDiems extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        MainActivity.actionBar.setTitle("About");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_about).setChecked(true);
 
         View view = inflater.inflate(R.layout.fragment_about_diems, container, false);
         aboutDiems = (TextView) view.findViewById(R.id.aboutDiems);

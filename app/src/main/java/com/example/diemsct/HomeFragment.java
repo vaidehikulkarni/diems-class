@@ -18,33 +18,40 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    private static ViewPager mPager;
+    private ViewPager mPager;
     private static int currentPage = 0;
-    private static final Integer[] Pics= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
-    private ArrayList<Integer> PicsArray = new ArrayList<Integer>();
+    private static final Integer[] Pics = {R.drawable.diems1, R.drawable.diems2, R.drawable.diems3, R.drawable.place, R.drawable.diems5};
+    private ArrayList<Integer> PicsArray = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        MainActivity.actionBar.setTitle("DIEMS");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_home).setChecked(true);
+
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         init();
         return view;
     }
 
     private void init() {
-        for(int i=0;i<Pics.length;i++)
-            PicsArray.add(Pics[i]);
+
+        for (int pic : Pics) {
+            PicsArray.add(pic);
+        }
 
         mPager = (ViewPager) view.findViewById(R.id.pager);
-        mPager.setAdapter(new MyAdapter(getActivity(),PicsArray));
-      //  CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
-       // indicator.setViewPager(mPager);
+        mPager.setAdapter(new MyAdapter(getActivity(), PicsArray));
+        //  CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
+        // indicator.setViewPager(mPager);
 
         // Auto start of viewpager
         final Handler handler = new Handler();

@@ -19,6 +19,10 @@ public class StaffDashboard extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        MainActivity.actionBar.setTitle("Dashboard");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_dashboard).setChecked(true);
+
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_staff_dash, container, false);
         ct = (CardView)view.findViewById(R.id.cv1);
@@ -26,24 +30,24 @@ public class StaffDashboard extends Fragment {
         ct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent redirect=new Intent(getActivity(),ClasstestView.class);
+                //Intent redirect=new Intent(getActivity(),ClassTestFragment.class);
                 //getActivity().startActivity(redirect);
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in,R.animator.fade_out)
-                        .replace(R.id.login, new StudentList())
+                        .replace(R.id.login, new AttendanceFragment())
                         .commit();
             }
         });
         ct2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent redirect=new Intent(getActivity(),ClasstestView.class);
+                //Intent redirect=new Intent(getActivity(),ClassTestFragment.class);
                 //getActivity().startActivity(redirect);
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in,R.animator.fade_out)
-                        .replace(R.id.login, new StudentList())
+                        .replace(R.id.login, new AttendanceFragment())
                         .commit();
             }
         });

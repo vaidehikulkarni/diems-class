@@ -47,13 +47,14 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:scrollbarSize="3dp"
+                android:fadeScrollbars="false">
 
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="*"
-                    android:background="@drawable/border">
+                    android:stretchColumns="*">
 
                     <TableRow>
 

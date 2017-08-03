@@ -16,7 +16,6 @@ import java.util.List;
 
 public class Students extends Fragment implements TabLayout.OnTabSelectedListener {
 
-    private TabLayout tabLayout;
     private ViewPager viewPager;
 
     public Students() {
@@ -28,11 +27,14 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_students, container, false);
+        MainActivity.actionBar.setTitle("Student");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_student).setChecked(true);
 
-        tabLayout = (TabLayout)view.findViewById(R.id.tabLayout);
+        View view = inflater.inflate(R.layout.fragment_students, container, false);
 
-        viewPager = (ViewPager)view.findViewById(R.id.pager);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
 
         setupViewPager(viewPager);
 
@@ -56,6 +58,7 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new RedhatAcademy(), "Redhat Academy");
@@ -63,11 +66,11 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -81,7 +84,7 @@ public class Students extends Fragment implements TabLayout.OnTabSelectedListene
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

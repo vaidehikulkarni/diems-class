@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
-    private ArrayList countries;
+class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+    private ArrayList<String> countries;
 
-    public DataAdapter(ArrayList countries) {
+    DataAdapter(ArrayList<String> countries) {
         this.countries = countries;
     }
 
@@ -25,7 +25,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        viewHolder.tv_country.setText((String)countries.get(i));
+        viewHolder.tv_country.setText(countries.get(i));
     }
 
     @Override
@@ -43,9 +43,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, countries.size());
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv_country;
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
 
             tv_country = (TextView)view.findViewById(R.id.tv_country);

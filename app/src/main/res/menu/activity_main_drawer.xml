@@ -21,21 +21,29 @@
         <!--android:id="@+id/nav_account"-->
         <!--android:visible="false">-->
         <!--<menu>-->
-            <group android:checkableBehavior="single"
-                android:id="@+id/nav_account">
-                <item
-                    android:id="@+id/nav_dashboard"
-                    android:title="Dashboard" />
-                <item
-                    android:id="@+id/nav_class_test"
-                    android:title="Class Test" />
-                <item
-                    android:id="@+id/nav_attendance"
-                    android:title="Attendance" />
-                <item
-                    android:id="@+id/nav_signout"
-                    android:title="Sign Out" />
-            </group>
+    <group
+        android:id="@+id/nav_account"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_class_test"
+            android:title="Class Test" />
+        <item
+            android:id="@+id/nav_attendance"
+            android:title="Attendance" />
+        <item
+            android:id="@+id/nav_signout"
+            android:title="Sign Out" />
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_admin">
+        <item
+            android:id="@+id/nav_upload"
+            android:title="Upload Notice" />
+    </group>
         <!--</menu>-->
     <!--</item>-->
 </menu>

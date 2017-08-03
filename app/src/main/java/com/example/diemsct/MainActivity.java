@@ -1,18 +1,15 @@
 package com.example.diemsct;
 
-import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,16 +24,17 @@ import com.afollestad.materialdialogs.MaterialDialog;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FragmentManager manager;
+    FragmentManager fragmentManager;
     RelativeLayout rl;
-    static NavigationView navigationView;
+    NavigationView navigationView;
     static boolean signedin;
     static String title;
-    static MenuItem profile,notification,signin,signout;
-    static String loginType;
-    static Menu actionBarMenu,navigationBarMenu;
+    static MenuItem profile, notification, signin, signout;
+    static String loginType = "";
+    static Menu actionBarMenu, navigationBarMenu;
+    static ActionBar actionBar;
     FragmentTransaction transaction;
-    String prevFragment = "";
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +42,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
 
         // TODO : Replace 'false' with value from database
         signedin = false;
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -58,39 +57,44 @@ public class MainActivity extends AppCompatActivity
         navigationView.getChildAt(0).setVerticalScrollBarEnabled(false);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        manager = getFragmentManager();
+        fragmentManager = getFragmentManager();
 
-        manager
+        fragmentManager
                 .beginTransaction()
-                .add(R.id.login, new HomeFragment())
+                .replace(R.id.login, new HomeFragment())
+//                .addToBackStack(null)
                 .commit();
 
         navigationBarMenu = navigationView.getMenu();
-        rl = (RelativeLayout)findViewById(R.id.login);
+        rl = (RelativeLayout) findViewById(R.id.login);
 
     }
+
     boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (doubleBackToExitPressedOnce) {
+        if (this.drawer.isDrawerOpen(GravityCompat.START)) {
+            this.drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            //Checking for fragment count on backstack
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+            } else if (!doubleBackToExitPressedOnce) {
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Press back again to exit.", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            } else {
                 super.onBackPressed();
-                return;
             }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
-                }
-            }, 2000);
         }
     }
 
@@ -99,17 +103,6 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         actionBarMenu = menu;
-//        Drawable drawable = menu.findItem(R.id.notification).getIcon();
-//        if (drawable != null) {
-//            drawable.mutate();
-//            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-//        }
-//        drawable = menu.findItem(R.id.profile).getIcon();
-//        if (drawable != null) {
-//            drawable.mutate();
-//            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-//        }
-
         profile = menu.findItem(R.id.profile);
         notification = menu.findItem(R.id.notification);
         signin = menu.findItem(R.id.sign_in);
@@ -122,22 +115,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        title = (String) getSupportActionBar().getTitle();
-        transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
+        transaction = fragmentManager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 
-        for(int i=0;i<navigationView.getMenu().size();i++)
-        {
+        for (int i = 0; i < navigationView.getMenu().size(); i++) {
             navigationView.getMenu().getItem(i).setChecked(false);
         }
 
-        switch(id)
-        {
+        switch (id) {
             case R.id.sign_in:
-                transaction.replace(R.id.login,new SignIn()).commit();
-                title = "Sign In";
+                transaction.replace(R.id.login, new SignInFragment())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.contact:
-                title = "Contact";
                 break;
             case R.id.notification:
                 startActivity(new Intent(this, Notification.class));
@@ -145,7 +135,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.profile:
                 Intent intent = new Intent(this, Profile.class);
                 startActivity(intent);
-                title = "Profile";
                 break;
             case R.id.sign_out:
                 new MaterialDialog.Builder(this)
@@ -157,20 +146,20 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 signedin = false;
-                                checksignin();
-                                transaction.replace(R.id.login,new HomeFragment()).commit();
+                                transaction.replace(R.id.login, new HomeFragment())
+                                        .commit();
+                                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+                                    fragmentManager.popBackStack();
+                                }
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
-                                MainActivity.title = "DIEMS";
-                                //redundant code because this is working asynchronously
-                                navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-                                getSupportActionBar().setTitle(title);
+                                checksignin();
                             }
                         })
                         .show();
                 break;
         }
 
-        getSupportActionBar().setTitle(title);
+        actionBar.setTitle(title);
 
         checksignin();
 
@@ -179,69 +168,59 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-        String title = "DIEMS";
-        transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
-        switch (item.getItemId())
-        {
+        transaction = fragmentManager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 transaction
                         .replace(R.id.login, new HomeFragment())
+                        //.addToBackStack(null)
                         .commit();
-                navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-                title = "DIEMS";
                 break;
             case R.id.nav_about:
                 transaction
                         .replace(R.id.login, new AboutDiems())
+                        .addToBackStack(null)
                         .commit();
-                navigationView.getMenu().findItem(R.id.nav_about).setChecked(true);
-                title = "About";
                 break;
             case R.id.nav_academics:
                 transaction
                         .replace(R.id.login, new Academics())
+                        .addToBackStack(null)
                         .commit();
-                navigationView.getMenu().findItem(R.id.nav_academics).setChecked(true);
-                title = "Academics";
                 break;
             case R.id.nav_student:
-                manager.beginTransaction()
+                fragmentManager.beginTransaction()
                         .replace(R.id.login, new Students())
+                        .addToBackStack(null)
                         .commit();
-                navigationView.getMenu().findItem(R.id.nav_student).setChecked(true);
-                title = "Student";
                 break;
             case R.id.nav_class_test:
                 transaction
-                        .replace(R.id.login, new ClasstestView())
+                        .replace(R.id.login, new ClassTestFragment())
+                        .addToBackStack(null)
                         .commit();
-                navigationView.getMenu().findItem(R.id.nav_class_test).setChecked(true);
-                title = "Class Test";
                 break;
             case R.id.nav_attendance:
-                navigationView.getMenu().findItem(R.id.nav_attendance).setChecked(true);
-                title = "Attendance";
                 break;
             case R.id.nav_signout:
                 onOptionsItemSelected(signout);
                 break;
             case R.id.nav_dashboard:
-                if(loginType.equals("student")) {
+                if (loginType.equals("student")) {
                     transaction
                             .replace(R.id.login, new StudentDashboard())
+                            .addToBackStack(null)
                             .commit();
-                }
-                else if(loginType.equals("staff")) {
+                } else if (loginType.equals("staff")) {
                     transaction
                             .replace(R.id.login, new StaffDashboard())
+                            .addToBackStack(null)
                             .commit();
                 }
-                title = "Dashboard";
                 break;
         }
-        getSupportActionBar().setTitle(title);
 
         checksignin();
 
@@ -250,23 +229,44 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    static public void checksignin()
-    {
-        if(signedin) {
-            profile.setVisible(true);
-            notification.setVisible(true);
-            signout.setVisible(true);
-            signin.setVisible(false);
-//            navigationView.getMenu().findItem(R.id.nav_account).setVisible(true);
-            navigationBarMenu.setGroupVisible(R.id.nav_account,true);
-        }
-        else {
-            profile.setVisible(false);
-            notification.setVisible(false);
-            signout.setVisible(false);
-            signin.setVisible(true);
-//            navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
-            navigationBarMenu.setGroupVisible(R.id.nav_account,false);
+    static public void checksignin() {
+//        if (loginType.equals("")) {
+//            profile.setVisible(true);
+//            signout.setVisible(true);
+//            signin.setVisible(false);
+//            navigationBarMenu.setGroupVisible(R.id.nav_account, true);
+//        } else if(loginType.equals("staff") || loginType.equals("student")) {
+//            profile.setVisible(false);
+//            signout.setVisible(false);
+//            signin.setVisible(true);
+//            navigationBarMenu.setGroupVisible(R.id.nav_account, false);
+//        }
+//        else if (loginType.equals("admin"))
+//        {
+//
+//        }
+        switch (loginType)
+        {
+            case "":
+                profile.setVisible(false);
+                signout.setVisible(false);
+                signin.setVisible(true);
+                navigationBarMenu.setGroupVisible(R.id.nav_account, false);
+                navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
+                break;
+            case "student":
+            case "staff":
+                profile.setVisible(true);
+                signout.setVisible(true);
+                signin.setVisible(false);
+                navigationBarMenu.setGroupVisible(R.id.nav_account, true);
+                navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
+            case "admin":
+                profile.setVisible(true);
+                signout.setVisible(true);
+                signin.setVisible(false);
+                navigationBarMenu.setGroupVisible(R.id.nav_account, false);
+                navigationBarMenu.setGroupVisible(R.id.nav_admin, true);
         }
     }
 }

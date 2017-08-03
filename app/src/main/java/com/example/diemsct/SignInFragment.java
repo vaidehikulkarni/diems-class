@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +19,16 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 
-public class SignIn extends Fragment {
+public class SignInFragment extends Fragment {
     Button cont;
     MaterialBetterSpinner sp;
-    MaterialEditText username,password;
-    String[] login={"Student Login","Staff Login"};
+    MaterialEditText username, password;
+    String[] login = {"Student Login", "Staff Login", "Admin Login"};
     ArrayAdapter aa;
     FragmentManager manager;
     TextView error;
-    public SignIn() {
+
+    public SignInFragment() {
         // Required empty public constructor
     }
 
@@ -36,23 +36,25 @@ public class SignIn extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        MainActivity.actionBar.setTitle("Sign In");
+
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_sign_in, container, false);
-        cont = (Button)view.findViewById(R.id.btncont);
+        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        cont = (Button) view.findViewById(R.id.btncont);
         sp = (MaterialBetterSpinner) view.findViewById(R.id.spinner);
         username = (MaterialEditText) view.findViewById(R.id.username);
         password = (MaterialEditText) view.findViewById(R.id.password);
         error = (TextView) view.findViewById(R.id.error);
 
-        aa = new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,login);
+        aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, login);
         sp.setAdapter(aa);
         manager = getFragmentManager();
 
         username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    if(!username.getText().toString().matches(".+"))
+                if (!hasFocus) {
+                    if (!username.getText().toString().matches(".+"))
                         username.setError("Username is required");
                 }
             }
@@ -61,8 +63,8 @@ public class SignIn extends Fragment {
         password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    if(!password.getText().toString().matches(".+"))
+                if (!hasFocus) {
+                    if (!password.getText().toString().matches(".+"))
                         password.setError("Password is required");
                 }
             }
@@ -83,26 +85,29 @@ public class SignIn extends Fragment {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                String title = (String) ((AppCompatActivity)getActivity()).getSupportActionBar().getTitle();
                 MainActivity.signedin = true;
-                FragmentTransaction transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
-                if(sp.getText().toString().equals("Student Login"))
-                {
+                FragmentTransaction transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+                if (sp.getText().toString().equals("Student Login")) {
                     transaction
                             .replace(R.id.login, new StudentDashboard())
+                            .addToBackStack(null)
                             .commit();
-                    title = "Dashboard";
                     MainActivity.loginType = "student";
-                }
-                else if(sp.getText().toString().equals("Staff Login")) {
+                } else if (sp.getText().toString().equals("Staff Login")) {
                     transaction
                             .replace(R.id.login, new StaffDashboard())
+                            .addToBackStack(null)
                             .commit();
-                    title = "Dashboard";
                     MainActivity.loginType = "staff";
                 }
-                else
-                {
+                else if (sp.getText().toString().equals("Admin Login")) {
+                    transaction
+                            .replace(R.id.login, new StaffDashboard())
+                            .addToBackStack(null)
+                            .commit();
+                    MainActivity.loginType = "admin";
+                }
+                else {
                     error.setVisibility(View.VISIBLE);
                     MainActivity.signedin = false;
                 }
@@ -110,8 +115,8 @@ public class SignIn extends Fragment {
                 username.clearFocus();
                 password.requestFocus();
                 password.clearFocus();
-                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
+                if (getActivity().getCurrentFocus() != null)
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 MainActivity.checksignin();
             }
         });
