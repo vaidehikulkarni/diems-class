@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context="com.example.diemsct.Contact">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Contact Us"
+        android:textAlignment="center"
+        android:textColor="@color/Black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deogiri Institute of Engineering and Management Studies, Railway Station Road, Aurangabad – 431005"
+        android:textAlignment="center"
+        android:textColor="@color/Black"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email: admin@dietms.org"
+        android:textAlignment="center"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone: (0240) 2367575Fax: (0240) 2367577Director: 2367567/9011078272"
+        android:textAlignment="center"
+        android:textColor="@color/Black" />
+
+
+</LinearLayout>
+
+

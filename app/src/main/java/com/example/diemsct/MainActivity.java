@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager manager;
     RelativeLayout rl;
-    static NavigationView navigationView;
     static boolean signedin;
-    static String title;
     static MenuItem profile,notification,signin,signout;
     static String loginType;
     static Menu actionBarMenu,navigationBarMenu;
+    static String title;
     FragmentTransaction transaction;
+    static NavigationView navigationView;
     String prevFragment = "";
 
     @Override
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity
                 title = "Sign In";
                 break;
             case R.id.contact:
+                startActivity(new Intent(this, Contact .class));
                 title = "Contact";
                 break;
             case R.id.notification:

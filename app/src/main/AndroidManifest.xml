@@ -36,6 +36,7 @@
         <activity
             android:name=".Notification"
             android:screenOrientation="portrait" />
+        <activity android:name=".Contact"></activity>
     </application>
 
 </manifest>
