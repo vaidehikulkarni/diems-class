@@ -71,6 +71,46 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
+                            android:text="B. Tech in Mech Engineering"
+
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="B. Tech in E And TC Engineering"
+
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="B. Tech in Civil Engineering"
+
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="B. Tech in CSE"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
                             android:text="Full time/Part time"
                             android:textColor="@color/colorPrimaryDark"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
@@ -79,6 +119,43 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="Full Time"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:paddingTop="10dp"
                             android:text="Duration"
                             android:textColor="@color/colorPrimaryDark"
@@ -89,28 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
-                            android:text="Intake"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="B. Tech in Mech Engineering"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="Full Time"
+                            android:text="4 years/ 8 sem"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
@@ -126,27 +182,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
-                            android:text="120"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-
-                    </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="B. Tech in E and TC Engineering"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="Full Time"
+                            android:text="4 years/ 8 sem"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
@@ -157,53 +193,9 @@
                             android:text="4 years/ 8 sem"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="120"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
                     </TableRow>
-
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="B. Tech in Civil Engineering"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="Full Time"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="4 years/ 8 sem"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="120"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-
-                    </TableRow>
-
 
                     <TableRow
                         android:paddingBottom="10dp">
@@ -212,23 +204,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
-                            android:text="B. Tech in CSE"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="Full Time"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="4 years/ 8 sem"
+                            android:text="Intake"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
@@ -239,8 +216,34 @@
                             android:text="120"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="120"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="120"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:paddingTop="10dp"
+                            android:text="120"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+
 
                     </TableRow>
+
+
 
                 </TableLayout>
             </HorizontalScrollView>
