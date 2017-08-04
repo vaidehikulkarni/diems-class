@@ -1,61 +1,56 @@
 package com.example.diemsct;
 
+import android.Manifest;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * This is an example usage of the AnimatedExpandableListView class.
- * <p>
- * It is an activity that holds a listview which is populated with 100 groups
- * where each group has from 1 to 100 children (so the first group will have one
- * child, the second will have two children and so on...).
- */
-public class Notification extends AppCompatActivity {
+public class NotificationENTC extends Fragment {
     private AnimatedExpandableListView listView;
+
+    public NotificationENTC() {
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
+        //onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("Notification");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view= inflater.inflate(R.layout.fragment_notification_entc, container, false);
         List<GroupItem> items = new ArrayList<>();
 
         // Populate our list with groups and it's children
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 3; i++) {
             GroupItem item = new GroupItem();
 
             item.title = "Group " + i;
 
 //            for(int j = 0; j < i; j++) {
             ChildItem child = new ChildItem();
-            child.title = "Awesome item ";
-            child.hint = "Too awesome";
+            child.title = "Awesome item " + i;
+            child.imageSrc = "http://via.placeholder.com/1234x123";
 
             item.items.add(child);
 //            }
@@ -63,10 +58,10 @@ public class Notification extends AppCompatActivity {
             items.add(item);
         }
 
-        ExampleAdapter adapter = new ExampleAdapter(this);
+        ExampleAdapter adapter = new ExampleAdapter(getActivity());
         adapter.setData(items);
 
-        listView = (AnimatedExpandableListView) findViewById(R.id.animlistview);
+        listView = (AnimatedExpandableListView) view.findViewById(R.id.animlistview);
         listView.setAdapter(adapter);
 
         // In order to show animations, we need to use a custom click handler
@@ -76,7 +71,7 @@ public class Notification extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 // We call collapseGroupWithAnimation(int) and
-                // expandGroupWithAnimation(int) to animate group 
+                // expandGroupWithAnimation(int) to animate group
                 // expansion/collapse.
                 if (listView.isGroupExpanded(groupPosition)) {
                     listView.collapseGroupWithAnimation(groupPosition);
@@ -87,6 +82,7 @@ public class Notification extends AppCompatActivity {
             }
 
         });
+        return view;
     }
 
     private static class GroupItem {
@@ -96,12 +92,12 @@ public class Notification extends AppCompatActivity {
 
     private static class ChildItem {
         String title;
-        String hint;
+        String imageSrc;
     }
 
     private static class ChildHolder {
         TextView title;
-        TextView hint;
+        ImageView image;
     }
 
     private static class GroupHolder {
@@ -142,15 +138,24 @@ public class Notification extends AppCompatActivity {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
                 holder.title = (TextView) convertView.findViewById(R.id.textTitle);
-                holder.hint = (TextView) convertView.findViewById(R.id.textHint);
+                holder.image = (ImageView) convertView.findViewById(R.id.noticeimage);
                 convertView.setTag(holder);
             } else {
                 holder = (ChildHolder) convertView.getTag();
             }
 
             holder.title.setText(item.title);
-            holder.hint.setText(item.hint);
 
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
+            }
+
+            Picasso
+                    .with(getActivity())
+                    .load(item.imageSrc)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.image);
             return convertView;
         }
 

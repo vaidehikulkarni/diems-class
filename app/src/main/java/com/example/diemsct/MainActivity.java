@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.contact:
                 break;
             case R.id.notification:
-                startActivity(new Intent(this, Notification.class));
+                startActivity(new Intent(this, NotificationActivity.class));
                 break;
             case R.id.profile:
                 Intent intent = new Intent(this, Profile.class);
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-        actionBar.setTitle(title);
+//        actionBar.setTitle(title);
 
         checksignin();
 
