@@ -42,6 +42,8 @@ public class NotificationAll extends Fragment {
     private AnimatedExpandableListView listView;
     private long enqueue;
     private DownloadManager dm;
+    private BroadcastReceiver receiver;
+    boolean empty = true;
 
     public NotificationAll() {
 
@@ -49,7 +51,7 @@ public class NotificationAll extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //onBackPressed();
+        getActivity().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 
@@ -64,18 +66,21 @@ public class NotificationAll extends Fragment {
             try {
                 JSONObject js = NotificationActivity.jsonArray.getJSONObject(i);
 
-                GroupItem item = new GroupItem();
-                item.title = js.getString("title");
-                ChildItem child = new ChildItem();
-                if (!js.getString("body").equals("null"))
-                    child.title = js.getString("body");
-                else {
-                    child.title = "";
-                }
-                child.imageSrc = js.getString("img_url");
-                item.items.add(child);
+                if (js.getString("branch").toLowerCase().equals("all")) {
+                    GroupItem item = new GroupItem();
+                    item.title = js.getString("title");
+                    ChildItem child = new ChildItem();
+                    if (!js.getString("body").equals("null"))
+                        child.title = js.getString("body");
+                    else {
+                        child.title = "";
+                    }
+                    child.imageSrc = js.getString("img_url");
+                    item.items.add(child);
 
-                items.add(item);
+                    items.add(item);
+                    empty = false;
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 break;
@@ -87,6 +92,7 @@ public class NotificationAll extends Fragment {
 
         listView = (AnimatedExpandableListView) view.findViewById(R.id.animlistview);
         listView.setAdapter(adapter);
+        checkEmpty();
 
         // In order to show animations, we need to use a custom click handler
         // for our ExpandableListView.
@@ -107,7 +113,7 @@ public class NotificationAll extends Fragment {
 
         });
 
-        BroadcastReceiver receiver = new BroadcastReceiver() {
+        receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
@@ -120,7 +126,8 @@ public class NotificationAll extends Fragment {
                                 .getColumnIndex(DownloadManager.COLUMN_STATUS);
                         if (DownloadManager.STATUS_SUCCESSFUL == c
                                 .getInt(columnIndex)) {
-                            Toast.makeText(context, "Image downloaded into /Pictures/"+getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Image downloaded into /Pictures/" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+                            getActivity().unregisterReceiver(receiver);
                         }
                     }
                 }
@@ -129,7 +136,7 @@ public class NotificationAll extends Fragment {
 
         getActivity().registerReceiver(receiver, new IntentFilter(
                 DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        getActivity().unregisterReceiver(receiver);
+
         return view;
     }
 
@@ -201,11 +208,11 @@ public class NotificationAll extends Fragment {
                 @Override
                 public void onClick(View v) {
                     dm = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
-                    DownloadManager.Request request = new DownloadManager.Request(
-                            Uri.parse(item.imageSrc));
-                    request.setTitle("Notice");
-                    request.setDescription("Downloading...");
-                    request.setDestinationInExternalPublicDir("/Pictures/" + getString(R.string.app_name),new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".png");
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(item.imageSrc))
+                            .setTitle("Notice")
+                            .setDescription("Downloading...")
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            .setDestinationInExternalPublicDir("/Pictures/" + getString(R.string.app_name), new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".png");
                     enqueue = dm.enqueue(request);
                 }
             });
@@ -273,4 +280,11 @@ public class NotificationAll extends Fragment {
 
     }
 
+    void checkEmpty() {
+
+        if(empty)
+            listView.setBackgroundColor(getResources().getColor(R.color.grey));
+        else
+            listView.setBackgroundColor(getResources().getColor(R.color.white));
+    }
 }

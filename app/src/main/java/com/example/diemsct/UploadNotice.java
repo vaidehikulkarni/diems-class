@@ -4,37 +4,71 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 
 public class UploadNotice extends Fragment {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private Button btnSelect,btnContinue;
+    private Button btnSelect, btnSubmit;
     private ImageView ivImage;
     private String userChoosenTask;
+    private EditText title, body;
+    private MaterialBetterSpinner classsp, division, branch;
+    private File destination;
+    private Bitmap bm;
+    private View view;
+    private ProgressDialog dialog;
+    private boolean responseReceived;
 
     public UploadNotice() {
 
@@ -43,9 +77,26 @@ public class UploadNotice extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.uploadnoticelayout, container, false);
+        view = inflater.inflate(R.layout.uploadnoticelayout, container, false);
         btnSelect = (Button) view.findViewById(R.id.btnSelectPhoto);
-        btnContinue = (Button) view.findViewById(R.id.btn_continue);
+        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
+        classsp = (MaterialBetterSpinner) view.findViewById(R.id.classSpinner);
+        division = (MaterialBetterSpinner) view.findViewById(R.id.divisionSpinner);
+        branch = (MaterialBetterSpinner) view.findViewById(R.id.branchSpinner);
+        title = (EditText) view.findViewById(R.id.noticeTitle);
+        body = (EditText) view.findViewById(R.id.noticeBody);
+
+        String[] divisionArray = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        String[] branchArray = {"FE", "CSE", "Mech", "E&TC", "Civil"};
+        String[] classArray = {"FE", "SE", "TE", "BE"};
+
+        ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, divisionArray);
+        division.setAdapter(aa);
+        aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, branchArray);
+        branch.setAdapter(aa);
+        aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, classArray);
+        classsp.setAdapter(aa);
+
         btnSelect.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -53,7 +104,71 @@ public class UploadNotice extends Fragment {
                 selectImage();
             }
         });
+        btnSubmit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (title.getText().toString().trim().equals("")) {
+                    title.setError("Title is required");
+                    return;
+                }
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bm = ((BitmapDrawable) ivImage.getDrawable()).getBitmap();
+                if(bm == null)
+                {
+                    Toast.makeText(getActivity(), "Please select photo", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+                byte[] b = baos.toByteArray();
+                String image = Base64.encodeToString(b, Base64.DEFAULT);
 
+                responseReceived = false;
+                dialog = new ProgressDialog(getActivity());
+                dialog.setMessage("Loading");
+                dialog.show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!responseReceived)
+                            if(!responseReceived)
+                            {
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), "Error occured: 500", Toast.LENGTH_SHORT).show();
+                            }
+                    }
+                },5000);
+                try {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                    String URL = getString(R.string.IP) + "/notice" + "?access_token=" + MainActivity.accessToken;
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("title", title.getText().toString().trim());
+                    jsonBody.put("body", body.getText().toString().trim());
+                    jsonBody.put("image", image);
+                    jsonBody.put("class", classsp.getText().toString());
+                    jsonBody.put("branch", branch.getText().toString());
+                    jsonBody.put("division", division.getText().toString());
+
+                    JsonObjectRequest json_request = new JsonObjectRequest(URL, jsonBody, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            responseReceived = true;
+                            dialog.dismiss();
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            body.setText("Error occured" + error.toString());
+                        }
+                    });
+
+                    requestQueue.add(json_request);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
         return view;
     }
@@ -139,7 +254,7 @@ public class UploadNotice extends Fragment {
         //thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
 
-        File destination = new File(Environment.getExternalStorageDirectory(),
+        destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
         FileOutputStream fo;
@@ -153,24 +268,25 @@ public class UploadNotice extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        thumbnail = Bitmap.createScaledBitmap(thumbnail, 2000, 2000, true);
-        ivImage.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//        thumbnail = Bitmap.createScaledBitmap(thumbnail, 2000, 2000, true);
+//        ivImage.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         ivImage.setImageBitmap(thumbnail);
-        Matrix matrix = new Matrix();
+//        Matrix matrix = new Matrix();
 
 //        matrix.postRotate(90);
 
 //        Bitmap scaledBitmap = Bitmap.createScaledBitmap(thumbnail, 2700, 1800, true);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(thumbnail, 1000, 1200, true);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
-        ivImage.setImageBitmap(rotatedBitmap);
-        btnContinue.setVisibility(View.VISIBLE);
+//        Bitmap scaledBitmap = Bitmap.createScaledBitmap(thumbnail, 400, 600, true);
+//        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+//        ivImage.setImageBitmap(rotatedBitmap);
+//        btnContinue.setVisibility(View.VISIBLE);
+
     }
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
-        Bitmap bm = null;
+        bm = null;
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
@@ -180,7 +296,6 @@ public class UploadNotice extends Fragment {
         }
 
         ivImage.setImageBitmap(bm);
-        btnContinue.setVisibility(View.VISIBLE);
 
     }
 

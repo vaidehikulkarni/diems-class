@@ -1,28 +1,48 @@
 package com.example.diemsct;
 
 import android.Manifest;
+import android.app.DownloadManager;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
+
 public class NotificationCSE extends Fragment {
+
     private AnimatedExpandableListView listView;
+    private long enqueue;
+    private DownloadManager dm;
+    private BroadcastReceiver receiver;
 
     public NotificationCSE() {
 
@@ -30,7 +50,7 @@ public class NotificationCSE extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //onBackPressed();
+        getActivity().onBackPressed();
         return super.onOptionsItemSelected(item);
     }
 
@@ -38,24 +58,31 @@ public class NotificationCSE extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_notification_cse, container, false);
+        View view = inflater.inflate(R.layout.fragment_notification_cse, container, false);
         List<GroupItem> items = new ArrayList<>();
 
-        // Populate our list with groups and it's children
-        for (int i = 1; i < 3; i++) {
-            GroupItem item = new GroupItem();
+        for (int i = 0; i < NotificationActivity.jsonArray.length(); i++) {
+            try {
+                JSONObject js = NotificationActivity.jsonArray.getJSONObject(i);
 
-            item.title = "Group " + i;
+                if (js.getString("branch").toLowerCase().equals("cse")) {
+                    GroupItem item = new GroupItem();
+                    item.title = js.getString("title");
+                    ChildItem child = new ChildItem();
+                    if (!js.getString("body").equals("null"))
+                        child.title = js.getString("body");
+                    else {
+                        child.title = "";
+                    }
+                    child.imageSrc = js.getString("img_url");
+                    item.items.add(child);
 
-//            for(int j = 0; j < i; j++) {
-            ChildItem child = new ChildItem();
-            child.title = "Awesome item " + i;
-            child.imageSrc = "http://via.placeholder.com/1234x123";
-
-            item.items.add(child);
-//            }
-
-            items.add(item);
+                    items.add(item);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                break;
+            }
         }
 
         ExampleAdapter adapter = new ExampleAdapter(getActivity());
@@ -82,6 +109,31 @@ public class NotificationCSE extends Fragment {
             }
 
         });
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+                    DownloadManager.Query query = new DownloadManager.Query();
+                    query.setFilterById(enqueue);
+                    Cursor c = dm.query(query);
+                    if (c.moveToFirst()) {
+                        int columnIndex = c
+                                .getColumnIndex(DownloadManager.COLUMN_STATUS);
+                        if (DownloadManager.STATUS_SUCCESSFUL == c
+                                .getInt(columnIndex)) {
+                            Toast.makeText(context, "Image downloaded into /Pictures/" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+                            getActivity().unregisterReceiver(receiver);
+                        }
+                    }
+                }
+            }
+        };
+
+        getActivity().registerReceiver(receiver, new IntentFilter(
+                DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
         return view;
     }
 
@@ -98,6 +150,7 @@ public class NotificationCSE extends Fragment {
     private static class ChildHolder {
         TextView title;
         ImageView image;
+        Button btnDownload;
     }
 
     private static class GroupHolder {
@@ -132,19 +185,34 @@ public class NotificationCSE extends Fragment {
 
         @Override
         public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            ChildHolder holder;
-            ChildItem item = getChild(groupPosition, childPosition);
+            final ChildHolder holder;
+            final ChildItem item = getChild(groupPosition, childPosition);
             if (convertView == null) {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
                 holder.title = (TextView) convertView.findViewById(R.id.textTitle);
                 holder.image = (ImageView) convertView.findViewById(R.id.noticeimage);
+                holder.btnDownload = (Button) convertView.findViewById(R.id.btnDownload);
                 convertView.setTag(holder);
             } else {
                 holder = (ChildHolder) convertView.getTag();
             }
 
-            holder.title.setText(item.title);
+            holder.title.setText(Html.fromHtml(item.title));
+
+            holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dm = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(item.imageSrc))
+                            .setTitle("Notice")
+                            .setDescription("Downloading...")
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            .setDestinationInExternalPublicDir("/Pictures/" + getString(R.string.app_name), new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".png");
+                    enqueue = dm.enqueue(request);
+                }
+            });
 
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);

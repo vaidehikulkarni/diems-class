@@ -83,7 +83,8 @@
                 app:met_errorColor="@color/FireBrick"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelTextColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary" />
+                app:met_primaryColor="@color/colorPrimary"
+                android:inputType="textPersonName"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/password"

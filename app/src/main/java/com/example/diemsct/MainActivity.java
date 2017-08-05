@@ -24,13 +24,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String accessToken = "";
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;
     static boolean signedin;
     static String title;
     static MenuItem profile, notification, signin, signout;
-    static String loginType = "";
+    static String loginType;
     static Menu actionBarMenu, navigationBarMenu;
     static ActionBar actionBar;
     FragmentTransaction transaction;

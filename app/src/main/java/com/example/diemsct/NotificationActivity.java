@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -49,7 +50,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(NotificationActivity.this);
-        String url = "http://192.168.43.161:3000/notices";
+        String url = getString(R.string.IP) + "/notices";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -127,6 +128,11 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
+    }
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
 
