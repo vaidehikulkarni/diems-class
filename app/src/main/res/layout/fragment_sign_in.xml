@@ -8,7 +8,8 @@
     android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.diemsct.SignInFragment">
+    tools:context="com.example.diemsct.SignInFragment"
+    android:backgroundTint="@color/white">
 
     <!--<LinearLayout-->
     <!--android:id="@+id/error"-->

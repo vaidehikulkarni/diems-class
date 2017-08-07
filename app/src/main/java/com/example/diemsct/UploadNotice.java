@@ -9,18 +9,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,21 +24,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
@@ -54,7 +41,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 
 public class UploadNotice extends Fragment {
@@ -77,7 +63,7 @@ public class UploadNotice extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.uploadnoticelayout, container, false);
+        view = inflater.inflate(R.layout.fragment_upload_notice, container, false);
         btnSelect = (Button) view.findViewById(R.id.btnSelectPhoto);
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
         classsp = (MaterialBetterSpinner) view.findViewById(R.id.classSpinner);
@@ -86,9 +72,9 @@ public class UploadNotice extends Fragment {
         title = (EditText) view.findViewById(R.id.noticeTitle);
         body = (EditText) view.findViewById(R.id.noticeBody);
 
-        String[] divisionArray = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        String[] branchArray = {"FE", "CSE", "Mech", "E&TC", "Civil"};
-        String[] classArray = {"FE", "SE", "TE", "BE"};
+        String[] divisionArray = {"All", "1", "2", "3", "4", "5", "6", "7", "8"};
+        String[] branchArray = {"All", "FE", "CSE", "Mech", "E&TC", "Civil"};
+        String[] classArray = {"All", "FE", "SE", "TE", "BE"};
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, divisionArray);
         division.setAdapter(aa);

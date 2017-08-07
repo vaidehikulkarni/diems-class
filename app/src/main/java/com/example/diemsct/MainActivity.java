@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity
                 navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
                 break;
             case "admin":
-                profile.setVisible(true);
+                profile.setVisible(false);
                 signout.setVisible(true);
                 signin.setVisible(false);
                 navigationBarMenu.setGroupVisible(R.id.nav_account, false);

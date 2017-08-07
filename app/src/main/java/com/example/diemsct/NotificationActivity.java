@@ -1,6 +1,5 @@
 package com.example.diemsct;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Handler;
@@ -12,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,10 @@ import java.util.List;
 public class NotificationActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private ViewPager viewPager;
-    public static JSONArray jsonArray;
+    public static JSONObject jsonObject;
     ProgressBar progressBar;
     int timer;
+    String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         viewPager = (ViewPager) findViewById(R.id.pager);
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
+        jsonObject = new JSONObject();
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(NotificationActivity.this);
         String url = getString(R.string.IP) + "/notices";
@@ -60,10 +63,16 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                         // Display the first 500 characters of the response string.
                         try {
                             timer = 1;
-                            jsonArray = new JSONArray(response);
+                            JSONArray newJsonArray = new JSONArray(response);
+
+                            for (String str : dept)
+                                jsonObject.put(str, filterDept(newJsonArray, str));
+
+                            Log.d("JSON OBJECT: \n", jsonObject.toString());
+
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            jsonArray = null;
+                            jsonObject = null;
                         }
 
                         setupViewPager(viewPager);
@@ -79,7 +88,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                jsonArray = null;
+                jsonObject = null;
             }
         });
 
@@ -88,8 +97,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(timer != 1)
-                {
+                if (timer != 1) {
 //                    viewPager.setVisibility(View.GONE);
                     new MaterialDialog.Builder(NotificationActivity.this)
                             .title("Error")
@@ -104,7 +112,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                             .show();
                 }
             }
-        },15000);
+        }, 15000);
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
@@ -133,6 +141,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         onBackPressed();
         return true;
     }
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
 
@@ -150,13 +159,49 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
 
     private void setupViewPager(ViewPager viewPager) {
         NotificationActivity.ViewPagerAdapter adapter = new NotificationActivity.ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(new NotificationAll(), "All");
-        adapter.addFragment(new NotificationFE(), "FE");
-        adapter.addFragment(new NotificationCSE(), "CSE");
-        adapter.addFragment(new NotificationMech(), "MECH");
-        adapter.addFragment(new NotificationENTC(), "E&TC");
-        adapter.addFragment(new NotificationCivil(), "CIVIL");
+
+        for (String str : dept) {
+            Bundle bundle = new Bundle();
+            NotificationFragment object = new NotificationFragment();
+            bundle.putString("dept", str);
+            object.setArguments(bundle);
+            adapter.addFragment(object, str);
+        }
+
         viewPager.setAdapter(adapter);
+    }
+
+    private JSONArray filterDept(JSONArray object, String dept) throws JSONException {
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < object.length(); i++) {
+            if (object.getJSONObject(i).getString("branch").toLowerCase().equals(dept.toLowerCase())) {
+                array.put(object.getJSONObject(i));
+            }
+        }
+        return array;
+
+        /*
+        Json object format:
+            {
+                {"dept1" : [{
+                        "key1" : "value",
+                            .
+                        },
+                        {
+                        "key2" : "value",
+                            .
+                        }]},
+                {"dept2" : [{
+                        "key1" : "notice1",
+                            .
+                        },
+                        {
+                        "key2" : "notice2",
+                            .
+                        }]},
+                        .
+            }
+         */
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {

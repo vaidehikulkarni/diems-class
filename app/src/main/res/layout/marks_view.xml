@@ -7,7 +7,8 @@
     android:background="@color/white"
     android:padding="15dp"
     tools:context="com.example.diemsct.MarksView"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:backgroundTint="@color/white">
 
     <TextView
         android:id="@+id/name"
