@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -31,7 +30,7 @@ public class AdminDashBoard extends Fragment {
         MainActivity.actionBar.setTitle("Dashboard");
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_admin_dash_board, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false);
         cardView = (CardView) view.findViewById(R.id.cv1);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override

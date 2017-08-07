@@ -26,7 +26,7 @@ public class StudentDashboard extends Fragment {
         MainActivity.navigationBarMenu.findItem(R.id.nav_dashboard).setChecked(true);
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_stud_dash, container, false);
+        View view = inflater.inflate(R.layout.fragment_stud_dashboard, container, false);
         ct = (CardView) view.findViewById(R.id.cv1);
         ct2 = (CardView) view.findViewById(R.id.cv2);
         ct.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +38,7 @@ public class StudentDashboard extends Fragment {
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
                         .replace(R.id.login, new ClassTestFragment())
+                        .addToBackStack(null)
                         .commit();
             }
         });

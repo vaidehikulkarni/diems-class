@@ -112,7 +112,6 @@ public class UploadNotice extends Fragment {
                     return;
                 }
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bm = ((BitmapDrawable) ivImage.getDrawable()).getBitmap();
                 if(bm == null)
                 {
                     Toast.makeText(getActivity(), "Please select photo", Toast.LENGTH_SHORT).show();
@@ -251,8 +250,9 @@ public class UploadNotice extends Fragment {
 
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        //thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
 
+        bm = thumbnail;
 
         destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");

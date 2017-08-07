@@ -123,7 +123,10 @@ public class SignInFragment extends Fragment {
                             try {
                                 dialog.dismiss();
                                 if(response.getString("status").equals("202")) {
-                                    FragmentTransaction transaction = manager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+                                    FragmentTransaction transaction = manager
+                                            .beginTransaction()
+                                            .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                                            .addToBackStack(null);
                                     switch (userType) {
                                         case "student":
                                             transaction

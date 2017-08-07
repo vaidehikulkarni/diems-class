@@ -223,12 +223,20 @@ public class NotificationCivil extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
             }
 
-            Picasso
-                    .with(getActivity())
-                    .load(item.imageSrc)
-                    .fit()
-                    .centerCrop()
-                    .into(holder.image);
+            if (!item.imageSrc.equals(""))
+            {
+                Picasso
+                        .with(getActivity())
+                        .load(item.imageSrc)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.image);
+            }
+            else
+            {
+                holder.image.setVisibility(View.GONE);
+                holder.btnDownload.setVisibility(View.GONE);
+            }
             return convertView;
         }
 

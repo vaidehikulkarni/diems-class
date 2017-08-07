@@ -103,6 +103,7 @@ public class AttendanceFragment extends Fragment implements View.OnClickListener
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.login, new AttendanceFragment())
+                        .addToBackStack(null)
                         .commit();
             }
 

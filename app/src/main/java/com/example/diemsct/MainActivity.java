@@ -146,13 +146,16 @@ public class MainActivity extends AppCompatActivity
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                transaction.replace(R.id.login, new HomeFragment())
+                                transaction
+                                        .replace(R.id.login, new HomeFragment())
+                                        .addToBackStack(null)
                                         .commit();
                                 for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
                                     fragmentManager.popBackStack();
                                 }
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
                                 loginType = "";
+                                accessToken = "";
                                 checksignin();
                             }
                         })
@@ -176,7 +179,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_home:
                 transaction
                         .replace(R.id.login, new HomeFragment())
-                        //.addToBackStack(null)
+                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.nav_about:
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity
                         .commit();
                 break;
             case R.id.nav_student:
-                fragmentManager.beginTransaction()
+                transaction
                         .replace(R.id.login, new Students())
                         .addToBackStack(null)
                         .commit();

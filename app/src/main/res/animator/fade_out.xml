@@ -5,7 +5,7 @@
         android:valueFrom="1"
         android:valueTo="0"
         android:propertyName="alpha"
-        android:duration="@android:integer/config_mediumAnimTime" />
+        android:duration="@android:integer/config_shortAnimTime" />
     <!--<objectAnimator-->
         <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
         <!--android:duration="500"-->

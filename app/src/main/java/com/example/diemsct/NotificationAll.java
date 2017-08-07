@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class NotificationAll extends Fragment {
 
@@ -207,7 +206,7 @@ public class NotificationAll extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    dm = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+                    dm = (DownloadManager) getActivity().getSystemService(android.content.Context.DOWNLOAD_SERVICE);
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(item.imageSrc))
                             .setTitle("Notice")
                             .setDescription("Downloading...")
@@ -221,12 +220,22 @@ public class NotificationAll extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
             }
 
-            Picasso
-                    .with(getActivity())
-                    .load(item.imageSrc)
-                    .fit()
-                    .centerCrop()
-                    .into(holder.image);
+            if (!item.imageSrc.equals(""))
+            {
+                Picasso
+                        .with(getActivity())
+                        .load(item.imageSrc)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.image);
+            }
+            else
+            {
+                holder.image.setVisibility(View.GONE);
+                holder.btnDownload.setVisibility(View.GONE);
+            }
+
+
             return convertView;
         }
 
@@ -282,7 +291,7 @@ public class NotificationAll extends Fragment {
 
     void checkEmpty() {
 
-        if(empty)
+        if (empty)
             listView.setBackgroundColor(getResources().getColor(R.color.grey));
         else
             listView.setBackgroundColor(getResources().getColor(R.color.white));
