@@ -101,6 +101,17 @@
 
     </string>
 
+    <string name="contact_us" formatted="false">
+     <![CDATA[
+        <b>Address</b><br>
+        Deogiri Institute of Engineering and Management Studies, Railway Station Road, Aurangabad – 431005.<br>
+        Email : admin@dietms.org<br>
+        Phone : (0240) 2367575<br>
+        Fax : (0240) 2367577<br>
+        Director : 2367567/9011078272
+      ]]>
+    </string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="twentyfour">24</string>

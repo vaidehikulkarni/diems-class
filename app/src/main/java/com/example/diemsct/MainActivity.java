@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity
                         .commit();
                 break;
             case R.id.contact:
+                startActivity(new Intent(this, Contact.class));
                 break;
             case R.id.notification:
                 startActivity(new Intent(this, NotificationActivity.class));
