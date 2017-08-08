@@ -22,9 +22,9 @@ It also provides tabular and graphical view of Classtest marks and Attendance of
 ## Authors
 
 * **Kajol Kappe** - [kajolkappe](https://github.com/PurpleBooth)
-* **Mrunal Mule** - [Github](https://github.com/PurpleBooth)
-* **Vaidehi Kulkarni** - [Github](https://github.com/PurpleBooth)
-* **Mayank Phadke** - [Github](https://github.com/PurpleBooth)
+* **Mrunal Mule** - [mrunalmule](https://github.com/PurpleBooth)
+* **Vaidehi Kulkarni** - [vaidehikulkarni](https://github.com/PurpleBooth)
+* **Mayank Phadke** - [mayank-phadke](https://github.com/PurpleBooth)
 
 See also the list of [contributors](https://github.com/vaidehikulkarni/diems-class-test/graphs/contributors) who participated in this project.
 
