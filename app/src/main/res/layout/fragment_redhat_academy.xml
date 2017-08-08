@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.diemsct.RedhatAcademy"
     android:orientation="vertical"
-    android:backgroundTint="@color/white">
+    android:background="#F4ECF7">
 
     <ScrollView
         android:layout_width="match_parent"

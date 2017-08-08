@@ -28,10 +28,10 @@ public class AboutDiems extends Fragment {
         MainActivity.navigationBarMenu.findItem(R.id.nav_about).setChecked(true);
 
         View view = inflater.inflate(R.layout.fragment_about_diems, container, false);
-        aboutDiems = (TextView) view.findViewById(R.id.aboutDiems);
+       aboutDiems = (TextView) view.findViewById(R.id.aboutDiems);
         aboutDiems.setText(Html.fromHtml(getString(R.string.about_diems1)));
-        abtDiems = (TextView) view.findViewById(R.id.abtdiems);
-        abtDiems.setText(Html.fromHtml(getString(R.string.abtdiems)));
+        abtDiems = (TextView) view.findViewById(R.id.objdiems);
+        abtDiems.setText(Html.fromHtml(getString(R.string.objdiems)));
         return view;
     }
 
