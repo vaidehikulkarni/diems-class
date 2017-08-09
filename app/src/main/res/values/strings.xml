@@ -71,13 +71,46 @@
     \u2022 Recruit excellent staff and improve their advance skills through appropriate training and development
       ]]>
     </string>
-    <string name="abtdiems" formatted="false">
+
+    <string name="visiondiems">
+        <![CDATA[
+        \u2022 Nation building by creating opportunities for rural and urban students through excellence in education and research in the field of Engineering and Management.
+        ]]>
+    </string>
+    <string name="missiondiems" formatted="false">
      <![CDATA[
      \u2022 To develop the students for best academic and industrial practices by implementing innovative teaching learning methodologies, promoting all round development by giving exposure to series of activities.<br>
-    \u2022 To prepare the students to face global challenges by equipping them with requisite technical expertise and developing entrepreneurship skills among them.<br>
-    \u2022 To promote research attitude among faculty and students.
-    ]]>
+     \u2022 To prepare the students to face global challenges by equipping them with requisite technical expertise and developing entrepreneurship skills among them.<br>
+     \u2022 To promote research attitude among faculty and students.
+        ]]>
       </string>
+
+    <string name="objdiems" formatted="false">
+
+        <![CDATA[
+       \u2022 To achieve excellence in academic.<br>
+
+\u2022 To ensure overall development of students by supporting them through Co-Curricular and Extracurricular skills.<br>
+
+\u2022 To build industry- institute interaction.<br>
+
+\u2022 To support for placement and entrepreneurship development.<br>
+
+\u2022 To encourage research and development activities.
+]]>
+
+    </string>
+
+    <string name="contact_us" formatted="false">
+     <![CDATA[
+        <b>Address</b><br>
+        Deogiri Institute of Engineering and Management Studies, Railway Station Road, Aurangabad – 431005.<br>
+        Email : admin@dietms.org<br>
+        Phone : (0240) 2367575<br>
+        Fax : (0240) 2367577<br>
+        Director : 2367567/9011078272
+      ]]>
+    </string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
