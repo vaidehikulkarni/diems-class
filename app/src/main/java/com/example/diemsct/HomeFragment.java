@@ -20,11 +20,8 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    //    private static ViewPager mPager;
-//    private static int currentPage = 0;
+
     ViewFlipper viewFlipper;
-//    private static final Integer[] Pics= {R.drawable.diems1,R.drawable.diems2,R.drawable.diems3,R.drawable.place,R.drawable.diems5};
-//    private ArrayList<Integer> PicsArray = new ArrayList<Integer>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,32 +48,4 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
-//    private void init() {
-//        for(int i=0;i<Pics.length;i++)
-//            PicsArray.add(Pics[i]);
-//
-//        mPager = (ViewPager) view.findViewById(R.id.pager);
-//        mPager.setAdapter(new MyAdapter(getActivity(),PicsArray));
-//      //  CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
-//       // indicator.setViewPager(mPager);
-//
-//        // Auto start of viewpager
-//        final Handler handler = new Handler();
-//        final Runnable Update = new Runnable() {
-//            public void run() {
-//                if (currentPage == Pics.length) {
-//                    currentPage = 0;
-//                }
-//                mPager.setCurrentItem(currentPage++, true);
-//            }
-//        };
-//        Timer swipeTimer = new Timer();
-//        swipeTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                handler.post(Update);
-//            }
-//        }, 2500, 2500);
-//    }
 }

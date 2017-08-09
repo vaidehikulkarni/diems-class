@@ -9,12 +9,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +44,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class UploadNotice extends Fragment {
@@ -50,11 +55,12 @@ public class UploadNotice extends Fragment {
     private String userChoosenTask;
     private EditText title, body;
     private MaterialBetterSpinner classsp, division, branch;
-    private File destination;
     private Bitmap bm;
     private View view;
     private ProgressDialog dialog;
     private boolean responseReceived;
+    private boolean fromCamera;
+    private String image;
 
     public UploadNotice() {
 
@@ -63,6 +69,8 @@ public class UploadNotice extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        MainActivity.actionBar.setTitle("Upload Notice");
+
         view = inflater.inflate(R.layout.fragment_upload_notice, container, false);
         btnSelect = (Button) view.findViewById(R.id.btnSelectPhoto);
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
@@ -93,19 +101,48 @@ public class UploadNotice extends Fragment {
         btnSubmit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
+                boolean cont = true;
                 if (title.getText().toString().trim().equals("")) {
                     title.setError("Title is required");
-                    return;
+                    cont = false;
                 }
+
+                if (fromCamera)
+                    if (mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) {
+                        Toast.makeText(getActivity(), "Please select photo", Toast.LENGTH_SHORT).show();
+                        cont = false;
+                    }
+
+                if (division.getText().toString().equals("")) {
+                    division.setError("Division is required");
+                    cont = false;
+                }
+
+                if (branch.getText().toString().equals("")) {
+                    branch.setError("Branch is required");
+                    cont = false;
+                }
+
+                if (classsp.getText().toString().equals("")) {
+                    classsp.setError("Class is required");
+                    cont = false;
+                }
+
+                if (!cont)
+                    return;
+
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                if(bm == null)
-                {
-                    Toast.makeText(getActivity(), "Please select photo", Toast.LENGTH_SHORT).show();
-                    return;
+                if (fromCamera) {
+                    BitmapFactory
+                            .decodeFile(mCurrentPhotoPath)
+                            .compress(Bitmap.CompressFormat.JPEG, 90, baos);
+                    byte[] b = baos.toByteArray();
+                    image = Base64.encodeToString(b, Base64.DEFAULT);
+                } else {
+                    bm.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+                    byte[] b = baos.toByteArray();
+                    image = Base64.encodeToString(b, Base64.DEFAULT);
                 }
-                bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
-                byte[] b = baos.toByteArray();
-                String image = Base64.encodeToString(b, Base64.DEFAULT);
 
                 responseReceived = false;
                 dialog = new ProgressDialog(getActivity());
@@ -116,14 +153,13 @@ public class UploadNotice extends Fragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(!responseReceived)
-                            if(!responseReceived)
-                            {
+                        if (!responseReceived)
+                            if (!responseReceived) {
                                 dialog.dismiss();
-                                Toast.makeText(getActivity(), "Error occured: 500", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
                             }
                     }
-                },5000);
+                },100000);
                 try {
                     RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                     String URL = getString(R.string.IP) + "/notice" + "?access_token=" + MainActivity.accessToken;
@@ -144,7 +180,7 @@ public class UploadNotice extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            body.setText("Error occured" + error.toString());
+                            body.setText("Error occured " + error.toString());
                         }
                     });
 
@@ -164,7 +200,7 @@ public class UploadNotice extends Fragment {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (userChoosenTask.equals("Take Photo"))
-                        cameraIntent();
+                        dispatchTakePictureIntent();
                     else if (userChoosenTask.equals("Choose from Library"))
                         galleryIntent();
                 } else {
@@ -188,7 +224,7 @@ public class UploadNotice extends Fragment {
                 if (items[item].equals("Take Photo")) {
                     userChoosenTask = "Take Photo";
                     if (result)
-                        cameraIntent();
+                        dispatchTakePictureIntent();
 
                 } else if (items[item].equals("Choose from Library")) {
                     userChoosenTask = "Choose from Library";
@@ -211,15 +247,6 @@ public class UploadNotice extends Fragment {
 
     }
 
-    private void cameraIntent() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
-        } else {
-            startActivityForResult(intent, REQUEST_CAMERA);
-        }
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -228,50 +255,26 @@ public class UploadNotice extends Fragment {
             if (requestCode == SELECT_FILE)
                 onSelectFromGalleryResult(data);
             else if (requestCode == REQUEST_CAMERA)
-                onCaptureImageResult(data);
+                try {
+                    onCaptureImageResult(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
-    private void onCaptureImageResult(Intent data) {
+    private void onCaptureImageResult(Intent data) throws IOException {
 
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-
-        bm = thumbnail;
-
-        destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        thumbnail = Bitmap.createScaledBitmap(thumbnail, 2000, 2000, true);
-//        ivImage.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        ivImage.setImageBitmap(thumbnail);
-//        Matrix matrix = new Matrix();
-
-//        matrix.postRotate(90);
-
-//        Bitmap scaledBitmap = Bitmap.createScaledBitmap(thumbnail, 2700, 1800, true);
-//        Bitmap scaledBitmap = Bitmap.createScaledBitmap(thumbnail, 400, 600, true);
-//        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
-//        ivImage.setImageBitmap(rotatedBitmap);
-//        btnContinue.setVisibility(View.VISIBLE);
-
+        fromCamera = true;
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        ivImage.setImageURI(contentUri);
     }
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
+        fromCamera = false;
         bm = null;
         if (data != null) {
             try {
@@ -285,32 +288,45 @@ public class UploadNotice extends Fragment {
 
     }
 
-    protected void showInputDialog() {
-
-        // get prompts.xml view
-        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-        View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setView(promptView);
-
-        final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
-        // setup a dialog window
-        alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //resultText.setText("Hello, " + editText.getText());
-                    }
-                })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create an alert dialog
-        AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File...
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                        "com.example.diemsct.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+            }
+        }
     }
 
+    String mCurrentPhotoPath;
+    String mCurrentPhotoName;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date());
+        String imageFileName = "JPEG_" + new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date()) + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        mCurrentPhotoName = imageFileName;
+        return image;
+    }
 }

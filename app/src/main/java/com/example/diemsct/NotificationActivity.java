@@ -1,7 +1,14 @@
 package com.example.diemsct;
 
+import android.app.DownloadManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -9,12 +16,12 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -32,19 +39,26 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class NotificationActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private ViewPager viewPager;
     public static JSONObject jsonObject;
     ProgressBar progressBar;
-    int timer;
+    boolean responseRecieved;
     String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH"};
+    public static boolean registered;
+    BroadcastReceiver receiver;
+    static DownloadManager dm;
+    public static JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actiivity_notification);
+
+        registered = false;
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -62,11 +76,11 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         try {
-                            timer = 1;
-                            JSONArray newJsonArray = new JSONArray(response);
+                            responseRecieved = true;
+                            jsonArray = new JSONArray(response);
 
                             for (String str : dept)
-                                jsonObject.put(str, filterDept(newJsonArray, str));
+                                jsonObject.put(str, filterDept(jsonArray, str));
 
                             Log.d("JSON OBJECT: \n", jsonObject.toString());
 
@@ -92,24 +106,27 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
             }
         });
 
-        timer = 0;
+        responseRecieved = false;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (timer != 1) {
+                if (!responseRecieved) {
 //                    viewPager.setVisibility(View.GONE);
-                    new MaterialDialog.Builder(NotificationActivity.this)
-                            .title("Error")
-                            .content("Please check internet connection and try again later")
-                            .positiveText("Ok")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    onBackPressed();
-                                }
-                            })
-                            .show();
+                    try {
+                        new MaterialDialog.Builder(NotificationActivity.this)
+                                .title("Error")
+                                .content("Please check internet connection and try again later")
+                                .positiveText("Ok")
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        onBackPressed();
+                                    }
+                                })
+                                .show();
+                    }
+                    catch (Exception e) {}
                 }
             }
         }, 15000);
@@ -124,16 +141,37 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-//        //Initializing the tablayout
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-//        //Initializing viewPager
-//        viewPager = (ViewPager) findViewById(R.id.pager);
-//        setupViewPager(viewPager);
-//
-//        //Adding onTabSelectedListener to swipe views
-//        tabLayout.addOnTabSelectedListener(this);
-//        tabLayout.setupWithViewPager(viewPager);
+        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+                    DownloadManager.Query query = new DownloadManager.Query();
+                    Cursor c = dm.query(query);
+                    if (c.moveToFirst()) {
+                        int columnIndex = c
+                                .getColumnIndex(DownloadManager.COLUMN_STATUS);
+                        if (DownloadManager.STATUS_SUCCESSFUL == c
+                                .getInt(columnIndex)) {
+                            Toast.makeText(context, "Image downloaded into /Pictures/" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        };
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     @Override

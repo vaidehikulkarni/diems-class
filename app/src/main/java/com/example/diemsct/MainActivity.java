@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;
-    static boolean signedin;
-    static String title;
     static MenuItem profile, notification, signin, signout;
     static String loginType;
     static Menu actionBarMenu, navigationBarMenu;
@@ -118,10 +116,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         transaction = fragmentManager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 
-        for (int i = 0; i < navigationView.getMenu().size(); i++) {
-            navigationView.getMenu().getItem(i).setChecked(false);
-        }
-
         switch (id) {
             case R.id.sign_in:
                 transaction.replace(R.id.login, new SignInFragment())
@@ -148,11 +142,8 @@ public class MainActivity extends AppCompatActivity
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 transaction
                                         .replace(R.id.login, new HomeFragment())
-                                        .addToBackStack(null)
+//                                        .addToBackStack(null)
                                         .commit();
-                                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-                                    fragmentManager.popBackStack();
-                                }
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
                                 loginType = "";
                                 accessToken = "";
@@ -233,6 +224,12 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_admin_dashboard:
                 transaction
                         .replace(R.id.login, new AdminDashBoard())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_admin_changepass:
+                transaction
+                        .replace(R.id.login, new ChangePassword())
                         .addToBackStack(null)
                         .commit();
                 break;

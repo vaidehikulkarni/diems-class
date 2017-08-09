@@ -1,14 +1,13 @@
 package com.example.diemsct;
 
 
-import android.app.DownloadManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +16,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -33,15 +30,16 @@ import org.json.JSONObject;
 
 
 public class SignInFragment extends Fragment {
-    Button cont;
-    MaterialBetterSpinner sp;
-    MaterialEditText username, password;
-    String[] login = {"Student Login", "Staff Login", "Admin Login"};
-    ArrayAdapter aa;
-    FragmentManager manager;
-    TextView error;
-    String userType = "";
-    ProgressDialog dialog;
+    private Button cont;
+    private MaterialBetterSpinner sp;
+    private MaterialEditText username, password;
+    private String[] login = {"Student Login", "Staff Login", "Admin Login"};
+    private ArrayAdapter aa;
+    private FragmentManager manager;
+    private TextView error;
+    private String userType = "";
+    private ProgressDialog dialog;
+    private boolean responseRecieved;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -105,12 +103,24 @@ public class SignInFragment extends Fragment {
                     if (getActivity().getCurrentFocus() != null)
                         imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-                    if(!validate())
+                    if (!validate())
                         return;
 
+                    responseRecieved = false;
                     dialog = new ProgressDialog(getActivity());
                     dialog.setMessage("Loading");
                     dialog.show();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!responseRecieved)
+                            {
+                                dialog.dismiss();
+                            }
+                        }
+                    },15000);
 
                     JSONObject json = new JSONObject();
                     json.put("username", username.getText().toString());
@@ -121,12 +131,13 @@ public class SignInFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                responseRecieved = true;
                                 dialog.dismiss();
-                                if(response.getString("status").equals("202")) {
+//                                if (response.getString("status").equals("202")) {
                                     FragmentTransaction transaction = manager
                                             .beginTransaction()
-                                            .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
-                                            .addToBackStack(null);
+                                            .setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+//                                            .addToBackStack(null);
                                     switch (userType) {
                                         case "student":
                                             transaction
@@ -139,19 +150,23 @@ public class SignInFragment extends Fragment {
                                                     .commit();
                                             break;
                                         case "admin":
+                                            Bundle bundle = new Bundle();
+                                            AdminDashBoard object = new AdminDashBoard();
+                                            bundle.putString("dept", "CSE");
+                                            object.setArguments(bundle);
                                             transaction
-                                                    .replace(R.id.login, new AdminDashBoard())
+                                                    .replace(R.id.login, object)
                                                     .commit();
                                             break;
                                     }
                                     MainActivity.loginType = userType;
                                     MainActivity.accessToken = response.getString("access_token");
                                     MainActivity.checksignin();
-                                }
-                                else {
-                                    error.setText(response.getString("error"));
-                                    error.setVisibility(View.VISIBLE);
-                                }
+
+//                                } else {
+//                                    error.setText(response.getString("error"));
+//                                    error.setVisibility(View.VISIBLE);
+//                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -174,8 +189,15 @@ public class SignInFragment extends Fragment {
         return view;
     }
 
-    boolean validate()
-    {
+    public void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (getActivity().getCurrentFocus() != null)
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    boolean validate() {
         boolean cont = true;
         if (username.getText().toString().trim().equals("")) {
             username.setError("Username is required");
@@ -208,5 +230,4 @@ public class SignInFragment extends Fragment {
 
         return cont;
     }
-
 }
