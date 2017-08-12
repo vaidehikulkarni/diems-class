@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context="com.example.diemsct.ClassTestFragment">
+    tools:context="com.diems.diemsapp.org.diems.diemsapp.ClassTestFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -371,7 +371,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.example.diemsct.GraphView">
+                tools:context="com.diems.diemsapp.GraphView">
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart"

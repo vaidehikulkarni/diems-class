@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.diemsct.StaffDashboard"
+    tools:context="com.diems.diemsapp.org.diems.diemsapp.StaffDashboard"
     android:backgroundTint="@color/white">
 
     <ScrollView

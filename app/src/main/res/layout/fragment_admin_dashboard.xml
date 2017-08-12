@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/white"
-    tools:context="com.example.diemsct.StaffDashboard">
+    tools:context="com.diems.diemsapp.org.diems.diemsapp.StaffDashboard">
 
-    <!--tools:context="com.example.diemsct.StaffDashboard">-->
+    <!--tools:context="diemsappp.StaffDashboard">-->
 
-    <com.example.diemsct.AnimatedExpandableListView
+    <org.diems.diemsapp.AnimatedExpandableListView
         android:id="@+id/admin_animlistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

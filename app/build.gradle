@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "com.example.diemsct"
+        applicationId "org.diems.diemsapp"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1

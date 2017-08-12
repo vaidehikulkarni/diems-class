@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".NotificationFragment"
+    tools:context="org.diems.diemsapp.NotificationFragment"
     android:backgroundTint="@color/white">
 
-    <com.example.diemsct.AnimatedExpandableListView
+    <org.diems.diemsapp.AnimatedExpandableListView
         android:id="@+id/animlistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

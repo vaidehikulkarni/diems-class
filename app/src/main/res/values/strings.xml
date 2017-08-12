@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">DIEMS CT</string>
-    <string name="staff_login">Staff Login</string>
+    <string name="app_name">DIEMS App</string>
     <string name="prn">Enter PRN number</string>
     <string name="pass">Enter Password</string>
 

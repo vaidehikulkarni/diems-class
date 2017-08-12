@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.diemsct">
+    package="org.diems.diemsapp">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -20,7 +20,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.diemsct.fileprovider"
+            android:authorities="org.diems.diemsapp.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -29,7 +29,7 @@
         </provider>
 
         <activity
-            android:name=".SplashScreen"
+            android:name="org.diems.diemsapp.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,24 +38,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MarksView"
+            android:name="org.diems.diemsapp.MarksView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="org.diems.diemsapp.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Profile"
+            android:name="org.diems.diemsapp.Profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NotificationActivity" />
+        <activity android:name="org.diems.diemsapp.NotificationActivity" />
         <activity
-            android:name=".RedhatVideo"
+            android:name="org.diems.diemsapp.RedhatVideo"
             android:screenOrientation="landscape" />
-        <activity android:name=".Contact" />
-        <activity android:name=".ImageDisplay" />
+        <activity android:name="org.diems.diemsapp.Contact" />
+        <activity android:name="org.diems.diemsapp.ImageDisplay" />
     </application>
 
 </manifest>
