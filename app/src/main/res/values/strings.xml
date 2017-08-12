@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">DIEMS App</string>
+    <string name="app_name">DIEMS CT</string>
     <string name="staff_login">Staff Login</string>
     <string name="prn">Enter PRN number</string>
     <string name="pass">Enter Password</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">DIEMS</string>
 
@@ -15,9 +16,9 @@
     <string name="about_diems">Deogiri Institute of Engineering and Management Studies</string>
     <string name="about_diems1" formatted="false">
         <![CDATA[
-            In pursuance with the policies of the Government of India to start Engineering colleges in emerging technologies, the Deogiri Institute of Engineering and Management Studies is established at Aurangabad during the academic year 2009-10.<p>
-            Deogiri Institute of Engineering and Management Studies is affiliated to the Dr. Babasaheb Ambedkar Technological University, Lonere and is developed as per the norms of the All India Council of Technical Education (A.I.C.T.E), Government of India.<p>
-            The Institute is consistently among the top institutes of Dr. B.A.M. University in examination results. The student-centric teaching learning environment, state of the art infrastructure, well-equipped laboratories, library with good number of books, experienced and dedicated team of faculties are the key features of the Institute.
+        In pursuance with the policies of the Government of India to start Engineering colleges in emerging technologies, the Deogiri Institute of Engineering and Management Studies is established at Aurangabad during the academic year 2009-10.<p>
+        Deogiri Institute of Engineering and Management Studies is affiliated to the Dr. Babasaheb Ambedkar Technological University, Lonere and is developed as per the norms of the All India Council of Technical Education (A.I.C.T.E), Government of India.<p>
+        The Institute is consistently among the top institutes of Dr. B.A.M. University in examination results. The student-centric teaching learning environment, state of the art infrastructure, well-equipped laboratories, library with good number of books, experienced and dedicated team of faculties are the key features of the Institute.
         ]]>
     </string>
 
@@ -25,89 +26,109 @@
     <string name="about_mentorship2">“Mentor: Someone whose hindsight can become your foresight”</string>
     <string name="about_metoship3" formatted="false">
         <![CDATA[
-            It takes more than a degree to induct college-graduates into the society and transform them into responsible citizens. And a lot more to recognise the potential in a student and make them realise the contemporary scenario. However, it all starts with a small step : mentor-ship from the experienced. In a survey of Fortune 500 companies, 96% of executives credited mentoring as an important developmental tool. 75% said mentoring played a key role in their career success. Who else could share a stronger bond with the students of an institute and guide them through the ground realities of the work-a-day world than the alumni of the institute?<p>
-            Hence, Deogiri Institute of Engineering and Management Studies, is looking forward to fostering and nurturing a Student “Mentorship Programme”. The prototype of the proposed mentorship programme aims at a healthy interaction between an interested mentor and an eager protege. This programme matches the profiles of the applicant and the alumni based on common goals and career interest.The mentors would advice the protege on any sort of problems faced by them and would be able to provide information related to professional and career development. Issues related to career path, resumes, course selection, international perspectives and work/family could be discussed with the mentors.The students have the opportunity to remain in contact with the mentors even after graduating.
+        It takes more than a degree to induct college-graduates into the society and transform them into responsible citizens. And a lot more to recognise the potential in a student and make them realise the contemporary scenario. However, it all starts with a small step : mentor-ship from the experienced. In a survey of Fortune 500 companies, 96% of executives credited mentoring as an important developmental tool. 75% said mentoring played a key role in their career success. Who else could share a stronger bond with the students of an institute and guide them through the ground realities of the work-a-day world than the alumni of the institute?<p>
+        Hence, Deogiri Institute of Engineering and Management Studies, is looking forward to fostering and nurturing a Student “Mentorship Programme”. The prototype of the proposed mentorship programme aims at a healthy interaction between an interested mentor and an eager protege. This programme matches the profiles of the applicant and the alumni based on common goals and career interest.The mentors would advice the protege on any sort of problems faced by them and would be able to provide information related to professional and career development. Issues related to career path, resumes, course selection, international perspectives and work/family could be discussed with the mentors.The students have the opportunity to remain in contact with the mentors even after graduating.
          ]]>
     </string>
     <string name="about_fe1">Department of First Year Engineering</string>
     <string name="about_fe2">
         <![CDATA[
-            Provide excellence in academics to enhance skills and attitude necessary to sustain individual career success.
-        ]]>
+         Provide excellence in academics to enhance skills and attitude necessary to sustain individual career success.
+         ]]>
     </string>
     <string name="about_fe3" formatted="false">
-         <![CDATA[
-             \u2022 Promoting sound academic environment for student’s brilliance.<br>\u2022 Developing basic concepts of applied science and engineering subjects of the students.<br>
-             \u2022 Educating the students to bridge the gap in between problem- based study and academics.<br>\u2022 Motivating students with moral philosophy and social awareness.
-         ]]>
+     <![CDATA[
+     \u2022 Promoting sound academic environment for student’s brilliance.<br>\u2022 Developing basic concepts of applied science and engineering subjects of the students.<br>
+     \u2022 Educating the students to bridge the gap in between problem- based study and academics.<br>\u2022 Motivating students with moral philosophy and social awareness.
+     ]]>
     </string>
 
     <string name="acd_civil" formatted="false">
-        <![CDATA[
-            \u2022 Develop advanced skills and knowledge in state of the art research and design in areas of civil engineering.<br>\u2022 Develop strong Industry-Institution interaction.<br>\u2022 Department serves the society through consultancy.
-        ]]>
+     <![CDATA[
+     \u2022 Develop advanced skills and knowledge in state of the art research and design in areas of civil engineering.<br>
+     \u2022 Develop strong Industry-Institution interaction.<br>
+     \u2022 Department serves the society through consultancy.
+      ]]>
     </string>
 
     <string name="acd_cse" formatted="false">
-        <![CDATA[
-            \u2022 To equip the students with strong analytical and problem solving skills.<br>\u2022 To promote research environment among the students.<br>\u2022 To inculcate Social, Ethical and Moral values among students.
-        ]]>
+     <![CDATA[
+     \u2022 To equip the students with strong analytical and problem solving skills.<br>\u2022 To promote research environment among the students.<br>\u2022 To inculcate Social, Ethical and Moral values among students.
+    ]]>
     </string>
 
     <string name="acd_etc" formatted="false">
-         <![CDATA[
-             \u2022 Educating students with requisite technical expertise to meet the growing challenges of the industry.<br>\u2022 Equipping students with fundamental subject knowledge to enable them for continuing education.<br>
-             \u2022 Promoting research through constant interaction with research bodies and various industries .
-         ]]>
+     <![CDATA[
+     \u2022 Educating students with requisite technical expertise to meet the growing challenges of the industry.<br>\u2022 Equipping students with fundamental subject knowledge to enable them for continuing education.<br>
+      \u2022 Promoting research through constant interaction with research bodies and various industries .
+     ]]>
       </string>
 
     <string name="acd_mech" formatted="false">
-        <![CDATA[
-            \u2022 To impart high quality education to the students to develop technical skills and make them a competitive mechanical engineer.<br>
-            \u2022 To educate, prepare, inspire and mentor students to excel professionally and personally to serve the society.<br>
-            \u2022 To produce graduates who meet the requirements of employers from all sectors.<br>
-            \u2022 Promote inter-disciplinary research with in itself.<br>
-            \u2022 Recruit excellent staff and improve their advance skills through appropriate training and development
-        ]]>
+     <![CDATA[
+    \u2022 To impart high quality education to the students to develop technical skills and make them a competitive mechanical engineer.<br>
+    \u2022 To educate, prepare, inspire and mentor students to excel professionally and personally to serve the society.<br>
+    \u2022 To produce graduates who meet the requirements of employers from all sectors.<br>
+    \u2022 Promote inter-disciplinary research with in itself.<br>
+    \u2022 Recruit excellent staff and improve their advance skills through appropriate training and development
+      ]]>
     </string>
 
     <string name="visiondiems">
         <![CDATA[
-            \u2022 Nation building by creating opportunities for rural and urban students through excellence in education and research in the field of Engineering and Management.
+        \u2022 Nation building by creating opportunities for rural and urban students through excellence in education and research in the field of Engineering and Management.
         ]]>
     </string>
     <string name="missiondiems" formatted="false">
-         <![CDATA[
-             \u2022 To develop the students for best academic and industrial practices by implementing innovative teaching learning methodologies, promoting all round development by giving exposure to series of activities.<br>
-             \u2022 To prepare the students to face global challenges by equipping them with requisite technical expertise and developing entrepreneurship skills among them.<br>
-             \u2022 To promote research attitude among faculty and students.
-         ]]>
+     <![CDATA[
+     \u2022 To develop the students for best academic and industrial practices by implementing innovative teaching learning methodologies, promoting all round development by giving exposure to series of activities.<br>
+     \u2022 To prepare the students to face global challenges by equipping them with requisite technical expertise and developing entrepreneurship skills among them.<br>
+     \u2022 To promote research attitude among faculty and students.
+        ]]>
       </string>
 
     <string name="objdiems" formatted="false">
+
         <![CDATA[
-            \u2022 To achieve excellence in academic.<br>
-            \u2022 To ensure overall development of students by supporting them through Co-Curricular and Extracurricular skills.<br>
-            \u2022 To build industry- institute interaction.<br>
-            \u2022 To support for placement and entrepreneurship development.<br>
-            \u2022 To encourage research and development activities.
-        ]]>
+       \u2022 To achieve excellence in academic.<br>
+
+\u2022 To ensure overall development of students by supporting them through Co-Curricular and Extracurricular skills.<br>
+
+\u2022 To build industry- institute interaction.<br>
+
+\u2022 To support for placement and entrepreneurship development.<br>
+
+\u2022 To encourage research and development activities.
+]]>
 
     </string>
 
     <string name="contact_us" formatted="false">
-        <![CDATA[
-            <b>Address</b><br>
-            Deogiri Institute of Engineering and Management Studies, Railway Station Road, Aurangabad – 431005.<br>
-            Email : admin@dietms.org<br>
-            Phone : (0240) 2367575<br>
-            Fax : (0240) 2367577<br>
-            Director : 2367567/9011078272
-        ]]>
+     <![CDATA[
+        <b>Address</b><br>
+        Deogiri Institute of Engineering and Management Studies, Railway Station Road, Aurangabad – 431005.<br>
+        Email : admin@dietms.org<br>
+        Phone : (0240) 2367575<br>
+        Fax : (0240) 2367577<br>
+        Director : 2367567/9011078272
+      ]]>
     </string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="twentyfour">24</string>
-</resources>
+    <string name="IP">http://192.168.12.1:8880</string>
 
+    <string name="mbavision" formatted="false">To be recognized as the first choice for the Management education in the region by developing and implementing cohesive Teaching-Learning mechanism for euipping the students with managerial skills and transform them into versatile business leaders.
+    </string>
+
+    <string name="missionmba" formatted="false">
+
+         <![CDATA[
+     \u2022 To develop a healthy environment for encouraging management education through participatory teaching-learning methodologies long with indury exposure.<br>
+     \u2022 To produce future managers by providing a sustainable platform to develop their knowledge,skills and attitude.<br>
+     \u2022 To impart management education comprising advanced management theories ,practices and case studies to fulfill the industry requirements.
+
+    ]]>
+    </string>
+</resources>
