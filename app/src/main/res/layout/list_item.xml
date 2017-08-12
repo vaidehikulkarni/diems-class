@@ -35,17 +35,17 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/noticeimage"
+                android:id="@+id/noticeImage"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:adjustViewBounds="true"
                 android:visibility="invisible" />
 
             <Button
-                android:id="@+id/btnDownload"
+                android:id="@+id/btnRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Download"
+                android:text="Remove"
                 android:visibility="gone"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>

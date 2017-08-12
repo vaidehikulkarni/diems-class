@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -41,8 +42,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -149,20 +148,21 @@ public class UploadNotice extends Fragment {
                 dialog.setMessage("Loading");
                 dialog.show();
 
+                final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (!responseReceived)
-                            if (!responseReceived) {
-                                dialog.dismiss();
-                                Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
-                            }
+                        if (!responseReceived) {
+                            requestQueue.cancelAll("timeout");
+                            dialog.dismiss();
+                            Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                },100000);
+                }, 15000);
+
                 try {
-                    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-                    String URL = getString(R.string.IP) + "/notice" + "?access_token=" + MainActivity.accessToken;
+                    String URL = MainActivity.IP + "/notices" + "?access_token=" + MainActivity.accessToken;
                     JSONObject jsonBody = new JSONObject();
                     jsonBody.put("title", title.getText().toString().trim());
                     jsonBody.put("body", body.getText().toString().trim());
@@ -171,11 +171,15 @@ public class UploadNotice extends Fragment {
                     jsonBody.put("branch", branch.getText().toString());
                     jsonBody.put("division", division.getText().toString());
 
-                    JsonObjectRequest json_request = new JsonObjectRequest(URL, jsonBody, new Response.Listener<JSONObject>() {
+                    JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             responseReceived = true;
                             dialog.dismiss();
+                            getFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.login, new AdminDashBoard())
+                                    .commit();
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -289,6 +293,12 @@ public class UploadNotice extends Fragment {
     }
 
     private void dispatchTakePictureIntent() {
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+            return;
+        }
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {

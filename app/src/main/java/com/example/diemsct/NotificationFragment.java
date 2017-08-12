@@ -5,27 +5,19 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -34,8 +26,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +34,8 @@ public class NotificationFragment extends Fragment {
     private AnimatedExpandableListView listView;
     TextView textView;
     boolean empty = true;
+    public static String imageSource;
+    public static String imageTitle;
 
     public NotificationFragment() {
 
@@ -62,9 +54,6 @@ public class NotificationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
         textView = (TextView) view.findViewById(R.id.empty);
         List<GroupItem> items = new ArrayList<>();
-
-        Log.d("JSON: ", NotificationActivity.jsonObject.toString());
-
 
         try {
 
@@ -133,9 +122,7 @@ public class NotificationFragment extends Fragment {
     private static class ChildHolder {
         TextView title;
         ImageView image;
-        Button btnDownload;
         ProgressBar progressBar;
-        WebView webView;
     }
 
     private static class GroupHolder {
@@ -176,8 +163,7 @@ public class NotificationFragment extends Fragment {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
                 holder.title = (TextView) convertView.findViewById(R.id.textTitle);
-                holder.image = (ImageView) convertView.findViewById(R.id.noticeimage);
-                holder.btnDownload = (Button) convertView.findViewById(R.id.btnDownload);
+                holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
                 holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
                 convertView.setTag(holder);
             } else {
@@ -186,42 +172,14 @@ public class NotificationFragment extends Fragment {
 
             holder.title.setText(Html.fromHtml(item.title));
 
-            Toast.makeText(getActivity(), item.imageSrc, Toast.LENGTH_SHORT).show();
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.imageSrc));
-                    startActivity(intent);
+                    imageSource = item.imageSrc;
+                    imageTitle = item.title;
+                    startActivity(new Intent(getActivity(), ImageDisplay.class));
                 }
             });
-
-            holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        InputStream is = (InputStream) new URL("http://via.placeholder.com/1200x1200").getContent();
-                        Drawable d = Drawable.createFromStream(is, "src name");
-                        holder.image.setImageDrawable(d);
-                        holder.progressBar.setVisibility(View.GONE);
-                        holder.image.setVisibility(View.VISIBLE);
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-//            holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(item.imageSrc))
-//                            .setTitle("Notice")
-//                            .setDescription("Downloading...")
-//                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-//                            .setDestinationInExternalPublicDir("/Pictures/" + getString(R.string.app_name), new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".png");
-//                    NotificationActivity.dm.enqueue(request);
-//                }
-//            });
 
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
@@ -247,7 +205,6 @@ public class NotificationFragment extends Fragment {
                         });
             } else {
                 holder.image.setVisibility(View.GONE);
-                holder.btnDownload.setVisibility(View.GONE);
             }
             return convertView;
         }

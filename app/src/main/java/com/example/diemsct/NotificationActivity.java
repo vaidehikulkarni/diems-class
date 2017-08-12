@@ -1,13 +1,9 @@
 package com.example.diemsct;
 
-import android.app.DownloadManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -21,7 +17,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -49,7 +44,6 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
     String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH"};
     public static boolean registered;
     BroadcastReceiver receiver;
-    static DownloadManager dm;
     public static JSONArray jsonArray;
 
     @Override
@@ -67,7 +61,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         jsonObject = new JSONObject();
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(NotificationActivity.this);
-        String url = getString(R.string.IP) + "/notices";
+        String url = MainActivity.IP + "/notices";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -140,38 +134,6 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
             actionBar.setTitle("Notification");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                    DownloadManager.Query query = new DownloadManager.Query();
-                    Cursor c = dm.query(query);
-                    if (c.moveToFirst()) {
-                        int columnIndex = c
-                                .getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        if (DownloadManager.STATUS_SUCCESSFUL == c
-                                .getInt(columnIndex)) {
-                            Toast.makeText(context, "Image downloaded into /Pictures/" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
-        };
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(receiver);
     }
 
     @Override

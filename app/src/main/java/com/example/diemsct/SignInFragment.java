@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -33,7 +36,7 @@ public class SignInFragment extends Fragment {
     private Button cont;
     private MaterialBetterSpinner sp;
     private MaterialEditText username, password;
-    private String[] login = {"Student Login", "Staff Login", "Admin Login"};
+    private String[] login = {"Admin Login"};
     private ArrayAdapter aa;
     private FragmentManager manager;
     private TextView error;
@@ -50,6 +53,10 @@ public class SignInFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         MainActivity.actionBar.setTitle("Sign In");
+        for(int i=0;i< MainActivity.navigationBarMenu.size(); i++)
+        {
+            MainActivity.navigationBarMenu.getItem(i).setChecked(false);
+        }
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
@@ -111,13 +118,16 @@ public class SignInFragment extends Fragment {
                     dialog.setMessage("Loading");
                     dialog.show();
 
+                    final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             if(!responseRecieved)
                             {
+                                requestQueue.cancelAll("timeout");
                                 dialog.dismiss();
+                                Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
                             }
                         }
                     },15000);
@@ -126,14 +136,14 @@ public class SignInFragment extends Fragment {
                     json.put("username", username.getText().toString());
                     json.put("password", password.getText().toString());
 
-                    String url = getString(R.string.IP) + "/login";
+                    String url = MainActivity.IP + "/login";
                     JsonObjectRequest json_request = new JsonObjectRequest(url, json, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
                                 responseRecieved = true;
                                 dialog.dismiss();
-//                                if (response.getString("status").equals("202")) {
+                                if (response.getString("status").equals("202")) {
                                     FragmentTransaction transaction = manager
                                             .beginTransaction()
                                             .setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
@@ -150,12 +160,8 @@ public class SignInFragment extends Fragment {
                                                     .commit();
                                             break;
                                         case "admin":
-                                            Bundle bundle = new Bundle();
-                                            AdminDashBoard object = new AdminDashBoard();
-                                            bundle.putString("dept", "CSE");
-                                            object.setArguments(bundle);
                                             transaction
-                                                    .replace(R.id.login, object)
+                                                    .replace(R.id.login, new AdminDashBoard())
                                                     .commit();
                                             break;
                                     }
@@ -163,10 +169,10 @@ public class SignInFragment extends Fragment {
                                     MainActivity.accessToken = response.getString("access_token");
                                     MainActivity.checksignin();
 
-//                                } else {
-//                                    error.setText(response.getString("error"));
-//                                    error.setVisibility(View.VISIBLE);
-//                                }
+                                } else {
+                                    error.setText(response.getString("error"));
+                                    error.setVisibility(View.VISIBLE);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -177,7 +183,7 @@ public class SignInFragment extends Fragment {
 
                         }
                     });
-                    Volley.newRequestQueue(getActivity()).add(json_request);
+                    requestQueue.add(json_request);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     if (getView() != null)

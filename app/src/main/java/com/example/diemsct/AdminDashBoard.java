@@ -5,8 +5,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -16,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -30,13 +27,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +45,7 @@ public class AdminDashBoard extends Fragment {
     boolean responseRecieved;
     List<GroupItem> items;
     View view;
+    JSONArray jsonArray;
 
     public AdminDashBoard() {
 
@@ -67,36 +65,33 @@ public class AdminDashBoard extends Fragment {
         textView = (TextView) view.findViewById(R.id.empty);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         items = new ArrayList<>();
+        MainActivity.actionBar.setTitle("Dashboard");
+        MainActivity.navigationBarMenu.findItem(R.id.nav_admin_dashboard).setChecked(true);
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = getString(R.string.IP) + "/notices";
+        String url = MainActivity.IP + "/self/notices" + "?access_token=" + MainActivity.accessToken;
 
-        if (NotificationActivity.jsonArray == null) {
-            progressBar.setVisibility(View.VISIBLE);
-            // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        NotificationActivity.jsonArray = new JSONArray(response);
-                        progressBar.setVisibility(View.GONE);
-                        setUpListView();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        progressBar.setVisibility(View.VISIBLE);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    jsonArray = new JSONArray(response);
+                    progressBar.setVisibility(View.GONE);
+                    setUpListView();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-                }
-            });
+            }
+        });
 
-            queue.add(stringRequest);
-        }
-        else {
-            setUpListView();
-        }
+        queue.add(stringRequest);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -122,14 +117,14 @@ public class AdminDashBoard extends Fragment {
     private static class ChildItem {
         String title;
         String imageSrc;
+        String id;
     }
 
     private static class ChildHolder {
         TextView title;
         ImageView image;
-        Button btnDownload;
+        Button btnRemove;
         ProgressBar progressBar;
-        WebView webView;
     }
 
     private static class GroupHolder {
@@ -170,8 +165,8 @@ public class AdminDashBoard extends Fragment {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
                 holder.title = (TextView) convertView.findViewById(R.id.textTitle);
-                holder.image = (ImageView) convertView.findViewById(R.id.noticeimage);
-                holder.btnDownload = (Button) convertView.findViewById(R.id.btnDownload);
+                holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
+                holder.btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
                 holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
                 convertView.setTag(holder);
             } else {
@@ -179,68 +174,74 @@ public class AdminDashBoard extends Fragment {
             }
 
             holder.title.setText(Html.fromHtml(item.title));
-
+            holder.btnRemove.setVisibility(View.VISIBLE);
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://via.placeholder.com/1200x1200"));
-                    startActivity(intent);
+                    NotificationFragment.imageSource = item.imageSrc;
+                    NotificationFragment.imageTitle = item.title;
+                    startActivity(new Intent(getActivity(), ImageDisplay.class));
                 }
             });
 
-            holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+            holder.btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        InputStream is = (InputStream) new URL("http://via.placeholder.com/1200x1200").getContent();
-                        Drawable d = Drawable.createFromStream(is, "src name");
-                        holder.image.setImageDrawable(d);
-                        holder.progressBar.setVisibility(View.GONE);
-                        holder.image.setVisibility(View.VISIBLE);
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                    String URL = MainActivity.IP + "/notices/" + item.id + "?access_token=" + MainActivity.accessToken;
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.DELETE, URL, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject res = new JSONObject(response);
+                                if (res.getString("status").equals("200")) {
+                                    Toast.makeText(getActivity(), res.getString("message"), Toast.LENGTH_SHORT).show();
+                                    getFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.login, new AdminDashBoard())
+                                            .commit();
+                                } else
+                                    Toast.makeText(getActivity(), res.getString("error"), Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    Volley.newRequestQueue(getActivity()).add(stringRequest);
                 }
             });
 
-//            holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(item.imageSrc))
-//                            .setTitle("Notice")
-//                            .setDescription("Downloading...")
-//                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-//                            .setDestinationInExternalPublicDir("/Pictures/" + getString(R.string.app_name), new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".png");
-//                    NotificationActivity.dm.enqueue(request);
-//                }
-//            });
 
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
             }
 
             if (!item.imageSrc.equals("")) {
-//                Picasso
-//                        .with(getActivity())
-//                        .load(item.imageSrc)
-//                        .fit()
-//                        .centerCrop()
-//                        .into(holder.image, new Callback() {
-//                            @Override
-//                            public void onSuccess() {
-//                                holder.progressBar.setVisibility(View.GONE);
-//                                holder.image.setVisibility(View.VISIBLE);
-//                            }
-//
-//                            @Override
-//                            public void onError() {
-//
-//                            }
-//                        });
+                Picasso
+                        .with(getActivity())
+                        .load(item.imageSrc)
+                        .fit()
+                        .centerCrop()
+                        .into(holder.image, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                                holder.progressBar.setVisibility(View.GONE);
+                                holder.image.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
             } else {
                 holder.image.setVisibility(View.GONE);
-                holder.btnDownload.setVisibility(View.GONE);
             }
             return convertView;
         }
@@ -304,12 +305,10 @@ public class AdminDashBoard extends Fragment {
             listView.setBackgroundColor(getResources().getColor(R.color.white));
     }
 
-    void setUpListView()
-    {
+    void setUpListView() {
         try {
-
-            for (int i = 0; i < NotificationActivity.jsonArray.length(); i++) {
-                JSONObject js = NotificationActivity.jsonArray.getJSONObject(i);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject js = jsonArray.getJSONObject(i);
                 GroupItem item = new GroupItem();
                 item.title = js.getString("title");
                 ChildItem child = new ChildItem();
@@ -318,6 +317,7 @@ public class AdminDashBoard extends Fragment {
                 else {
                     child.title = "";
                 }
+                child.id = js.getString("id");
                 child.imageSrc = js.getString("img_url");
                 item.items.add(child);
 
@@ -329,8 +329,8 @@ public class AdminDashBoard extends Fragment {
 
                 listView = (AnimatedExpandableListView) view.findViewById(R.id.animlistview);
                 listView.setAdapter(adapter);
-                checkEmpty();
             }
+            checkEmpty();
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String accessToken = "";
+    public static String IP = "cloud.dietms.org:81";
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;

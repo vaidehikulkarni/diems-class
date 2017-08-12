@@ -5,15 +5,20 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.diemsct.R.string.missiondiems;
+import static com.example.diemsct.R.string.visiondiems;
 
 
 /**
@@ -48,9 +53,9 @@ public class HomeFragment extends Fragment {
         viewFlipper.startFlipping();
        viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in));
         // viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out));
-        visiondiems = (TextView) view.findViewById(R.id.vision_diems);
+        TextView visiondiems = (TextView) view.findViewById(R.id.vision_diems);
         visiondiems.setText(Html.fromHtml(getString(R.string.visiondiems)));
-        missiondiems = (TextView) view.findViewById(R.id.mission_diems);
+        TextView missiondiems = (TextView) view.findViewById(R.id.mission_diems);
         missiondiems.setText(Html.fromHtml(getString(R.string.missiondiems)));
 
 

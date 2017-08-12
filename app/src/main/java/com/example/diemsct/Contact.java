@@ -8,14 +8,15 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class Contact extends AppCompatActivity {
 
     TextView contact;
-    MaterialEditText me;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,8 @@ public class Contact extends AppCompatActivity {
 
         contact = (TextView) findViewById(R.id.contact);
         contact.setText(Html.fromHtml(getString(R.string.contact_us)));
-        me = (MaterialEditText) findViewById(R.id.message);
-        me.setOnTouchListener(new View.OnTouchListener() {
+        final MaterialEditText message = (MaterialEditText) findViewById(R.id.message);
+        message.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (view.getId() == R.id.message) {
@@ -47,6 +48,37 @@ public class Contact extends AppCompatActivity {
                     }
                 }
                 return false;
+            }
+        });
+
+        final MaterialEditText name = (MaterialEditText) findViewById(R.id.name);
+        final MaterialEditText mail = (MaterialEditText) findViewById(R.id.mail);
+        Button button = (Button) findViewById(R.id.btncont);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean cont = true;
+                if(name.getText().toString().trim().equals(""))
+                {
+                    name.setError("Name is required");
+                    cont = false;
+                }
+                if(mail.getText().toString().trim().equals(""))
+                {
+                    mail.setError("Email Id is required");
+                    cont = false;
+                }
+                if(message.getText().toString().trim().equals(""))
+                {
+                    message.setError("Message is required");
+                    cont = false;
+                }
+
+                if(!cont)
+                    return;;
+
+                Toast.makeText(Contact.this, "Message submitted successfully", Toast.LENGTH_SHORT).show();
+                onBackPressed();
             }
         });
     }

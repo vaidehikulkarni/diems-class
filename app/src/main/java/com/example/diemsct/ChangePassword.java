@@ -74,7 +74,7 @@ public class ChangePassword extends Fragment {
                     return;
                 }
 
-                String url = getString(R.string.IP) + "/changepass?access_token=" + MainActivity.accessToken;
+                String url = MainActivity.IP + "/changepass?access_token=" + MainActivity.accessToken;
 
                 JSONObject json = new JSONObject();
                 try {
