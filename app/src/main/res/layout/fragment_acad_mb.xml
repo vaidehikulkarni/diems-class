@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.diemsct.AcdCivil">
+    tools:context="com.example.diemsct.acadMBA">
 
+    <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,19 +14,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:paddingBottom="16dp"
             android:paddingTop="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Department of Civil Engineering"
                 android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="Department of Master Of Business Administration (MBA)"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
 
 
@@ -33,20 +33,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="Year of Establishment -2009"
                 android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark" />
+                android:text="Year of Establishment -2009"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="Courses"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textStyle="bold"
+                android:paddingBottom="10dp"
+                android:text="Course"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -60,91 +60,46 @@
                     android:stretchColumns="*">
 
                     <TableRow>
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
                             android:text="Title"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="B.E. Civil Engineering"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
-                            android:text="M.E. Civil Engineering (Structural)"
+                            android:text="Masters in Business Administration"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
 
 
                     </TableRow>
 
                     <TableRow>
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
-                            android:text="Full Time/Part Time"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="Full Time"
+                            android:text="Full/Part Time"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:text="Full Time"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
                     </TableRow>
 
-                    <TableRow>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="Duration"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="4 Years/8 sem"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="2 Years/4 sem"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-
-                    </TableRow>
 
                     <TableRow>
 
@@ -153,53 +108,38 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
                             android:text="Intake"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="120"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
-                            android:text="24"
+                            android:text="180"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
                     </TableRow>
 
 
-                    <TableRow android:paddingBottom="10dp">
+                    <TableRow
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
                             android:text="Established"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                            android:textColor="@color/colorPrimaryDark" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:paddingTop="10dp"
-                            android:text="2009"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:paddingTop="10dp"
-                            android:text="2014"
+                            android:text="2009"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
                             android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
@@ -214,16 +154,17 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:text="Vision"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <TextView
+                android:id="@+id/mbavision"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="10dp"
-                android:text="Develop proficient Civil Engineers with a technical Competence and managerial ability for nation building."
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/mbavision"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <TextView
@@ -231,18 +172,17 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:text="Mission"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
             <TextView
-                android:id="@+id/civil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:id="@+id/missionmba"
                 android:paddingTop="10dp"
-                android:text="@string/acd_civil"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/missionmba"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
