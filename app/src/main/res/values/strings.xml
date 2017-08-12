@@ -45,7 +45,9 @@
 
     <string name="acd_civil" formatted="false">
      <![CDATA[
-     \u2022 Develop advanced skills and knowledge in state of the art research and design in areas of civil engineering.<br>\u2022 Develop strong Industry-Institution interaction.<br>\u2022 Department serves the society through consultancy.
+     \u2022 Develop advanced skills and knowledge in state of the art research and design in areas of civil engineering.<br>
+     \u2022 Develop strong Industry-Institution interaction.<br>
+     \u2022 Department serves the society through consultancy.
       ]]>
     </string>
 
@@ -116,4 +118,17 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="twentyfour">24</string>
     <string name="IP">http://192.168.12.1:8880</string>
+
+    <string name="mbavision" formatted="false">To be recognized as the first choice for the Management education in the region by developing and implementing cohesive Teaching-Learning mechanism for euipping the students with managerial skills and transform them into versatile business leaders.
+    </string>
+
+    <string name="missionmba" formatted="false">
+
+         <![CDATA[
+     \u2022 To develop a healthy environment for encouraging management education through participatory teaching-learning methodologies long with indury exposure.<br>
+     \u2022 To produce future managers by providing a sustainable platform to develop their knowledge,skills and attitude.<br>
+     \u2022 To impart management education comprising advanced management theories ,practices and case studies to fulfill the industry requirements.
+
+    ]]>
+    </string>
 </resources>

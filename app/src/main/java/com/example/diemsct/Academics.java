@@ -70,6 +70,7 @@ public class Academics extends Fragment implements TabLayout.OnTabSelectedListen
         adapter.addFragment(new AcdMech(), "MECH");
         adapter.addFragment(new AcdEtc(), "E&TC");
         adapter.addFragment(new AcdCivil(), "CIVIL");
+        adapter.addFragment(new acadMBA(),"MBA");
         viewPager.setAdapter(adapter);
     }
 
