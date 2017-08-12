@@ -230,7 +230,6 @@ public class AdminDashBoard extends Fragment {
                         .into(holder.image, new Callback() {
                             @Override
                             public void onSuccess() {
-                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                                 holder.progressBar.setVisibility(View.GONE);
                                 holder.image.setVisibility(View.VISIBLE);
                             }
@@ -299,7 +298,8 @@ public class AdminDashBoard extends Fragment {
     void checkEmpty() {
 
         if (empty) {
-            listView.setBackgroundColor(getResources().getColor(R.color.grey));
+            if (listView != null)
+                listView.setBackgroundColor(getResources().getColor(R.color.grey));
             textView.setVisibility(View.VISIBLE);
         } else
             listView.setBackgroundColor(getResources().getColor(R.color.white));
@@ -327,32 +327,35 @@ public class AdminDashBoard extends Fragment {
                 ExampleAdapter adapter = new ExampleAdapter(getActivity());
                 adapter.setData(items);
 
-                listView = (AnimatedExpandableListView) view.findViewById(R.id.animlistview);
+                listView = (AnimatedExpandableListView) view.findViewById(R.id.admin_animlistview);
                 listView.setAdapter(adapter);
             }
             checkEmpty();
         } catch (JSONException e) {
             e.printStackTrace();
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            return;
         }
 
         // In order to show animations, we need to use a custom click handler
         // for our ExpandableListView.
-        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        if (listView != null)
+            listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                // We call collapseGroupWithAnimation(int) and
-                // expandGroupWithAnimation(int) to animate group
-                // expansion/collapse.
-                if (listView.isGroupExpanded(groupPosition)) {
-                    listView.collapseGroupWithAnimation(groupPosition);
-                } else {
-                    listView.expandGroupWithAnimation(groupPosition);
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                    // We call collapseGroupWithAnimation(int) and
+                    // expandGroupWithAnimation(int) to animate group
+                    // expansion/collapse.
+                    if (listView.isGroupExpanded(groupPosition)) {
+                        listView.collapseGroupWithAnimation(groupPosition);
+                    } else {
+                        listView.expandGroupWithAnimation(groupPosition);
+                    }
+                    return true;
                 }
-                return true;
-            }
 
-        });
+            });
 
     }
 }

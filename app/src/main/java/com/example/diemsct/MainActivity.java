@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String accessToken = "";
-    public static String IP = "cloud.dietms.org:81";
+    //    public static String IP = "http://27.0.141.34:81";
+    public static String IP = "http://172.16.8.55:8880";
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;
@@ -76,8 +77,7 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         if (this.drawer.isDrawerOpen(GravityCompat.START)) {
             this.drawer.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             //Checking for fragment count on backstack
             if (fragmentManager.getBackStackEntryCount() > 0) {
                 fragmentManager.popBackStack();
@@ -260,8 +260,7 @@ public class MainActivity extends AppCompatActivity
 //        {
 //
 //        }
-        switch (loginType)
-        {
+        switch (loginType) {
             case "":
                 profile.setVisible(false);
                 signout.setVisible(false);
