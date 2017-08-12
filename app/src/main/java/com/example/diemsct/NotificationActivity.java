@@ -2,6 +2,9 @@ package com.example.diemsct;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -9,7 +12,6 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,19 +34,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class NotificationActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private ViewPager viewPager;
     public static JSONObject jsonObject;
     ProgressBar progressBar;
-    int timer;
+    boolean responseRecieved;
     String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH"};
+    public static boolean registered;
+    BroadcastReceiver receiver;
+    public static JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actiivity_notification);
+
+        registered = false;
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -53,7 +61,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         jsonObject = new JSONObject();
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(NotificationActivity.this);
-        String url = getString(R.string.IP) + "/notices";
+        String url = MainActivity.IP + "/notices";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -62,11 +70,11 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         try {
-                            timer = 1;
-                            JSONArray newJsonArray = new JSONArray(response);
+                            responseRecieved = true;
+                            jsonArray = new JSONArray(response);
 
                             for (String str : dept)
-                                jsonObject.put(str, filterDept(newJsonArray, str));
+                                jsonObject.put(str, filterDept(jsonArray, str));
 
                             Log.d("JSON OBJECT: \n", jsonObject.toString());
 
@@ -92,24 +100,27 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
             }
         });
 
-        timer = 0;
+        responseRecieved = false;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (timer != 1) {
+                if (!responseRecieved) {
 //                    viewPager.setVisibility(View.GONE);
-                    new MaterialDialog.Builder(NotificationActivity.this)
-                            .title("Error")
-                            .content("Please check internet connection and try again later")
-                            .positiveText("Ok")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    onBackPressed();
-                                }
-                            })
-                            .show();
+                    try {
+                        new MaterialDialog.Builder(NotificationActivity.this)
+                                .title("Error")
+                                .content("Please check internet connection and try again later")
+                                .positiveText("Ok")
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        onBackPressed();
+                                    }
+                                })
+                                .show();
+                    }
+                    catch (Exception e) {}
                 }
             }
         }, 15000);
@@ -123,17 +134,6 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
             actionBar.setTitle("Notification");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-//        //Initializing the tablayout
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-//        //Initializing viewPager
-//        viewPager = (ViewPager) findViewById(R.id.pager);
-//        setupViewPager(viewPager);
-//
-//        //Adding onTabSelectedListener to swipe views
-//        tabLayout.addOnTabSelectedListener(this);
-//        tabLayout.setupWithViewPager(viewPager);
-
     }
 
     @Override

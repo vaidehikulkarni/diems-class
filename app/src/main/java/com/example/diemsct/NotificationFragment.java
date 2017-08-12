@@ -1,52 +1,41 @@
 package com.example.diemsct;
 
 import android.Manifest;
-import android.app.DownloadManager;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class NotificationFragment extends Fragment {
 
     private AnimatedExpandableListView listView;
-    private long enqueue;
-    private DownloadManager dm;
-    private BroadcastReceiver receiver;
     TextView textView;
     boolean empty = true;
+    public static String imageSource;
+    public static String imageTitle;
 
     public NotificationFragment() {
 
@@ -66,16 +55,12 @@ public class NotificationFragment extends Fragment {
         textView = (TextView) view.findViewById(R.id.empty);
         List<GroupItem> items = new ArrayList<>();
 
-        Log.d("JSON: ", NotificationActivity.jsonObject.toString());
-
-
         try {
 
             Bundle bundle = getArguments();
 
             JSONArray array = NotificationActivity.jsonObject.getJSONArray(bundle.get("dept").toString());
-            for(int i=0; i<array.length(); i++)
-            {
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject js = array.getJSONObject(i);
                 GroupItem item = new GroupItem();
                 item.title = js.getString("title");
@@ -94,7 +79,6 @@ public class NotificationFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         ExampleAdapter adapter = new ExampleAdapter(getActivity());
         adapter.setData(items);
@@ -122,30 +106,6 @@ public class NotificationFragment extends Fragment {
 
         });
 
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                    DownloadManager.Query query = new DownloadManager.Query();
-                    query.setFilterById(enqueue);
-                    Cursor c = dm.query(query);
-                    if (c.moveToFirst()) {
-                        int columnIndex = c
-                                .getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        if (DownloadManager.STATUS_SUCCESSFUL == c
-                                .getInt(columnIndex)) {
-                            Toast.makeText(context, "Image downloaded into /Pictures/" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
-                            getActivity().unregisterReceiver(receiver);
-                        }
-                    }
-                }
-            }
-        };
-
-        getActivity().registerReceiver(receiver, new IntentFilter(
-                DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
         return view;
     }
 
@@ -162,7 +122,7 @@ public class NotificationFragment extends Fragment {
     private static class ChildHolder {
         TextView title;
         ImageView image;
-        Button btnDownload;
+        ProgressBar progressBar;
     }
 
     private static class GroupHolder {
@@ -203,8 +163,8 @@ public class NotificationFragment extends Fragment {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
                 holder.title = (TextView) convertView.findViewById(R.id.textTitle);
-                holder.image = (ImageView) convertView.findViewById(R.id.noticeimage);
-                holder.btnDownload = (Button) convertView.findViewById(R.id.btnDownload);
+                holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
+                holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
                 convertView.setTag(holder);
             } else {
                 holder = (ChildHolder) convertView.getTag();
@@ -212,17 +172,12 @@ public class NotificationFragment extends Fragment {
 
             holder.title.setText(Html.fromHtml(item.title));
 
-            holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-
+            holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dm = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
-                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(item.imageSrc))
-                            .setTitle("Notice")
-                            .setDescription("Downloading...")
-                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                            .setDestinationInExternalPublicDir("/Pictures/" + getString(R.string.app_name), new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()) + ".png");
-                    enqueue = dm.enqueue(request);
+                    imageSource = item.imageSrc;
+                    imageTitle = item.title;
+                    startActivity(new Intent(getActivity(), ImageDisplay.class));
                 }
             });
 
@@ -236,10 +191,20 @@ public class NotificationFragment extends Fragment {
                         .load(item.imageSrc)
                         .fit()
                         .centerCrop()
-                        .into(holder.image);
+                        .into(holder.image, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                holder.progressBar.setVisibility(View.GONE);
+                                holder.image.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
             } else {
                 holder.image.setVisibility(View.GONE);
-                holder.btnDownload.setVisibility(View.GONE);
             }
             return convertView;
         }

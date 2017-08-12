@@ -17,6 +17,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait">
@@ -43,7 +44,8 @@
         <activity
             android:name=".RedhatVideo"
             android:screenOrientation="landscape" />
-        <activity android:name=".Contact"></activity>
+        <activity android:name=".Contact" />
+        <activity android:name=".ImageDisplay" />
     </application>
 
 </manifest>
