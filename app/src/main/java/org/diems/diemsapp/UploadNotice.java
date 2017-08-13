@@ -3,6 +3,7 @@ package org.diems.diemsapp;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -19,14 +20,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,15 +39,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -60,6 +67,7 @@ public class UploadNotice extends Fragment {
     private boolean responseReceived;
     private boolean fromCamera;
     private String image;
+    private TextView endDate,error;
 
     public UploadNotice() {
 
@@ -78,6 +86,8 @@ public class UploadNotice extends Fragment {
         branch = (MaterialBetterSpinner) view.findViewById(R.id.branchSpinner);
         title = (EditText) view.findViewById(R.id.noticeTitle);
         body = (EditText) view.findViewById(R.id.noticeBody);
+        endDate = (TextView) view.findViewById(R.id.endDate);
+        error = (TextView) view.findViewById(R.id.errorUpload);
 
         String[] divisionArray = {"All", "1", "2", "3", "4", "5", "6", "7", "8"};
         String[] branchArray = {"All", "FE", "CSE", "Mech", "E&TC", "Civil"};
@@ -101,16 +111,18 @@ public class UploadNotice extends Fragment {
             @Override
             public void onClick(final View v) {
                 boolean cont = true;
+                String errorString = "";
                 if (title.getText().toString().trim().equals("")) {
                     title.setError("Title is required");
                     cont = false;
                 }
 
-                if (fromCamera)
-                    if (mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) {
-                        Toast.makeText(getActivity(), "Please select photo", Toast.LENGTH_SHORT).show();
-                        cont = false;
-                    }
+                if (mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) {
+                    errorString += "Please Select Photo";
+                    cont = false;
+                }
+                else
+                    error.setVisibility(View.GONE);
 
                 if (division.getText().toString().equals("")) {
                     division.setError("Division is required");
@@ -127,8 +139,28 @@ public class UploadNotice extends Fragment {
                     cont = false;
                 }
 
+                if(endDate.getText().equals(""))
+                {
+                    if(!errorString.equals(""))
+                        errorString += "\n";
+                    errorString += "Please Select End Date";
+                    cont = false;
+                }
+                else
+                    error.setVisibility(View.GONE);
+
                 if (!cont)
+                {
+                    if(!errorString.equals(""))
+                    {
+                        error.setText(errorString);
+                        error.setVisibility(View.VISIBLE);
+                    }
+                    else
+                        error.setVisibility(View.GONE);
                     return;
+                }
+
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 if (fromCamera) {
@@ -170,6 +202,8 @@ public class UploadNotice extends Fragment {
                     jsonBody.put("class", classsp.getText().toString());
                     jsonBody.put("branch", branch.getText().toString());
                     jsonBody.put("division", division.getText().toString());
+                    jsonBody.put("u_type", MainActivity.loginType);
+                    jsonBody.put("end_date", endDate.getText().toString());
 
                     JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
@@ -184,7 +218,8 @@ public class UploadNotice extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            body.setText("Error occured " + error.toString());
+                            Toast.makeText(getActivity(), "Error Occured. Please try again", Toast.LENGTH_SHORT).show();
+                            Log.e("Volley Error", error.getMessage());
                         }
                     });
 
@@ -192,6 +227,21 @@ public class UploadNotice extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        final Calendar calendar = Calendar.getInstance();
+        Button selectDate = (Button) view.findViewById(R.id.selectDate);
+
+        selectDate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        endDate.setText(dayOfMonth + "/" + month + "/" + year);
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();
             }
         });
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
@@ -312,7 +362,7 @@ public class UploadNotice extends Fragment {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(getActivity(),
-                        "com.diems.diemsapp.fileprovider",
+                        "org.diems.diemsapp.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_CAMERA);

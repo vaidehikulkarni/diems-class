@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.diems.diemsapp.org.diems.diemsapp.MainActivity">
+    tools:context="org.diems.diemsapp.MainActivity">
 
     <include
         layout="@layout/app_bar_main"

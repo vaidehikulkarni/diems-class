@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.diems.diemsapp.org.diems.diemsapp.AcdEtc">
+    tools:context="org.diems.diemsapp.AcdEtc">
 
     <!-- TODO: Update blank fragment layout -->
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D1F2FB"
-    tools:context="com.diems.diemsapp.org.diems.diemsapp.SplashScreen">
+    tools:context="org.diems.diemsapp.SplashScreen">
 
     <ImageView
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F4ECF7"
-    tools:context="com.diems.diemsapp.org.diems.diemsapp.RedhatAcademy"
+    tools:context="org.diems.diemsapp.RedhatAcademy"
     android:orientation="vertical">
 
     <ScrollView
