@@ -88,14 +88,13 @@ public class ChangePassword extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (response.get("status").equals("202")) {
+                            if (response.getString("status").equals("202")) {
                                 MainActivity.accessToken = response.getString("access_token");
-                                getActivity().onBackPressed();
                                 Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                                getActivity().onBackPressed();
                             }
                             else
                             {
-//                                Toast.makeText(getActivity(), response.getString("error"), Toast.LENGTH_SHORT).show();
                                 error.setText(response.getString("error"));
                                 error.setVisibility(View.VISIBLE);
                             }
