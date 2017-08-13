@@ -67,7 +67,7 @@ public class UploadNotice extends Fragment {
     private boolean responseReceived;
     private boolean fromCamera;
     private String image;
-    private TextView endDate,error;
+    private TextView endDate, error;
 
     public UploadNotice() {
 
@@ -117,12 +117,12 @@ public class UploadNotice extends Fragment {
                     cont = false;
                 }
 
-                if (mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) {
-                    errorString += "Please Select Photo";
-                    cont = false;
-                }
-                else
-                    error.setVisibility(View.GONE);
+                if (fromCamera)
+                    if (mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) {
+                        errorString += "Please Select Photo";
+                        cont = false;
+                    } else
+                        error.setVisibility(View.GONE);
 
                 if (division.getText().toString().equals("")) {
                     division.setError("Division is required");
@@ -139,24 +139,19 @@ public class UploadNotice extends Fragment {
                     cont = false;
                 }
 
-                if(endDate.getText().equals(""))
-                {
-                    if(!errorString.equals(""))
+                if (endDate.getText().equals("")) {
+                    if (!errorString.equals(""))
                         errorString += "\n";
                     errorString += "Please Select End Date";
                     cont = false;
-                }
-                else
+                } else
                     error.setVisibility(View.GONE);
 
-                if (!cont)
-                {
-                    if(!errorString.equals(""))
-                    {
+                if (!cont) {
+                    if (!errorString.equals("")) {
                         error.setText(errorString);
                         error.setVisibility(View.VISIBLE);
-                    }
-                    else
+                    } else
                         error.setVisibility(View.GONE);
                     return;
                 }
