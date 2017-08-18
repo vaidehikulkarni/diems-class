@@ -25,7 +25,7 @@ public class acadMBA extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=  inflater.inflate(R.layout.fragment_acad_mb, container, false);
+        View view=  inflater.inflate(R.layout.fragment_acd_mba, container, false);
         mba = (TextView) view.findViewById(R.id.missionmba);
         mba.setText(Html.fromHtml(getString(R.string.missionmba)));
         return view;

@@ -7,6 +7,27 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">DIEMS</string>
 
+    <!--<string-array name="branchArray">-->
+        <!--<item>All</item>-->
+        <!--<item>FE</item>-->
+        <!--<item>CSE</item>-->
+        <!--<item>Mech</item>-->
+        <!--<item>ETC</item>-->
+        <!--<item>Civil</item>-->
+        <!--<item>MBA</item>-->
+
+    <!--</string-array>-->
+
+    <!--<string-array name="classArray">-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+    <!--</string-array>-->
+
+    <!--<string-array name="divArray">-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+    <!--</string-array>-->
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="sign_in">Sign In</string>

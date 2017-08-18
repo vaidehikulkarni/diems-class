@@ -40,7 +40,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
     public static JSONObject jsonObject;
     ProgressBar progressBar;
     boolean responseRecieved;
-    String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH"};
+    String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH","MBA"};
     public static boolean registered;
     BroadcastReceiver receiver;
     public static JSONArray jsonArray;
@@ -179,28 +179,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         }
         return array;
 
-        /*
-        Json object format:
-            {
-                {"dept1" : [{
-                        "key1" : "value",
-                            .
-                        },
-                        {
-                        "key2" : "value",
-                            .
-                        }]},
-                {"dept2" : [{
-                        "key1" : "notice1",
-                            .
-                        },
-                        {
-                        "key2" : "notice2",
-                            .
-                        }]},
-                        .
-            }
-         */
+
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {

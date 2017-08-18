@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -90,15 +91,22 @@ public class UploadNotice extends Fragment {
         error = (TextView) view.findViewById(R.id.errorUpload);
 
         String[] divisionArray = {"All", "1", "2", "3", "4", "5", "6", "7", "8"};
-        String[] branchArray = {"All", "FE", "CSE", "Mech", "E&TC", "Civil"};
+        String[] branchArray = {"All", "FE", "CSE", "Mech", "E&TC", "Civil","MBA"};
         String[] classArray = {"All", "FE", "SE", "TE", "BE"};
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, divisionArray);
         division.setAdapter(aa);
         aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, branchArray);
         branch.setAdapter(aa);
+
+//        branch.setOnItemSelectedListener((AdapterView.OnItemSelectedListener)this);
+//        ArrayAdapter <String> br = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, branchArray);
+//        br.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+//        branch.setAdapter(br);
+
         aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, classArray);
         classsp.setAdapter(aa);
+
 
         btnSelect.setOnClickListener(new OnClickListener() {
 
