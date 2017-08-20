@@ -88,15 +88,6 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                         tabLayout.addOnTabSelectedListener(NotificationActivity.this);
                         tabLayout.setupWithViewPager(viewPager);
 
-                        switch(MainActivity.loginType)
-                        {
-                            case "":
-                                tabLayout.removeTabAt(7);
-                                break;
-                        }
-
-                        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
                         progressBar.setVisibility(View.GONE);
                         tabLayout.setVisibility(View.VISIBLE);
                         viewPager.setVisibility(View.VISIBLE);
