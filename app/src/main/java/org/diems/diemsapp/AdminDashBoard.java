@@ -110,18 +110,19 @@ public class AdminDashBoard extends Fragment {
     }
 
     private static class GroupItem {
-        String title;
+        String titleText;
         List<ChildItem> items = new ArrayList<>();
     }
 
     private static class ChildItem {
-        String title;
+        String fwdTitleText;
+        String bodyText;
         String imageSrc;
         String id;
     }
 
     private static class ChildHolder {
-        TextView title;
+        TextView body;
         ImageView image;
         Button btnRemove;
         ProgressBar progressBar;
@@ -164,7 +165,7 @@ public class AdminDashBoard extends Fragment {
             if (convertView == null) {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.textTitle);
+                holder.body = (TextView) convertView.findViewById(R.id.textBody);
                 holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
                 holder.btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
                 holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
@@ -173,14 +174,15 @@ public class AdminDashBoard extends Fragment {
                 holder = (ChildHolder) convertView.getTag();
             }
 
-            holder.title.setText(Html.fromHtml(item.title));
+            holder.body.setText(Html.fromHtml(item.bodyText));
             holder.btnRemove.setVisibility(View.VISIBLE);
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NotificationFragment.imageSource = item.imageSrc;
-                    NotificationFragment.imageTitle = item.title;
-                    startActivity(new Intent(getActivity(), ImageDisplay.class));
+                    Intent intent = new Intent(getActivity(), ImageDisplay.class);
+                    intent.putExtra("imageSource", item.imageSrc);
+                    intent.putExtra("title", item.fwdTitleText);
+                    startActivity(intent);
                 }
             });
 
@@ -272,13 +274,13 @@ public class AdminDashBoard extends Fragment {
             if (convertView == null) {
                 holder = new GroupHolder();
                 convertView = inflater.inflate(R.layout.group_item, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.textTitle);
+                holder.title = (TextView) convertView.findViewById(R.id.textBody);
                 convertView.setTag(holder);
             } else {
                 holder = (GroupHolder) convertView.getTag();
             }
 
-            holder.title.setText(item.title);
+            holder.title.setText(item.titleText);
 
             return convertView;
         }
@@ -310,15 +312,16 @@ public class AdminDashBoard extends Fragment {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject js = jsonArray.getJSONObject(i);
                 GroupItem item = new GroupItem();
-                item.title = js.getString("title");
+                item.titleText = js.getString("title");
                 ChildItem child = new ChildItem();
                 if (!js.getString("body").equals("null"))
-                    child.title = js.getString("body");
+                    child.bodyText = js.getString("body");
                 else {
-                    child.title = "";
+                    child.bodyText = "";
                 }
                 child.id = js.getString("id");
                 child.imageSrc = js.getString("img_url");
+                child.fwdTitleText = item.titleText;
                 item.items.add(child);
 
                 items.add(item);

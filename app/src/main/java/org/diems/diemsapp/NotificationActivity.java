@@ -40,7 +40,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
     public static JSONObject jsonObject;
     ProgressBar progressBar;
     boolean responseRecieved;
-    String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH"};
+    String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH", "MBA", "STAFF"};
     public static boolean registered;
     BroadcastReceiver receiver;
     public static JSONArray jsonArray;
@@ -87,6 +87,15 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                         //Adding onTabSelectedListener to swipe views
                         tabLayout.addOnTabSelectedListener(NotificationActivity.this);
                         tabLayout.setupWithViewPager(viewPager);
+
+                        switch(MainActivity.loginType)
+                        {
+                            case "":
+                                tabLayout.removeTabAt(7);
+                                break;
+                        }
+
+                        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
                         progressBar.setVisibility(View.GONE);
                         tabLayout.setVisibility(View.VISIBLE);

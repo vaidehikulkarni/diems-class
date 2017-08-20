@@ -39,12 +39,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -181,15 +179,14 @@ public class UploadNotice extends Fragment {
                     @Override
                     public void run() {
                         if (!responseReceived) {
-                            requestQueue.cancelAll("timeout");
+                            requestQueue.cancelAll("uploadNotice");
                             dialog.dismiss();
                             Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }, 15000);
+                }, 30000);
 
                 try {
-                    String URL = MainActivity.IP + "/notices" + "?access_token=" + MainActivity.accessToken;
                     JSONObject jsonBody = new JSONObject();
                     jsonBody.put("title", title.getText().toString().trim());
                     jsonBody.put("body", body.getText().toString().trim());
@@ -200,6 +197,7 @@ public class UploadNotice extends Fragment {
                     jsonBody.put("u_type", MainActivity.loginType);
                     jsonBody.put("end_date", endDate.getText().toString());
 
+                    String URL = MainActivity.IP + "/notices" + "?access_token=" + MainActivity.accessToken;
                     JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -218,6 +216,7 @@ public class UploadNotice extends Fragment {
                         }
                     });
 
+                    json_request.setTag("uploadNotice");
                     requestQueue.add(json_request);
                 } catch (JSONException e) {
                     e.printStackTrace();

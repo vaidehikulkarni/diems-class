@@ -26,7 +26,7 @@ public class ImageDisplay extends AppCompatActivity {
 
         Picasso
                 .with(this)
-                .load(NotificationFragment.imageSource)
+                .load(getIntent().getStringExtra("imageSource"))
                 .into(img, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -42,7 +42,7 @@ public class ImageDisplay extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(Html.fromHtml(NotificationFragment.imageTitle));
+            actionBar.setTitle(Html.fromHtml(getIntent().getStringExtra("title")));
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }

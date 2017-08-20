@@ -19,7 +19,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <ProgressBar
         android:layout_width="wrap_content"

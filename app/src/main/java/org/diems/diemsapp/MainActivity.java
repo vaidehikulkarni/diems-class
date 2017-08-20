@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String accessToken = "";
-    public static String IP = "http://27.0.141.34:81";
-    //    public static String IP = "http://172.16.8.55:8880";
+    public static String IP = org.diems.diemsapp.IP.baseAddress;
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager.popBackStack();
             } else if (!doubleBackToExitPressedOnce) {
                 this.doubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Press back again to exit.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
 

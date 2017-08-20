@@ -34,8 +34,6 @@ public class NotificationFragment extends Fragment {
     private AnimatedExpandableListView listView;
     TextView textView;
     boolean empty = true;
-    public static String imageSource;
-    public static String imageTitle;
 
     public NotificationFragment() {
 
@@ -162,7 +160,7 @@ public class NotificationFragment extends Fragment {
             if (convertView == null) {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.textTitle);
+                holder.title = (TextView) convertView.findViewById(R.id.textBody);
                 holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
                 holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
                 convertView.setTag(holder);
@@ -175,9 +173,10 @@ public class NotificationFragment extends Fragment {
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    imageSource = item.imageSrc;
-                    imageTitle = item.title;
-                    startActivity(new Intent(getActivity(), ImageDisplay.class));
+                    Intent intent = new Intent(getActivity(), ImageDisplay.class);
+                    intent.putExtra("imageSource", item.imageSrc);
+                    intent.putExtra("title", item.title);
+                    startActivity(intent);
                 }
             });
 
@@ -236,7 +235,7 @@ public class NotificationFragment extends Fragment {
             if (convertView == null) {
                 holder = new GroupHolder();
                 convertView = inflater.inflate(R.layout.group_item, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.textTitle);
+                holder.title = (TextView) convertView.findViewById(R.id.textBody);
                 convertView.setTag(holder);
             } else {
                 holder = (GroupHolder) convertView.getTag();
