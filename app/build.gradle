@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "org.diems.diemsapp"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "0.2-beta"
@@ -45,4 +45,5 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:24.2.0'
 }
