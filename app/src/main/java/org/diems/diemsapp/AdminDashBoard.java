@@ -299,12 +299,8 @@ public class AdminDashBoard extends Fragment {
 
     void checkEmpty() {
 
-        if (empty) {
-            if (listView != null)
-                listView.setBackgroundColor(getResources().getColor(R.color.grey));
+        if (empty)
             textView.setVisibility(View.VISIBLE);
-        } else
-            listView.setBackgroundColor(getResources().getColor(R.color.white));
     }
 
     void setUpListView() {

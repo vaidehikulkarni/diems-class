@@ -40,7 +40,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
     public static JSONObject jsonObject;
     ProgressBar progressBar;
     boolean responseRecieved;
-    String[] dept = {"All", "FE", "CSE", "ENTC", "CIVIL", "MECH", "MBA", "STAFF"};
+    String[] dept = {"All", "FE", "CSE", "E&TC", "CIVIL", "MECH", "MBA", "STAFF"};
     public static boolean registered;
     BroadcastReceiver receiver;
     public static JSONArray jsonArray;

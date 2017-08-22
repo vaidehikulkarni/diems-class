@@ -9,7 +9,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -42,6 +44,7 @@ public class SignInFragment extends Fragment {
     private String userType = "";
     private ProgressDialog dialog;
     private boolean responseRecieved;
+    private boolean showPassword = false;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -52,8 +55,7 @@ public class SignInFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         MainActivity.actionBar.setTitle("Sign In");
-        for(int i=0;i< MainActivity.navigationBarMenu.size(); i++)
-        {
+        for (int i = 0; i < MainActivity.navigationBarMenu.size(); i++) {
             MainActivity.navigationBarMenu.getItem(i).setChecked(false);
         }
 
@@ -68,6 +70,33 @@ public class SignInFragment extends Fragment {
         aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, login);
         sp.setAdapter(aa);
         manager = getFragmentManager();
+
+        password.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        if (showPassword)
+                        {
+                            password.setTransformationMethod(new PasswordTransformationMethod());
+                            showPassword = false;
+                        }
+                        else
+                        {
+                            password.setTransformationMethod(null);
+                            showPassword = true;
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -122,14 +151,13 @@ public class SignInFragment extends Fragment {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(!responseRecieved)
-                            {
+                            if (!responseRecieved) {
                                 requestQueue.cancelAll("timeout");
                                 dialog.dismiss();
                                 Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    },15000);
+                    }, 15000);
 
                     JSONObject json = new JSONObject();
                     json.put("username", username.getText().toString());

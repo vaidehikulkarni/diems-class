@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="org.diems.diemsapp.MainActivity"
     android:orientation="vertical"
-    android:backgroundTint="@color/white">
+    android:background="@color/white">
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView"

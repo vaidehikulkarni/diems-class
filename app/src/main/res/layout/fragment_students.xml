@@ -6,7 +6,7 @@
     tools:context="org.diems.diemsapp.Students"
     android:id="@+id/students_frag"
     android:orientation="vertical"
-    android:backgroundTint="@color/white">
+    android:background="@color/white">
 
     <!-- our tablayout to display tabs  -->
     <android.support.design.widget.TabLayout

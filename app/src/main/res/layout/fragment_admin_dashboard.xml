@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
+    android:background="@color/white"
     tools:context="org.diems.diemsapp.StaffDashboard">
-
-    <!--tools:context="diemsappp.StaffDashboard">-->
 
     <org.diems.diemsapp.AnimatedExpandableListView
         android:id="@+id/admin_animlistview"
@@ -15,10 +13,11 @@
 
     <TextView
         android:id="@+id/empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:text="No Recent Notices"
+        android:background="@color/grey"
         android:visibility="gone" />
 
     <android.support.design.widget.FloatingActionButton
