@@ -36,7 +36,7 @@ public class StaffDashboard extends Fragment {
         ct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent redirect=new Intent(getActivity(),ClassTestFragment.class);
+                //Intent redirect=new Intent(getActivity(),ClassTestStudentFragment.class);
                 //getActivity().startActivity(redirect);
                 transaction
                         .replace(R.id.login, new AttendanceFragment())
@@ -46,7 +46,7 @@ public class StaffDashboard extends Fragment {
         ct2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent redirect=new Intent(getActivity(),ClassTestFragment.class);
+                //Intent redirect=new Intent(getActivity(),ClassTestStudentFragment.class);
                 //getActivity().startActivity(redirect);
                 transaction
                         .replace(R.id.login, new AttendanceFragment())

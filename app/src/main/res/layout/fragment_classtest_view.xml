@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context="org.diems.diemsapp.ClassTestFragment">
+    tools:context="org.diems.diemsapp.ClassTestStudentFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,7 +38,7 @@ public class SignInFragment extends Fragment {
     private Button cont;
     private MaterialBetterSpinner sp;
     private MaterialEditText username, password;
-    private String[] login = {"Admin Login"};
+    private String[] login = {"Admin Login", "Staff Login"};
     private ArrayAdapter aa;
     private FragmentManager manager;
     private TextView error;
@@ -83,11 +84,13 @@ public class SignInFragment extends Fragment {
                     if (event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         if (showPassword)
                         {
+                            password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off_grey_24dp, 0);
                             password.setTransformationMethod(new PasswordTransformationMethod());
                             showPassword = false;
                         }
                         else
                         {
+                            password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_black_24dp, 0);
                             password.setTransformationMethod(null);
                             showPassword = true;
                         }
@@ -144,54 +147,57 @@ public class SignInFragment extends Fragment {
                     responseRecieved = false;
                     dialog = new ProgressDialog(getActivity());
                     dialog.setMessage("Loading");
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.setCancelable(false);
                     dialog.show();
 
                     final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!responseRecieved) {
-                                requestQueue.cancelAll("timeout");
-                                dialog.dismiss();
-                                Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }, 15000);
 
                     JSONObject json = new JSONObject();
                     json.put("username", username.getText().toString());
                     json.put("password", password.getText().toString());
 
+                    switch (sp.getText().toString())
+                    {
+                        case "Admin Login":
+                            json.put("u_type", "admin");
+                            break;
+
+                        case "Staff Login":
+                            json.put("u_type", "staff");
+                            break;
+                    }
+
                     String url = MainActivity.IP + "/login";
-                    JsonObjectRequest json_request = new JsonObjectRequest(url, json, new Response.Listener<JSONObject>() {
+                    final JsonObjectRequest json_request = new JsonObjectRequest(url, json, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
                                 responseRecieved = true;
                                 dialog.dismiss();
                                 if (response.getString("status").equals("202")) {
+                                    manager.popBackStack("sign in", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     FragmentTransaction transaction = manager
                                             .beginTransaction()
                                             .setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
-//                                            .addToBackStack(null);
                                     switch (userType) {
                                         case "student":
                                             transaction
-                                                    .replace(R.id.login, new StudentDashboard())
-                                                    .commit();
+                                                    .replace(R.id.login, new StudentDashboard());
                                             break;
                                         case "staff":
                                             transaction
-                                                    .replace(R.id.login, new StaffDashboard())
-                                                    .commit();
+                                                    .replace(R.id.login, new StaffDashboard());
                                             break;
                                         case "admin":
                                             transaction
-                                                    .replace(R.id.login, new AdminDashBoard())
-                                                    .commit();
+//                                                    .replace(R.id.login, new AdminDashBoard());
+                                                    .replace(R.id.login, new ClassTestFragment());
                                             break;
                                     }
+                                    transaction
+                                            .addToBackStack("login")
+                                            .commit();
                                     MainActivity.loginType = userType;
                                     MainActivity.accessToken = response.getString("access_token");
                                     MainActivity.checksignin();
@@ -210,6 +216,21 @@ public class SignInFragment extends Fragment {
 
                         }
                     });
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!json_request.hasHadResponseDelivered()) {
+                                requestQueue.cancelAll(json_request);
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, 15000);
+                    json_request.setRetryPolicy(new DefaultRetryPolicy(
+                            0,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     requestQueue.add(json_request);
                 } catch (JSONException e) {
                     e.printStackTrace();

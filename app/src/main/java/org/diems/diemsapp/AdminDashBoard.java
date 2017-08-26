@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -91,6 +92,10 @@ public class AdminDashBoard extends Fragment {
             }
         });
 
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(stringRequest);
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -115,7 +120,6 @@ public class AdminDashBoard extends Fragment {
     }
 
     private static class ChildItem {
-        String fwdTitleText;
         String bodyText;
         String imageSrc;
         String id;
@@ -159,7 +163,7 @@ public class AdminDashBoard extends Fragment {
         }
 
         @Override
-        public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        public View getRealChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
             final ChildHolder holder;
             final ChildItem item = getChild(groupPosition, childPosition);
             if (convertView == null) {
@@ -181,7 +185,7 @@ public class AdminDashBoard extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), ImageDisplay.class);
                     intent.putExtra("imageSource", item.imageSrc);
-                    intent.putExtra("title", item.fwdTitleText);
+                    intent.putExtra("body", items.get(groupPosition).titleText);
                     startActivity(intent);
                 }
             });
@@ -317,7 +321,6 @@ public class AdminDashBoard extends Fragment {
                 }
                 child.id = js.getString("id");
                 child.imageSrc = js.getString("img_url");
-                child.fwdTitleText = item.titleText;
                 item.items.add(child);
 
                 items.add(item);

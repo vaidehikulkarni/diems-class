@@ -42,7 +42,7 @@ public class ImageDisplay extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(Html.fromHtml(getIntent().getStringExtra("title")));
+            actionBar.setTitle(Html.fromHtml(getIntent().getStringExtra("body")));
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }

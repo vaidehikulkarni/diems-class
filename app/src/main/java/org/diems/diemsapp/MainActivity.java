@@ -3,7 +3,6 @@ package org.diems.diemsapp;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.sign_in:
                 transaction.replace(R.id.login, new SignInFragment())
-                        .addToBackStack(null)
+                        .addToBackStack("sign in")
                         .commit();
                 break;
             case R.id.contact:
@@ -154,21 +152,19 @@ public class MainActivity extends AppCompatActivity
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                fragmentManager.popBackStack("login", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 transaction
                                         .replace(R.id.login, new HomeFragment())
-//                                        .addToBackStack(null)
+                                        .addToBackStack(null)
                                         .commit();
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
                                 loginType = "";
                                 accessToken = "";
-                                checksignin();
                             }
                         })
                         .show();
                 break;
         }
-
-//        actionBar.setTitle(title);
 
         checksignin();
 
@@ -207,7 +203,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_class_test:
                 transaction
-                        .replace(R.id.login, new ClassTestFragment())
+                        .replace(R.id.login, new ClassTestStudentFragment())
                         .addToBackStack(null)
                         .commit();
                 break;

@@ -2,7 +2,6 @@ package org.diems.diemsapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,6 +18,7 @@ import android.widget.ProgressBar;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,10 +39,8 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
     private ViewPager viewPager;
     public static JSONObject jsonObject;
     ProgressBar progressBar;
-    boolean responseRecieved;
     String[] dept = {"All", "FE", "CSE", "E&TC", "CIVIL", "MECH", "MBA", "STAFF"};
     public static boolean registered;
-    BroadcastReceiver receiver;
     public static JSONArray jsonArray;
 
     @Override
@@ -63,13 +61,12 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         String url = MainActivity.IP + "/notices";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         try {
-                            responseRecieved = true;
                             jsonArray = new JSONArray(response);
 
                             for (String str : dept)
@@ -99,12 +96,11 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
             }
         });
 
-        responseRecieved = false;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!responseRecieved) {
+                if (!stringRequest.hasHadResponseDelivered()) {
 //                    viewPager.setVisibility(View.GONE);
                     try {
                         new MaterialDialog.Builder(NotificationActivity.this)
@@ -119,12 +115,16 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                                 })
                                 .show();
                     }
-                    catch (Exception e) {}
+                    catch (Exception ignored) {}
                 }
             }
         }, 15000);
 
         // Add the request to the RequestQueue.
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(stringRequest);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));

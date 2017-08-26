@@ -35,7 +35,7 @@ public class StudentDashboard extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
-                        .replace(R.id.login, new ClassTestFragment())
+                        .replace(R.id.login, new ClassTestStudentFragment())
                         .addToBackStack(null)
                         .commit();
             }
@@ -43,7 +43,7 @@ public class StudentDashboard extends Fragment {
         ct2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent redirect=new Intent(getActivity(),ClassTestFragment.class);
+                //Intent redirect=new Intent(getActivity(),ClassTestStudentFragment.class);
                 //getActivity().startActivity(redirect);
 
             }

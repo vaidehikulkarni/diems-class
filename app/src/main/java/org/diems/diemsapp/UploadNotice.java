@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -34,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -55,15 +57,12 @@ import java.util.Date;
 
 public class UploadNotice extends Fragment {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private Button btnSelect, btnSubmit;
     private ImageView ivImage;
     private String userChoosenTask;
     private EditText title, body;
     private MaterialBetterSpinner classsp, division, branch;
     private Bitmap bm;
-    private View view;
     private ProgressDialog dialog;
-    private boolean responseReceived;
     private boolean fromCamera;
     private String image;
     private TextView endDate, error;
@@ -77,9 +76,9 @@ public class UploadNotice extends Fragment {
                              Bundle savedInstanceState) {
         MainActivity.actionBar.setTitle("Upload Notice");
 
-        view = inflater.inflate(R.layout.fragment_upload_notice, container, false);
-        btnSelect = (Button) view.findViewById(R.id.btnSelectPhoto);
-        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
+        View view = inflater.inflate(R.layout.fragment_upload_notice, container, false);
+        Button btnSelect = (Button) view.findViewById(R.id.btnSelectPhoto);
+        Button btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
         classsp = (MaterialBetterSpinner) view.findViewById(R.id.classSpinner);
         division = (MaterialBetterSpinner) view.findViewById(R.id.divisionSpinner);
         branch = (MaterialBetterSpinner) view.findViewById(R.id.branchSpinner);
@@ -176,23 +175,13 @@ public class UploadNotice extends Fragment {
                     image = Base64.encodeToString(b, Base64.DEFAULT);
                 }
 
-                responseReceived = false;
                 dialog = new ProgressDialog(getActivity());
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
                 dialog.setMessage("Loading");
                 dialog.show();
 
                 final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!responseReceived) {
-                            requestQueue.cancelAll("uploadNotice");
-                            dialog.dismiss();
-                            Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, 30000);
 
                 try {
                     JSONObject jsonBody = new JSONObject();
@@ -206,10 +195,9 @@ public class UploadNotice extends Fragment {
                     jsonBody.put("end_date", endDate.getText().toString());
 
                     String URL = MainActivity.IP + "/notices" + "?access_token=" + MainActivity.accessToken;
-                    JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new Response.Listener<JSONObject>() {
+                    final JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            responseReceived = true;
                             dialog.dismiss();
                             getFragmentManager()
                                     .beginTransaction()
@@ -224,7 +212,22 @@ public class UploadNotice extends Fragment {
                         }
                     });
 
-                    json_request.setTag("uploadNotice");
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!json_request.hasHadResponseDelivered()) {
+                                requestQueue.cancelAll(json_request);
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, 30000);
+
+                    json_request.setRetryPolicy(new DefaultRetryPolicy(
+                            0,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     requestQueue.add(json_request);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -251,7 +254,7 @@ public class UploadNotice extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -64,9 +64,9 @@ public class NotificationFragment extends Fragment {
                 item.title = js.getString("title");
                 ChildItem child = new ChildItem();
                 if (!js.getString("body").equals("null"))
-                    child.title = js.getString("body");
+                    child.bodyText = js.getString("body");
                 else {
-                    child.title = "";
+                    child.bodyText = "";
                 }
                 child.imageSrc = js.getString("img_url");
                 item.items.add(child);
@@ -113,12 +113,12 @@ public class NotificationFragment extends Fragment {
     }
 
     private static class ChildItem {
-        String title;
+        String bodyText;
         String imageSrc;
     }
 
     private static class ChildHolder {
-        TextView title;
+        TextView body;
         ImageView image;
         ProgressBar progressBar;
     }
@@ -154,13 +154,13 @@ public class NotificationFragment extends Fragment {
         }
 
         @Override
-        public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        public View getRealChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
             final ChildHolder holder;
             final ChildItem item = getChild(groupPosition, childPosition);
             if (convertView == null) {
                 holder = new ChildHolder();
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
-                holder.title = (TextView) convertView.findViewById(R.id.textBody);
+                holder.body = (TextView) convertView.findViewById(R.id.textBody);
                 holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
                 holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
                 convertView.setTag(holder);
@@ -168,14 +168,14 @@ public class NotificationFragment extends Fragment {
                 holder = (ChildHolder) convertView.getTag();
             }
 
-            holder.title.setText(Html.fromHtml(item.title));
+            holder.body.setText(Html.fromHtml(item.bodyText));
 
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), ImageDisplay.class);
                     intent.putExtra("imageSource", item.imageSrc);
-                    intent.putExtra("title", item.title);
+                    intent.putExtra("body", items.get(groupPosition).title);
                     startActivity(intent);
                 }
             });

@@ -1,6 +1,7 @@
 package org.diems.diemsapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.view.WindowManager;
 
 public class SplashScreen extends AppCompatActivity {
 
-    int SPLASH_TIME_OUT = 2000;
+    int SPLASH_TIME_OUT = 4500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

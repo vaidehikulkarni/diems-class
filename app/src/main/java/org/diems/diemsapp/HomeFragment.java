@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -42,14 +43,20 @@ public class HomeFragment extends Fragment {
         viewFlipper.setAutoStart(true);
         viewFlipper.setFlipInterval(3000);
         viewFlipper.startFlipping();
-       viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in));
-        // viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out));
+        viewFlipper.setInAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in));
+        viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out));
+        viewFlipper.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                viewFlipper.showNext();
+                return false;
+            }
+        });
+
         TextView visiondiems = (TextView) view.findViewById(R.id.vision_diems);
         visiondiems.setText(Html.fromHtml(getString(R.string.visiondiems)));
         TextView missiondiems = (TextView) view.findViewById(R.id.mission_diems);
         missiondiems.setText(Html.fromHtml(getString(R.string.missiondiems)));
-
-
 
         return view;
     }

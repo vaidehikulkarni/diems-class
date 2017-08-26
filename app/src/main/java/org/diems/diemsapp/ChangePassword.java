@@ -1,7 +1,9 @@
 package org.diems.diemsapp;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -24,6 +28,7 @@ public class ChangePassword extends Fragment {
 
     MaterialEditText oldPass, newPass, reNewPass;
     TextView error;
+    RequestQueue requestQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +42,7 @@ public class ChangePassword extends Fragment {
         if (MainActivity.actionBarMenu.findItem(R.id.nav_account_changepass) != null)
             MainActivity.actionBarMenu.findItem(R.id.nav_account_changepass).setChecked(true);
 
+        requestQueue = Volley.newRequestQueue(getActivity());
         Button button = (Button) view.findViewById(R.id.btnCont);
         oldPass = (MaterialEditText) view.findViewById(R.id.oldPass);
         newPass = (MaterialEditText) view.findViewById(R.id.newPass);
@@ -84,7 +90,7 @@ public class ChangePassword extends Fragment {
                     e.printStackTrace();
                 }
 
-                JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.PUT, url, json, new Response.Listener<JSONObject>() {
+                final JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.PUT, url, json, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
@@ -109,10 +115,33 @@ public class ChangePassword extends Fragment {
                     }
                 });
 
-                Volley.newRequestQueue(getActivity()).add(json_request);
+                final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setMessage("Loading");
+                progressDialog.setCancelable(false);
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+
+                Handler handler = new Handler();
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!json_request.hasHadResponseDelivered())
+                        {
+                            progressDialog.dismiss();
+                            requestQueue.cancelAll(json_request);
+                            Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, 15000);
+
+                json_request.setRetryPolicy(new DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                requestQueue.add(json_request);
             }
         });
         return view;
     }
-
 }
