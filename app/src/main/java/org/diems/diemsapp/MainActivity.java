@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -35,28 +36,19 @@ public class MainActivity extends AppCompatActivity
     static ActionBar actionBar;
     FragmentTransaction transaction;
     DrawerLayout drawer;
+    static TextView name_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-
-
-//        Display display = getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-//        int width = size.x;
-//        int height = size.y;
-
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
-        // TODO : Replace empty string with value from database
-        loginType = "";
+        loginType = "admin";
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,12 +60,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.getChildAt(0).setVerticalScrollBarEnabled(false);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        fragmentManager = getFragmentManager();
+        name_user = (TextView) navigationView.getHeaderView(0).findViewById(R.id.name_user);
 
+        fragmentManager = getFragmentManager();
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.login, new HomeFragment())
-//                .addToBackStack(null)
                 .commit();
 
         navigationBarMenu = navigationView.getMenu();
@@ -160,6 +152,7 @@ public class MainActivity extends AppCompatActivity
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
                                 loginType = "";
                                 accessToken = "";
+                                checksignin();
                             }
                         })
                         .show();
@@ -203,7 +196,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_class_test:
                 transaction
-                        .replace(R.id.login, new ClassTestStudentFragment())
+                        .replace(R.id.login, new ClassTestFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -237,6 +230,7 @@ public class MainActivity extends AppCompatActivity
                         .addToBackStack(null)
                         .commit();
                 break;
+            case R.id.nav_account_changepass:
             case R.id.nav_admin_changepass:
                 transaction
                         .replace(R.id.login, new ChangePassword())
@@ -253,21 +247,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     static public void checksignin() {
-//        if (loginType.equals("")) {
-//            profile.setVisible(true);
-//            signout.setVisible(true);
-//            signin.setVisible(false);
-//            navigationBarMenu.setGroupVisible(R.id.nav_account, true);
-//        } else if(loginType.equals("staff") || loginType.equals("student")) {
-//            profile.setVisible(false);
-//            signout.setVisible(false);
-//            signin.setVisible(true);
-//            navigationBarMenu.setGroupVisible(R.id.nav_account, false);
-//        }
-//        else if (loginType.equals("admin"))
-//        {
-//
-//        }
         switch (loginType) {
             case "":
                 profile.setVisible(false);

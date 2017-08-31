@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/materialGrey"
     tools:context="org.diems.diemsapp.RedhatAcademy"
     android:orientation="vertical">
 
@@ -20,17 +20,25 @@
             android:padding="8dp"
             android:weightSum="1">
 
+            <!--<com.google.android.youtube.player.YouTubeThumbnailView-->
+                <!--android:id="@+id/youtubeThumbnailView"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="205dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp"/>-->
+
             <ImageView
                 android:id="@+id/imageview2"
                 android:layout_width="match_parent"
-                android:layout_height="265dp"
-                android:src="@drawable/redhat" />
+                android:layout_height="205dp"
+                android:src="@drawable/redhat"
+                android:contentDescription="Video Thumbnail" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:text="Glimpses:"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"

@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -26,12 +27,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +50,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,12 +61,13 @@ public class UploadNotice extends Fragment {
     private ImageView ivImage;
     private String userChoosenTask;
     private EditText title, body;
-    private MaterialBetterSpinner classsp, division, branch;
+    private Spinner classsp, division, branch;
     private Bitmap bm;
     private ProgressDialog dialog;
-    private boolean fromCamera;
+    private boolean fromCamera, fromGallery;
     private String image;
     private TextView endDate, error;
+    private TextInputLayout titleLayout, branchLayout, divisionLayout, classLayout;
 
     public UploadNotice() {
 
@@ -79,17 +81,21 @@ public class UploadNotice extends Fragment {
         View view = inflater.inflate(R.layout.fragment_upload_notice, container, false);
         Button btnSelect = (Button) view.findViewById(R.id.btnSelectPhoto);
         Button btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
-        classsp = (MaterialBetterSpinner) view.findViewById(R.id.classSpinner);
-        division = (MaterialBetterSpinner) view.findViewById(R.id.divisionSpinner);
-        branch = (MaterialBetterSpinner) view.findViewById(R.id.branchSpinner);
+        classsp = (Spinner) view.findViewById(R.id.classSpinner);
+        division = (Spinner) view.findViewById(R.id.divisionSpinner);
+        branch = (Spinner) view.findViewById(R.id.branchSpinner);
         title = (EditText) view.findViewById(R.id.noticeTitle);
         body = (EditText) view.findViewById(R.id.noticeBody);
         endDate = (TextView) view.findViewById(R.id.endDate);
         error = (TextView) view.findViewById(R.id.errorUpload);
+        titleLayout = (TextInputLayout) view.findViewById(R.id.titleLayout);
+        branchLayout = (TextInputLayout) view.findViewById(R.id.branchLayout);
+        divisionLayout = (TextInputLayout) view.findViewById(R.id.divisionLayout);
+        classLayout = (TextInputLayout) view.findViewById(R.id.classLayout);
 
-        String[] divisionArray = {"All", "1", "2", "3", "4", "5", "6", "7", "8"};
-        String[] branchArray = {"All", "FE", "CSE", "Mech", "E&TC", "Civil","MBA"};
-        String[] classArray = {"All", "FE", "SE", "TE", "BE"};
+        String[] divisionArray = {"Division", "All", "1", "2", "3", "4", "5", "6", "7", "8"};
+        String[] branchArray = {"Branch", "All", "FE", "CSE", "Mech", "E&TC", "Civil", "MBA", "Staff"};
+        String[] classArray = {"Class", "All", "FE", "SE", "TE", "BE"};
 
         ArrayAdapter aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, divisionArray);
         division.setAdapter(aa);
@@ -118,29 +124,27 @@ public class UploadNotice extends Fragment {
                 boolean cont = true;
                 String errorString = "";
                 if (title.getText().toString().trim().equals("")) {
-                    title.setError("Title is required");
+                    titleLayout.setError("Title is required");
                     cont = false;
                 }
 
-                if (fromCamera)
-                    if (mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) {
-                        errorString += "Please Select Photo";
-                        cont = false;
-                    } else
-                        error.setVisibility(View.GONE);
-
-                if (division.getText().toString().equals("")) {
-                    division.setError("Division is required");
+                if ((mCurrentPhotoPath == null || mCurrentPhotoPath.equals("")) || !(fromCamera || fromGallery)) {
+                    errorString += "Please Select Photo";
                     cont = false;
                 }
 
-                if (branch.getText().toString().equals("")) {
-                    branch.setError("Branch is required");
+                if (division.getSelectedItem().toString().equals("Division")) {
+                    divisionLayout.setError("Division is required");
                     cont = false;
                 }
 
-                if (classsp.getText().toString().equals("")) {
-                    classsp.setError("Class is required");
+                if (branch.getSelectedItem().toString().equals("Branch")) {
+                    branchLayout.setError("Branch is required");
+                    cont = false;
+                }
+
+                if (classsp.getSelectedItem().toString().equals("Class")) {
+                    classLayout.setError("Class is required");
                     cont = false;
                 }
 
@@ -149,8 +153,7 @@ public class UploadNotice extends Fragment {
                         errorString += "\n";
                     errorString += "Please Select End Date";
                     cont = false;
-                } else
-                    error.setVisibility(View.GONE);
+                }
 
                 if (!cont) {
                     if (!errorString.equals("")) {
@@ -188,14 +191,14 @@ public class UploadNotice extends Fragment {
                     jsonBody.put("title", title.getText().toString().trim());
                     jsonBody.put("body", body.getText().toString().trim());
                     jsonBody.put("image", image);
-                    jsonBody.put("class", classsp.getText().toString());
-                    jsonBody.put("branch", branch.getText().toString());
-                    jsonBody.put("division", division.getText().toString());
+                    jsonBody.put("class", classsp.getSelectedItem().toString());
+                    jsonBody.put("branch", branch.getSelectedItem().toString());
+                    jsonBody.put("division", division.getSelectedItem().toString());
                     jsonBody.put("u_type", MainActivity.loginType);
-                    jsonBody.put("end_date", endDate.getText().toString());
+                    jsonBody.put("end_date", formatDate(endDate.getText().toString(), "dd/mm/yyyy", "yyyy/mm/dd"));
 
-                    String URL = MainActivity.IP + "/notices" + "?access_token=" + MainActivity.accessToken;
-                    final JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new Response.Listener<JSONObject>() {
+                    String url = MainActivity.IP + "/api/notices?access_token=" + MainActivity.accessToken;
+                    final JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             dialog.dismiss();
@@ -207,7 +210,7 @@ public class UploadNotice extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), "Error Occured. Please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error Occurred. Please try again", Toast.LENGTH_SHORT).show();
                             Log.e("Volley Error", error.getMessage());
                         }
                     });
@@ -219,17 +222,19 @@ public class UploadNotice extends Fragment {
                             if (!json_request.hasHadResponseDelivered()) {
                                 requestQueue.cancelAll(json_request);
                                 dialog.dismiss();
-                                Toast.makeText(getActivity(), "Error occured. Please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Error occurred. Please try again", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, 30000);
 
                     json_request.setRetryPolicy(new DefaultRetryPolicy(
-                            0,
+                            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     requestQueue.add(json_request);
-                } catch (JSONException e) {
+                } catch (JSONException | ParseException e) {
+                    if (dialog.isShowing())
+                        dialog.dismiss();
                     e.printStackTrace();
                 }
             }
@@ -325,15 +330,16 @@ public class UploadNotice extends Fragment {
     private void onCaptureImageResult(Intent data) throws IOException {
 
         fromCamera = true;
+        fromGallery = false;
         File f = new File(mCurrentPhotoPath);
         Uri contentUri = Uri.fromFile(f);
         ivImage.setImageURI(contentUri);
     }
 
-    @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
         fromCamera = false;
+        fromGallery = true;
         bm = null;
         if (data != null) {
             try {
@@ -393,5 +399,13 @@ public class UploadNotice extends Fragment {
         mCurrentPhotoPath = image.getAbsolutePath();
         mCurrentPhotoName = imageFileName;
         return image;
+    }
+
+    static String formatDate(String date, String initDateFormat, String endDateFormat) throws ParseException {
+
+        Date initDate = new SimpleDateFormat(initDateFormat).parse(date);
+        SimpleDateFormat formatter = new SimpleDateFormat(endDateFormat);
+
+        return formatter.format(initDate);
     }
 }

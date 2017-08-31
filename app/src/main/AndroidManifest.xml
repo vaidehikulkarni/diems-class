@@ -16,7 +16,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme">
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -44,18 +44,19 @@
             android:name="org.diems.diemsapp.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="org.diems.diemsapp.Profile"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="org.diems.diemsapp.NotificationActivity" />
+            android:screenOrientation="portrait" />
+        <activity android:name="org.diems.diemsapp.NotificationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="org.diems.diemsapp.RedhatVideo"
-            android:screenOrientation="landscape" />
-        <activity android:name="org.diems.diemsapp.Contact" />
-        <activity android:name="org.diems.diemsapp.ImageDisplay" />
+            android:screenOrientation="portrait" />
+        <activity android:name="org.diems.diemsapp.Contact"
+            android:screenOrientation="portrait"/>
+        <activity android:name="org.diems.diemsapp.ImageDisplay"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

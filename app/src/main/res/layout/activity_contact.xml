@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="org.diems.diemsapp.Contact">
 
     <include layout="@layout/app_bar_main" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,66 +20,69 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/name"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:hint="Enter Name"
-                android:inputType="textPersonName"
-                android:textCursorDrawable="@drawable/cursor_color"
-                app:met_errorColor="@color/FireBrick"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelTextColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary" />
+                android:layout_height="wrap_content">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/mail"
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="Enter Name"
+                    android:inputType="textPersonName"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:hint="Enter Email Id"
-                android:inputType="textEmailAddress"
-                android:textCursorDrawable="@drawable/cursor_color"
-                app:met_errorColor="@color/FireBrick"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelTextColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="Enter Email Id"
+                    android:inputType="textEmailAddress"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+            </android.support.design.widget.TextInputLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="25dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:hint="Enter Message"
-                android:maxLines="5"
-                android:minLines="3"
-                android:scrollbars="vertical"
-                android:textCursorDrawable="@drawable/cursor_color"
-                app:met_errorColor="@color/FireBrick"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelTextColor="@color/colorPrimary"
-                app:met_primaryColor="@color/colorPrimary"
-                android:ems="10"
-                android:gravity="top"
-                android:imeOptions="flagNoExtractUi"
-                android:scrollHorizontally="false"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbarStyle="insideInset"
-                android:overScrollMode="always"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="Enter Message"
+                    android:imeOptions="flagNoExtractUi"
+                    android:maxLines="5"
+                    android:minLines="3"
+                    android:overScrollMode="always"
+                    android:scrollHorizontally="false"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+                </android.support.design.widget.TextInputLayout>
             </ScrollView>
 
             <Button
@@ -101,7 +105,7 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/contact_us"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black" />
 
         </LinearLayout>
     </ScrollView>

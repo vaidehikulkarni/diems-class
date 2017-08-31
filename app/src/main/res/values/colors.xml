@@ -7,10 +7,11 @@
 
     <color name="colortransperant">#603a5677</color>
     <color name="materialBlack">#212121</color>
-
     <color name="materialRed">#B71C1C</color>
     <color name="materialGreen">#4CAF50</color>
     <color name="materialYellow">#FDD835</color>
+    <color name="materialGrey">#EEEEEE</color>
+
     <color name="list_item_title">#fff</color>
     <color name="list_background">#303030</color>
     <color name="list_background_pressed">#992416</color>

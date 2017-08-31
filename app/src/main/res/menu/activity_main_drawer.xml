@@ -48,6 +48,7 @@
         <item
             android:id="@+id/nav_signout"
             android:icon="@drawable/ic_lock_outline_black_24dp"
+            android:checkable="false"
             android:title="Sign Out" />
     </group>
 
@@ -68,6 +69,4 @@
             android:icon="@drawable/ic_visibility_off_black_24dp"
             android:title="Change Password" />
     </group>
-    <!--</menu>-->
-    <!--</item>-->
 </menu>

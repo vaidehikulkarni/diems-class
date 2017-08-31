@@ -9,20 +9,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.rengwuxian.materialedittext.MaterialEditText;
-
 public class Contact extends AppCompatActivity {
 
-    TextView contact;
+    TextView contact, message, name, mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +34,7 @@ public class Contact extends AppCompatActivity {
 
         contact = (TextView) findViewById(R.id.contact);
         contact.setText(Html.fromHtml(getString(R.string.contact_us)));
-        final MaterialEditText message = (MaterialEditText) findViewById(R.id.message);
+        message = (EditText) findViewById(R.id.message);
         message.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -57,8 +50,8 @@ public class Contact extends AppCompatActivity {
             }
         });
 
-        final MaterialEditText name = (MaterialEditText) findViewById(R.id.name);
-        final MaterialEditText mail = (MaterialEditText) findViewById(R.id.mail);
+        name = (EditText) findViewById(R.id.name);
+        mail = (EditText) findViewById(R.id.mail);
         Button button = (Button) findViewById(R.id.btncont);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

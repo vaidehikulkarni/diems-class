@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,9 +27,10 @@ import org.json.JSONObject;
 
 public class ChangePassword extends Fragment {
 
-    MaterialEditText oldPass, newPass, reNewPass;
+    EditText oldPass, newPass, reNewPass;
     TextView error;
     RequestQueue requestQueue;
+    TextInputLayout oldPassLayout, newPassLayout, reNewPassLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,26 +46,30 @@ public class ChangePassword extends Fragment {
 
         requestQueue = Volley.newRequestQueue(getActivity());
         Button button = (Button) view.findViewById(R.id.btnCont);
-        oldPass = (MaterialEditText) view.findViewById(R.id.oldPass);
-        newPass = (MaterialEditText) view.findViewById(R.id.newPass);
-        reNewPass = (MaterialEditText) view.findViewById(R.id.reNewPass);
+        oldPass = (EditText) view.findViewById(R.id.oldPass);
+        newPass = (EditText) view.findViewById(R.id.newPass);
+        reNewPass = (EditText) view.findViewById(R.id.reNewPass);
         error = (TextView) view.findViewById(R.id.errorpass);
+        oldPassLayout = (TextInputLayout) view.findViewById(R.id.oldPassLayout);
+        newPassLayout = (TextInputLayout) view.findViewById(R.id.newPassLayout);
+        reNewPassLayout = (TextInputLayout) view.findViewById(R.id.reNewPassLayout);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean cont = true;
                 if (oldPass.getText().toString().trim().equals("")) {
-                    oldPass.setError("Old password is required");
+                    oldPassLayout.setError("Old password is required");
                     cont = false;
                 }
 
                 if (newPass.getText().toString().trim().equals("")) {
-                    newPass.setError("New password is required");
+                    newPassLayout.setError("New password is required");
                     cont = false;
                 }
 
                 if (reNewPass.getText().toString().trim().equals("")) {
-                    reNewPass.setError("New password is required");
+                    reNewPassLayout.setError("New password is required");
                     cont = false;
                 }
 
@@ -80,7 +86,7 @@ public class ChangePassword extends Fragment {
                     return;
                 }
 
-                String url = MainActivity.IP + "/changepass?access_token=" + MainActivity.accessToken;
+                String url = MainActivity.IP + "/api/changepass?access_token=" + MainActivity.accessToken;
 
                 JSONObject json = new JSONObject();
                 try {

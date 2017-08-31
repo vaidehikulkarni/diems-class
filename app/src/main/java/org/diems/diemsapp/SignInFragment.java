@@ -9,15 +9,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
-import android.text.method.PasswordTransformationMethod;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,16 +35,17 @@ import org.json.JSONObject;
 
 public class SignInFragment extends Fragment {
     private Button cont;
-    private MaterialBetterSpinner sp;
-    private MaterialEditText username, password;
+    private Spinner sp;
+    private EditText username, password;
     private String[] login = {"Admin Login", "Staff Login"};
     private ArrayAdapter aa;
     private FragmentManager manager;
     private TextView error;
     private String userType = "";
     private ProgressDialog dialog;
-    private boolean responseRecieved;
-    private boolean showPassword = false;
+    private TextInputLayout usernameLayout, passwordLayout;
+
+    Handler handler;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -62,64 +62,18 @@ public class SignInFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+
+        usernameLayout = (TextInputLayout) view.findViewById(R.id.usernameLayout);
+        passwordLayout = (TextInputLayout) view.findViewById(R.id.passwordLayout);
         cont = (Button) view.findViewById(R.id.btncont);
-        sp = (MaterialBetterSpinner) view.findViewById(R.id.spinner);
-        username = (MaterialEditText) view.findViewById(R.id.username);
-        password = (MaterialEditText) view.findViewById(R.id.password);
+        sp = (Spinner) view.findViewById(R.id.spinner);
+        username = (EditText) view.findViewById(R.id.username);
+        password = (EditText) view.findViewById(R.id.password);
         error = (TextView) view.findViewById(R.id.error);
 
         aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, login);
         sp.setAdapter(aa);
         manager = getFragmentManager();
-
-        password.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        if (showPassword)
-                        {
-                            password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off_grey_24dp, 0);
-                            password.setTransformationMethod(new PasswordTransformationMethod());
-                            showPassword = false;
-                        }
-                        else
-                        {
-                            password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_black_24dp, 0);
-                            password.setTransformationMethod(null);
-                            showPassword = true;
-                        }
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
-        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (!username.getText().toString().matches(".+"))
-                        username.setError("Username is required");
-                }
-            }
-        });
-
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (!password.getText().toString().matches(".+"))
-                        password.setError("Password is required");
-                }
-            }
-        });
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -144,7 +98,14 @@ public class SignInFragment extends Fragment {
                     if (!validate())
                         return;
 
-                    responseRecieved = false;
+                    //Bypass login for testing
+//                    if (sp.getText().toString().equals("Staff Login")) {
+//                        getFragmentManager()
+//                                .beginTransaction()
+//                                .replace(R.id.login, new ClassTestFragment())
+//                                .commit();
+//                        return;
+//                    }
                     dialog = new ProgressDialog(getActivity());
                     dialog.setMessage("Loading");
                     dialog.setCanceledOnTouchOutside(false);
@@ -157,8 +118,7 @@ public class SignInFragment extends Fragment {
                     json.put("username", username.getText().toString());
                     json.put("password", password.getText().toString());
 
-                    switch (sp.getText().toString())
-                    {
+                    switch (sp.getSelectedItem().toString()) {
                         case "Admin Login":
                             json.put("u_type", "admin");
                             break;
@@ -168,12 +128,11 @@ public class SignInFragment extends Fragment {
                             break;
                     }
 
-                    String url = MainActivity.IP + "/login";
+                    String url = MainActivity.IP + "/api/login";
                     final JsonObjectRequest json_request = new JsonObjectRequest(url, json, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                responseRecieved = true;
                                 dialog.dismiss();
                                 if (response.getString("status").equals("202")) {
                                     manager.popBackStack("sign in", FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -187,17 +146,18 @@ public class SignInFragment extends Fragment {
                                             break;
                                         case "staff":
                                             transaction
-                                                    .replace(R.id.login, new StaffDashboard());
+//                                                    .replace(R.id.login, new StaffDashboard());
+                                                    .replace(R.id.login, new ClassTestFragment());
                                             break;
                                         case "admin":
                                             transaction
-//                                                    .replace(R.id.login, new AdminDashBoard());
-                                                    .replace(R.id.login, new ClassTestFragment());
+                                                    .replace(R.id.login, new AdminDashBoard());
                                             break;
                                     }
                                     transaction
                                             .addToBackStack("login")
                                             .commit();
+                                    MainActivity.name_user.setText(response.getString("username"));
                                     MainActivity.loginType = userType;
                                     MainActivity.accessToken = response.getString("access_token");
                                     MainActivity.checksignin();
@@ -213,10 +173,10 @@ public class SignInFragment extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    Handler handler = new Handler();
+                    handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -254,16 +214,16 @@ public class SignInFragment extends Fragment {
     boolean validate() {
         boolean cont = true;
         if (username.getText().toString().trim().equals("")) {
-            username.setError("Username is required");
+            usernameLayout.setError("Username is required");
             cont = false;
         }
 
         if (password.getText().toString().trim().equals("")) {
-            password.setError("Password is required");
+            passwordLayout.setError("Password is required");
             cont = false;
         }
 
-        switch (sp.getText().toString()) {
+        switch (sp.getSelectedItem().toString()) {
             case "Student Login":
                 userType = "student";
                 error.setVisibility(View.GONE);
@@ -283,5 +243,12 @@ public class SignInFragment extends Fragment {
         }
 
         return cont;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (handler != null)
+            handler.removeCallbacksAndMessages(null);
     }
 }

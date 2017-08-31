@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -58,14 +59,13 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
         jsonObject = new JSONObject();
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(NotificationActivity.this);
-        String url = MainActivity.IP + "/notices";
+        String url = MainActivity.IP + "/api/notices";
 
         // Request a string response from the provided URL.
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
                         try {
                             jsonArray = new JSONArray(response);
 
@@ -92,6 +92,8 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(NotificationActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 jsonObject = null;
             }
         });
@@ -113,6 +115,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
                                         onBackPressed();
                                     }
                                 })
+                                .canceledOnTouchOutside(false)
                                 .show();
                     }
                     catch (Exception ignored) {}

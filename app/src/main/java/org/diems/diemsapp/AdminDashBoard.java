@@ -70,7 +70,7 @@ public class AdminDashBoard extends Fragment {
         MainActivity.navigationBarMenu.findItem(R.id.nav_admin_dashboard).setChecked(true);
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = MainActivity.IP + "/self/notices" + "?access_token=" + MainActivity.accessToken;
+        String url = MainActivity.IP + "/api/notices/self?access_token=" + MainActivity.accessToken;
 
         progressBar.setVisibility(View.VISIBLE);
         // Request a string response from the provided URL.
@@ -193,9 +193,9 @@ public class AdminDashBoard extends Fragment {
             holder.btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String URL = MainActivity.IP + "/notices/" + item.id + "?access_token=" + MainActivity.accessToken;
+                    String url = MainActivity.IP + "/api/notices/" + item.id + "?access_token=" + MainActivity.accessToken;
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.DELETE, URL, new Response.Listener<String>() {
+                    StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             try {
