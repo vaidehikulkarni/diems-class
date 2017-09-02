@@ -53,6 +53,7 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cv2"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_margin="16dp"
