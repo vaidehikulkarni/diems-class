@@ -2,6 +2,7 @@ package org.diems.diemsapp;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.transition.TransitionManager;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,17 @@ public class ClassTestFragment extends Fragment {
         //Initialise request queue
         requestQueue = Volley.newRequestQueue(getActivity());
 
+        myClass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TransitionManager.beginDelayedTransition((ViewGroup) getActivity().findViewById(R.id.login));
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, new ClassTestList())
+                        .commit();
+            }
+        });
+
         String url = MainActivity.IP + "/api/staff?access_token=" + MainActivity.accessToken;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -86,7 +98,7 @@ public class ClassTestFragment extends Fragment {
                     {
                         //my_mentees exists
                         JSONObject my_mentees = res.getJSONObject("my_mentees");
-                        totalStudentsClass.setText(my_mentees.getString("total_students"));
+                        totalStudentsMentees.setText(my_mentees.getString("total_students"));
                         myMentees.setVisibility(View.VISIBLE);
                     }
 

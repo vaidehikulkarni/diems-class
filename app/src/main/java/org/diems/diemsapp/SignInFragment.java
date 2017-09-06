@@ -44,7 +44,8 @@ public class SignInFragment extends Fragment {
     private String userType = "";
     private ProgressDialog dialog;
     private TextInputLayout usernameLayout, passwordLayout;
-
+    JsonObjectRequest json_request;
+    RequestQueue requestQueue;
     Handler handler;
 
     public SignInFragment() {
@@ -70,6 +71,7 @@ public class SignInFragment extends Fragment {
         username = (EditText) view.findViewById(R.id.username);
         password = (EditText) view.findViewById(R.id.password);
         error = (TextView) view.findViewById(R.id.error);
+        requestQueue = Volley.newRequestQueue(getActivity());
 
         aa = new ArrayAdapter(getActivity(), android.R.layout.simple_dropdown_item_1line, login);
         sp.setAdapter(aa);
@@ -112,8 +114,6 @@ public class SignInFragment extends Fragment {
                     dialog.setCancelable(false);
                     dialog.show();
 
-                    final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-
                     JSONObject json = new JSONObject();
                     json.put("username", username.getText().toString());
                     json.put("password", password.getText().toString());
@@ -132,7 +132,7 @@ public class SignInFragment extends Fragment {
                     }
 
                     String url = MainActivity.IP + "/api/login";
-                    final JsonObjectRequest json_request = new JsonObjectRequest(url, json, new Response.Listener<JSONObject>() {
+                    json_request = new JsonObjectRequest(url, json, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
@@ -249,9 +249,12 @@ public class SignInFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStop() {
+        super.onStop();
         if (handler != null)
             handler.removeCallbacksAndMessages(null);
+
+        if (json_request != null)
+            requestQueue.cancelAll(json_request);
     }
 }
