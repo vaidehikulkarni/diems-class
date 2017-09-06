@@ -7,9 +7,9 @@
         android:title="@string/sign_in"
         app:showAsAction="never" />
     <item
-        android:id="@+id/contact"
+        android:id="@+id/feedback"
         android:orderInCategory="100"
-        android:title="@string/contact"
+        android:title="Feedback"
         app:showAsAction="never" />
     <item
         android:id="@+id/notification"
@@ -27,4 +27,7 @@
         android:orderInCategory="100"
         android:title="@string/sign_out"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/about_app"
+        android:title="About"/>
 </menu>

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;
-    static MenuItem profile, notification, signin, signout;
+    static MenuItem profile, notification, signin, signout,aboutapp;
     static String loginType;
     static Menu actionBarMenu, navigationBarMenu;
     static ActionBar actionBar;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
-        loginType = "";
+        loginType = "student";
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity
         notification = menu.findItem(R.id.notification);
         signin = menu.findItem(R.id.sign_in);
         signout = menu.findItem(R.id.sign_out);
+        aboutapp=menu.findItem(R.id.about_app);
         checksignin();
 
         return true;
@@ -120,12 +121,15 @@ public class MainActivity extends AppCompatActivity
         transaction = fragmentManager.beginTransaction().setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
 
         switch (id) {
+            case R.id.about_app:
+                startActivity(new Intent(this,AboutApp.class));
+                break;
             case R.id.sign_in:
                 transaction.replace(R.id.login, new SignInFragment())
                         .addToBackStack("sign in")
                         .commit();
                 break;
-            case R.id.contact:
+            case R.id.feedback:
                 startActivity(new Intent(this, Contact.class));
                 break;
             case R.id.notification:
@@ -195,10 +199,18 @@ public class MainActivity extends AppCompatActivity
                         .commit();
                 break;
             case R.id.nav_class_test:
-                transaction
-                        .replace(R.id.login, new ClassTestFragment())
-                        .addToBackStack(null)
-                        .commit();
+
+                if (loginType.equals("student")) {
+                    transaction
+                            .replace(R.id.login, new ClassTestStudentFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else if (loginType.equals("staff")) {
+                    transaction
+                            .replace(R.id.login, new ClassTestFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
                 break;
             case R.id.nav_attendance:
                 break;
@@ -249,6 +261,7 @@ public class MainActivity extends AppCompatActivity
     static public void checksignin() {
         switch (loginType) {
             case "":
+               aboutapp.setVisible(true);
                 profile.setVisible(false);
                 signout.setVisible(false);
                 signin.setVisible(true);
@@ -256,7 +269,15 @@ public class MainActivity extends AppCompatActivity
                 navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
                 break;
             case "student":
+                aboutapp.setVisible(true);
+                profile.setVisible(true);
+                signout.setVisible(true);
+                signin.setVisible(false);
+                navigationBarMenu.setGroupVisible(R.id.nav_account, true);
+                navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
+                break;
             case "staff":
+                aboutapp.setVisible(true);
                 profile.setVisible(true);
                 signout.setVisible(true);
                 signin.setVisible(false);
@@ -264,6 +285,7 @@ public class MainActivity extends AppCompatActivity
                 navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
                 break;
             case "admin":
+                aboutapp.setVisible(true);
                 profile.setVisible(false);
                 signout.setVisible(true);
                 signin.setVisible(false);
@@ -271,5 +293,9 @@ public class MainActivity extends AppCompatActivity
                 navigationBarMenu.setGroupVisible(R.id.nav_admin, true);
                 break;
         }
+
+        navigationBarMenu.findItem(R.id.nav_attendance).setVisible(false);
+        navigationBarMenu.findItem(R.id.nav_dashboard).setVisible(false);
+
     }
 }

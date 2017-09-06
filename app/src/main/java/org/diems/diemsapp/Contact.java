@@ -28,7 +28,7 @@ public class Contact extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Contact Us");
+            actionBar.setTitle("feedback");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 

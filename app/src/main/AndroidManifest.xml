@@ -52,13 +52,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".RedhatVideo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Contact"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ImageDisplay"
             android:screenOrientation="portrait" />
+        <activity android:name=".AboutApp"  android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

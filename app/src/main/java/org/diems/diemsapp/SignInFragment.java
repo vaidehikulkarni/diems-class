@@ -37,7 +37,7 @@ public class SignInFragment extends Fragment {
     private Button cont;
     private Spinner sp;
     private EditText username, password;
-    private String[] login = {"Admin Login", "Staff Login"};
+    private String[] login = {"Student Login", "Staff Login","Admin Login"};
     private ArrayAdapter aa;
     private FragmentManager manager;
     private TextView error;
@@ -125,6 +125,9 @@ public class SignInFragment extends Fragment {
 
                         case "Staff Login":
                             json.put("u_type", "staff");
+                            break;
+                        case "Student Login":
+                            json.put("u_type", "student");
                             break;
                     }
 
