@@ -8,18 +8,18 @@
     tools:context="org.diems.diemsapp.SplashScreen">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="50dp"
-        android:layout_gravity="center"/>
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="logo" />
 
-        <pl.droidsonroids.gif.GifImageView
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:src="@drawable/loading"
-            android:layout_gravity="bottom"/>
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/loading" />
 
 </FrameLayout>

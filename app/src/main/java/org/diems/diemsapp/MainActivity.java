@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
-        loginType = "admin";
+        loginType = "";
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

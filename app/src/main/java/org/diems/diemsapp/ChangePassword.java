@@ -62,6 +62,8 @@ public class ChangePassword extends Fragment {
                     oldPassLayout.setError("Old password is required");
                     cont = false;
                 }
+                else
+                    oldPassLayout.setError(null);
 
                 if (newPass.getText().toString().trim().equals("")) {
                     newPassLayout.setError("New password is required");
@@ -77,12 +79,12 @@ public class ChangePassword extends Fragment {
                     return;
 
                 if (oldPass.getText().toString().equals(newPass.getText().toString())) {
-                    newPass.setError("Old and new password cannot be same");
+                    newPassLayout.setError("Old and new password cannot be same");
                     return;
                 }
 
                 if (!newPass.getText().toString().equals(reNewPass.getText().toString())) {
-                    reNewPass.setError("Both password do not match");
+                    reNewPassLayout.setError("Both password do not match");
                     return;
                 }
 
@@ -96,10 +98,17 @@ public class ChangePassword extends Fragment {
                     e.printStackTrace();
                 }
 
+                final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setMessage("Loading");
+                progressDialog.setCancelable(false);
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+
                 final JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.PUT, url, json, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            progressDialog.dismiss();
                             if (response.getString("status").equals("202")) {
                                 MainActivity.accessToken = response.getString("access_token");
                                 Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
@@ -117,15 +126,10 @@ public class ChangePassword extends Fragment {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
                         Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-                progressDialog.setMessage("Loading");
-                progressDialog.setCancelable(false);
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
 
                 Handler handler = new Handler();
 
@@ -142,7 +146,7 @@ public class ChangePassword extends Fragment {
                 }, 15000);
 
                 json_request.setRetryPolicy(new DefaultRetryPolicy(
-                        0,
+                        DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 requestQueue.add(json_request);

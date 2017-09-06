@@ -246,12 +246,14 @@ public class UploadNotice extends Fragment {
         selectDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        endDate.setText(dayOfMonth + "/" + month + "/" + year);
+                        endDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
             }
         });
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
