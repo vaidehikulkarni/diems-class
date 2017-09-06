@@ -27,30 +27,74 @@
         android:src="@mipmap/ic_launcher"
         android:layout_marginBottom="8dp"
         android:layout_weight="0.04" />
-    <!--<TextView-->
-        <!--android:paddingBottom="0dp"-->
-        <!--android:paddingTop="0dp"-->
-        <!--android:paddingLeft="20dp"-->
-        <!--android:paddingRight="20dp"-->
-        <!--android:id="@+id/about_text"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:gravity="center_vertical|center_horizontal"-->
-        <!--android:text="@string/aboapp"-->
-        <!--android:textColor="@color/Black" />-->
-    <ListView
+
+    <TextView   android:background="?attr/selectableItemBackground"
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingTop="0dp"
-        android:paddingRight="20dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="15dp"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colortransperant"
+        />
+    <TextView  android:background="?attr/selectableItemBackground"
+    android:paddingBottom="10dp"
+android:paddingTop="10dp"
+        android:clickable="true"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:id="@+id/about_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:gravity="center_vertical|center_horizontal"
+    android:text="@string/aboapp"
+        android:layout_weight="0.05" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colortransperant"
+        />
+    <TextView  android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:paddingLeft="20dp"
-android:layout_gravity="center_horizontal"
+        android:paddingRight="20dp"
+        android:text="Feedback"
+        android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listabout">
 
-    </ListView>
-
-
-
+        android:gravity="center_vertical|center_horizontal"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colortransperant"
+        />
+    <TextView
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/website"
+        android:textColor="@color/colorPrimary"
+        android:autoLink="web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        />
 </LinearLayout>
