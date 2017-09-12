@@ -6,11 +6,11 @@
         android:orderInCategory="10"
         android:title="@string/sign_in"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/feedback"
-        android:orderInCategory="100"
-        android:title="Feedback"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/feedback"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Feedback"-->
+        <!--app:showAsAction="never" />-->
     <item
         android:id="@+id/notification"
         android:icon="@drawable/ic_notifications"

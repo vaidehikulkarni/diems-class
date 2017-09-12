@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity
                         .addToBackStack("sign in")
                         .commit();
                 break;
-            case R.id.feedback:
-                startActivity(new Intent(this, Contact.class));
-                break;
+//            case R.id.feedback:
+//                startActivity(new Intent(this, Contact.class));
+//                break;
             case R.id.notification:
                 startActivity(new Intent(this, NotificationActivity.class));
                 break;

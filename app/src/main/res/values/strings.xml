@@ -25,6 +25,7 @@
     <!--<item></item>-->
     <!--<item></item>-->
     <!--</string-array>-->
+
 <string name="aboapp">This app shows all Notices of all the Engineering Departments of Deogiri Institute Of Engineering And Management Studies, Aurangabad. This will ease to circulate the notices on-line.It also provides tabular and graphical view of Classtest marks and Attendance of all students.</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
