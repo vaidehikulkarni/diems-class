@@ -44,7 +44,7 @@ public class Attstud_list extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_attstud_list, container, false);
 
-        //Creating the instance of ArrayAdapter containing list of language names
+        //Creating the instance of ArrayAdapter containing marksTeacherList of language names
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.select_dialog_item,language);
         //Getting the instance of AutoCompleteTextView
         AutoCompleteTextView actv= (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextView1);

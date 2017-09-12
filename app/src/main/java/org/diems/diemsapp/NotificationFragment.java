@@ -129,7 +129,7 @@ public class NotificationFragment extends Fragment {
     }
 
     /**
-     * Adapter for our list of {@link GroupItem}s.
+     * Adapter for our marksTeacherList of {@link GroupItem}s.
      */
     private class ExampleAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
         private LayoutInflater inflater;

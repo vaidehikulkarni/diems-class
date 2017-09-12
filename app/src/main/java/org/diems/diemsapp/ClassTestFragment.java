@@ -30,6 +30,7 @@ public class ClassTestFragment extends Fragment {
     CardView myClass, myMentees, subject1, subject2, subject3;
     TextView totalStudentsClass, totalStudentsMentees, subjectName1, subjectName2, subjectName3, belowAverage1, belowAverage2, belowAverage3;
     RequestQueue requestQueue;
+    String subjectId1, subjectId2, subjectId3;
 
     public ClassTestFragment() {
         // Required empty public constructor
@@ -67,10 +68,91 @@ public class ClassTestFragment extends Fragment {
         myClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ClassTestList classTestList = new ClassTestList();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "teacher");
+                bundle.putString("name", "my_class");
+                classTestList.setArguments(bundle);
+
                 TransitionManager.beginDelayedTransition((ViewGroup) getActivity().findViewById(R.id.login));
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.login, new ClassTestList())
+                        .addToBackStack(null)
+                        .replace(R.id.login, classTestList)
+                        .commit();
+            }
+        });
+
+        myMentees.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ClassTestList classTestList = new ClassTestList();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "teacher");
+                bundle.putString("name", "my_mentees");
+                classTestList.setArguments(bundle);
+
+                TransitionManager.beginDelayedTransition((ViewGroup) getActivity().findViewById(R.id.login));
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.login, classTestList)
+                        .commit();
+            }
+        });
+
+        subject1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassTestList classTestList = new ClassTestList();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "subject");
+                bundle.putString("name", subjectName1.getText().toString());
+                bundle.putString("id", subjectId1);
+                classTestList.setArguments(bundle);
+
+                TransitionManager.beginDelayedTransition((ViewGroup) getActivity().findViewById(R.id.login));
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, classTestList)
+                        .commit();
+            }
+        });
+
+        subject2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassTestList classTestList = new ClassTestList();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "subject");
+                bundle.putString("name", subjectName2.getText().toString());
+                bundle.putString("id", subjectId2);
+                classTestList.setArguments(bundle);
+
+                TransitionManager.beginDelayedTransition((ViewGroup) getActivity().findViewById(R.id.login));
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, classTestList)
+                        .commit();
+            }
+        });
+
+        subject3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClassTestList classTestList = new ClassTestList();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "subject");
+                bundle.putString("name", subjectName3.getText().toString());
+                bundle.putString("id", subjectId3);
+                classTestList.setArguments(bundle);
+
+                TransitionManager.beginDelayedTransition((ViewGroup) getActivity().findViewById(R.id.login));
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login, classTestList)
                         .commit();
             }
         });
@@ -108,19 +190,22 @@ public class ClassTestFragment extends Fragment {
                             break;
 
                         case 3:
-                            JSONObject object2 = res.getJSONArray("my_subjects").getJSONObject(2);
-                            subjectName3.setText(object2.getString("subject_name"));
-                            belowAverage3.setText(object2.getString("below_avg_test_1"));
+                            JSONObject object3 = res.getJSONArray("my_subjects").getJSONObject(2);
+                            subjectId3 = object3.getString("subject_id");
+                            subjectName3.setText(object3.getString("subject_name"));
+                            belowAverage3.setText(object3.getString("below_avg_test_1"));
                             subject3.setVisibility(View.VISIBLE);
                         case 2:
-                            JSONObject object1 = res.getJSONArray("my_subjects").getJSONObject(1);
-                            subjectName2.setText(object1.getString("subject_name"));
-                            belowAverage2.setText(object1.getString("below_avg_test_1"));
+                            JSONObject object2 = res.getJSONArray("my_subjects").getJSONObject(1);
+                            subjectId2 = object2.getString("subject_id");
+                            subjectName2.setText(object2.getString("subject_name"));
+                            belowAverage2.setText(object2.getString("below_avg_test_1"));
                             subject2.setVisibility(View.VISIBLE);
                         case 1:
-                            JSONObject object0 = res.getJSONArray("my_subjects").getJSONObject(0);
-                            subjectName1.setText(object0.getString("subject_name"));
-                            belowAverage1.setText(object0.getString("below_avg_test_1"));
+                            JSONObject object1 = res.getJSONArray("my_subjects").getJSONObject(0);
+                            subjectId1 = object1.getString("subject_id");
+                            subjectName1.setText(object1.getString("subject_name"));
+                            belowAverage1.setText(object1.getString("below_avg_test_1"));
                             subject1.setVisibility(View.VISIBLE);
                             break;
                     }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class SignInFragment extends Fragment {
     private Button cont;
     private Spinner sp;
     private EditText username, password;
-    private String[] login = {"Student Login", "Staff Login","Admin Login"};
+    private String[] login = {"Student Login", "Staff Login", "Admin Login"};
     private ArrayAdapter aa;
     private FragmentManager manager;
     private TextView error;
@@ -122,7 +123,6 @@ public class SignInFragment extends Fragment {
                         case "Admin Login":
                             json.put("u_type", "admin");
                             break;
-
                         case "Staff Login":
                             json.put("u_type", "staff");
                             break;

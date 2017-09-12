@@ -5,4 +5,3 @@
     android:padding="20dp"
     android:gravity="center_vertical|center_horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android" />
-

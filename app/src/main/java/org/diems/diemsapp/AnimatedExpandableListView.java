@@ -51,7 +51,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
      * the flag for a group and calls notifyDataSetChanged to cause the ListView
      * to refresh all of it's view. This time however, depending on whether a
      * group is expanded or collapsed, certain childViews will either be ignored
-     * or added to the list.
+     * or added to the marksTeacherList.
      *
      * Knowing this, we can come up with a way to animate our views. For
      * instance for group expansion, we tell the adapter to animate the
@@ -68,7 +68,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
      * the ExpandableListView is forced to refresh it's views again, except this
      * time, it will get the real views for the expanded group.
      *
-     * So, to list it all out, when {@link #expandGroupWithAnimation(int)} is
+     * So, to marksTeacherList it all out, when {@link #expandGroupWithAnimation(int)} is
      * called the following happens:
      *
      * 1. The ExpandableListView tells the adapter to animate a certain group.
@@ -90,7 +90,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
      * what we have to do is play the animation first and call collapseGroup
      * after the animation is done.
      *
-     * So, to list it all out, when {@link #collapseGroupWithAnimation(int)} is
+     * So, to marksTeacherList it all out, when {@link #collapseGroupWithAnimation(int)} is
      * called the following happens:
      *
      * 1. The ExpandableListView tells the adapter to animate a certain group.
@@ -364,7 +364,7 @@ public class AnimatedExpandableListView extends ExpandableListView {
                     // this group when the group view is not visible but the
                     // children of this group are. When notifyDataSetChanged
                     // is called, the ExpandableListView tries to keep the
-                    // list position the same by saving the first visible item
+                    // marksTeacherList position the same by saving the first visible item
                     // and jumping back to that item after the views have been
                     // refreshed. Now the problem is, if a group has 2 items
                     // and the first visible item is the 2nd child of the group

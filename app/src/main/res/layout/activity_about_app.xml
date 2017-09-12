@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
+
     <include layout="@layout/app_bar_main" />
+
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
@@ -13,44 +15,44 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="DIEMS App"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
-
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="128dp"
         android:layout_height="94dp"
         android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher"
         android:layout_marginBottom="8dp"
-        android:layout_weight="0.04" />
-    <!--<TextView-->
-        <!--android:paddingBottom="0dp"-->
-        <!--android:paddingTop="0dp"-->
-        <!--android:paddingLeft="20dp"-->
-        <!--android:paddingRight="20dp"-->
-        <!--android:id="@+id/about_text"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:gravity="center_vertical|center_horizontal"-->
-        <!--android:text="@string/aboapp"-->
-        <!--android:textColor="@color/Black" />-->
-    <ListView
-        android:paddingBottom="10dp"
-        android:paddingTop="0dp"
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
-android:layout_gravity="center_horizontal"
+        android:layout_weight="0.04"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="logo" />
+
+    <TextView
+        android:id="@+id/about_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listabout">
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingBottom="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="0dp"
+        android:textColor="@color/Black" />
+
+    <ListView
+        android:id="@+id/listabout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="0dp">
 
     </ListView>
-
 
 
 </LinearLayout>

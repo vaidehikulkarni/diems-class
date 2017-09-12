@@ -1,11 +1,48 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/materialGrey"
+    android:orientation="vertical"
     tools:context="org.diems.diemsapp.acadMBA">
 
-    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:contentPadding="16dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Department of Master Of Business Administration (MBA)"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="Year of Establishment -2009"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,182 +51,253 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp">
+            android:orientation="vertical">
 
-            <TextView
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Department of Master Of Business Administration (MBA)"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:contentPadding="16dp">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:textAlignment="center"
-                android:text="Year of Establishment -2009"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:textStyle="bold"
-                android:paddingBottom="10dp"
-                android:text="Course"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbarSize="3dp"
-                android:fadeScrollbars="false">
-
-                <TableLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="*">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <TableRow>
-                        <TextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="Course"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/grey" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fadeScrollbars="false"
+                        android:scrollbarSize="3dp">
+
+                        <TableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="Title"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                            android:stretchColumns="*">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="Masters in Business Administration"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                            <TableRow>
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="10dp"
+                                    android:text="Title"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                                    android:textColor="@color/colorPrimaryDark" />
 
-
-                    </TableRow>
-
-                    <TableRow>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="Full/Part Time"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:text="Full Time"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                    android:paddingTop="10dp"
+                                    android:text="Masters in Business Administration"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                    </TableRow>
+                            </TableRow>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/grey" />
+
+                            <TableRow>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="10dp"
+                                    android:text="Full/Part Time"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                                    android:textColor="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                    android:paddingTop="10dp"
+                                    android:text="Full Time"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                    <TableRow>
+                            </TableRow>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="Intake"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/grey" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="180"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                            <TableRow>
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="10dp"
+                                    android:text="Intake"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                                    android:textColor="@color/colorPrimaryDark" />
 
-                    </TableRow>
-
-
-                    <TableRow
-                        android:paddingBottom="10dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="Established"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:text="2009"
-                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                    android:paddingTop="10dp"
+                                    android:text="180"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-                    </TableRow>
+                            </TableRow>
 
-                </TableLayout>
-            </HorizontalScrollView>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/grey" />
+
+                            <TableRow android:paddingBottom="10dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="10dp"
+                                    android:text="Established"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                                    android:textColor="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                                    android:paddingTop="10dp"
+                                    android:text="2009"
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
 
 
-            <TextView
+                            </TableRow>
+
+                        </TableLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Vision"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:contentPadding="16dp">
 
-            <TextView
-                android:id="@+id/mbavision"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="Vision"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:id="@+id/mbavision"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:paddingTop="10dp"
+                        android:text="@string/mbavision"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/mbavision"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:contentPadding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:text="Mission"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/missionmba"
-                android:paddingTop="10dp"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/missionmba"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="Mission"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/grey" />
+
+                    <TextView
+                        android:id="@+id/missionmba"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="@string/missionmba"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
     </ScrollView>
 
 
-</FrameLayout>
+</LinearLayout>

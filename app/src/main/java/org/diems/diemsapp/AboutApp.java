@@ -1,5 +1,7 @@
 package org.diems.diemsapp;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,30 +20,38 @@ import android.widget.ListView;
 
 public class AboutApp extends AppCompatActivity {
     ListView listView;
-Intent intent=getIntent();
-
-    // Array of strings...
+    Intent intent = getIntent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
-        String version="0.3";
-        String website="dietms.org/diems-notice-app";
-        String[] listAr={getResources().getString(R.string.aboapp),"Version  "+version,"Connect us with ",website," "};
 
+        String version = "";
+        try {
+            version = this.getPackageManager().getPackageInfo(getPackageName(), 0).versionName;;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.about_list,listAr);
-        ListView listView=(ListView) findViewById(R.id.listabout);
+        String website = "dietms.org/diems-notice-app";
+        String[] listAr = {getResources().getString(R.string.aboapp), "Version  " + version, "Connect us with ", website, " "};
+
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.about_list, listAr);
+        listView = (ListView) findViewById(R.id.listabout);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
-                    case 0: break;
-                    case 1: break;
-                    case 2:break;
-                    case 3:Intent intent=new Intent();
+                switch (i) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
                         intent.setData(Uri.parse("http://dietms.org/diems-notice-app/"));

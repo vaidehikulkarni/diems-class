@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/sign_in"
-        android:orderInCategory="100"
+        android:orderInCategory="10"
         android:title="@string/sign_in"
         app:showAsAction="never" />
     <item
@@ -29,5 +29,6 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/about_app"
+        android:orderInCategory="50"
         android:title="About"/>
 </menu>

@@ -1,6 +1,6 @@
 package org.diems.diemsapp;
 
-public class MarksTeacher {
+class MarksTeacher {
 
     String name, rollNo, belowAvg, id;
 
