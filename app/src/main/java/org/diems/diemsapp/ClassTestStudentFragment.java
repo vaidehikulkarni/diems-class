@@ -10,30 +10,25 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
+import java.util.ArrayList;
+
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.List;
 
 public class ClassTestStudentFragment extends Fragment {
 
   //  BarChart barChart;
-
+  List<Integer> colors,colors1;
     public ClassTestStudentFragment() {
         // Required empty public constructor
     }
-
     LineChart chart;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,154 +36,98 @@ public class ClassTestStudentFragment extends Fragment {
 
         MainActivity.actionBar.setTitle("Class Test");
         MainActivity.navigationBarMenu.findItem(R.id.nav_class_test).setChecked(true);
-
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_classtest_view, container, false);
-        chart= (LineChart) view.findViewById(R.id.chart);
-        // add data
-        setData();
+        BarChart chart = (BarChart) view.findViewById(R.id.chart);
+        chart.getAxisLeft().setAxisMaxValue(45f);
+        BarData data = new BarData(getXAxisValues(), getDataSet());
+        chart.setData(data);
+       // chart.setDescription("Class Test Marks");
+        chart.animateXY(0,2000);
+        chart.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
+        chart.invalidate();
 
-        // get the legend (only possible after setting data)
-        Legend l = chart.getLegend();
-
-        // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
-        l.setForm(Legend.LegendForm.LINE);
-//        barChart = (BarChart)view.findViewById(R.id.barchart);
-//
-//        ArrayList<BarEntry> classTest1 = new ArrayList<>();
-//        classTest1.add(new BarEntry(14f, 0));
-//        classTest1.add(new BarEntry(18f, 1));
-//        classTest1.add(new BarEntry(16f, 2));
-//        classTest1.add(new BarEntry(12f, 3));
-//        classTest1.add(new BarEntry(19f, 4));
-//
-//        ArrayList<BarEntry> classTest2 = new ArrayList<>();
-//        classTest2.add(new BarEntry(9f, 0));
-//        classTest2.add(new BarEntry(10f, 1));
-//        classTest2.add(new BarEntry(18f, 2));
-//        classTest2.add(new BarEntry(20f, 3));
-//        classTest2.add(new BarEntry(9f, 4));
-//
-//        BarDataSet barDataSet1 = new BarDataSet(classTest1, "CT-1");
-//        barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
-//
-//        BarDataSet barDataSet2 = new BarDataSet(classTest2, "CT-2");
-//        barDataSet2.setColors(ColorTemplate.COLORFUL_COLORS);
-//
-//        ArrayList<String> theDates = new ArrayList<>();
-//        theDates.add("MV");
-//        theDates.add("PCD");
-//        theDates.add("PDC");
-//        theDates.add("DWDM");
-//        theDates.add("CC");
-//
-//        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-//        dataSets.add(barDataSet1);
-//        dataSets.add(barDataSet2);
-//
-//        BarData data = new BarData(theDates, dataSets);
-//        barChart.setData(data);
-//        barChart.setTouchEnabled(true);
-//        barChart.setDragEnabled(true);
-//        barChart.setScaleEnabled(true);
-
-        return view;
-    }
-    private ArrayList<String> setXAxisValues(){
-        ArrayList<String> Subjects = new ArrayList<String>();
-        Subjects.add("");Subjects.add("Subject1");
-        Subjects.add("Sub2");
-        Subjects.add("Sub3");
-        Subjects.add("Sub4");
-        Subjects.add("Sub5");
-        Subjects.add("Sub6");
-        Subjects.add("");
-
-        return Subjects;
-    }
-    private ArrayList<Entry> Data(){
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-        // yVals.add(new Entry(, 0));
-        yVals.add(new Entry(25, 1));
-        yVals.add(new Entry(30, 2));
-        yVals.add(new Entry(10, 3));
-        yVals.add(new Entry(35, 4));
-        yVals.add(new Entry(10, 5));
-        yVals.add(new Entry(12, 6));
-        return yVals;
-    }
-    private ArrayList<Entry> Data2(){
-        ArrayList<Entry> yVal = new ArrayList<Entry>();
-//        yVal.add(new Entry(10, 0));
-        yVal.add(new Entry(20, 1));
-        yVal.add(new Entry(35, 2));
-        yVal.add(new Entry(15, 3));
-        yVal.add(new Entry(30, 4));
-        yVal.add(new Entry(20, 5));
-        yVal.add(new Entry(12, 6));
-        return yVal;
-    }
-    private void setData() {
-        ArrayList<String> xVals = setXAxisValues();
-
-        ArrayList<Entry> Data1=Data();
-        ArrayList<Entry> Data2=Data2();
-        LineDataSet set1,set2;
-        set1 = new LineDataSet(Data1, "Classtest 1");
-        set1.setColor(Color.BLACK);
-        set1.setCircleColor(Color.BLACK);
-        set1.setLineWidth(1f);
-        set1.setCircleRadius(3f);
-        set1.setDrawCircleHole(false);
-        set1.setValueTextSize(9f);
-        set1.setDrawFilled(false);
-        set2 = new LineDataSet(Data2, "Classtest 2");
-        set2.setColor(Color.RED);
-        set2.setCircleColor(Color.RED);
-        set2.setLineWidth(1f);
-        set2.setCircleRadius(3f);
-        set2.setDrawCircleHole(false);
-        set2.setValueTextSize(9f);
-        set2.setDrawFilled(false);
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        dataSets.add(set1);
-        dataSets.add(set2);
-        LineData data = new LineData(xVals, dataSets);
-
-//        LimitLine upper_limit = new LimitLine(40, "Maximum Marks");
-//        upper_limit.setLineWidth(4f);
-//        upper_limit.enableDashedLine(10f, 10f, 0f);
-//        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        upper_limit.setTextSize(10f);
-
-        LimitLine lower_limit = new LimitLine(24, "Minimum Marks :24");
-        lower_limit.setLineWidth(4f);
+        LimitLine lower_limit = new LimitLine(24f, "Min Marks");
+        lower_limit.setLineWidth(2f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
-        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-        lower_limit.setTextSize(10f);
+      lower_limit.setTextSize(10f);
 
         YAxis leftAxis = chart.getAxisLeft();
-// reset all limit lines to avoid overlapping lines
         leftAxis.removeAllLimitLines();
-        // leftAxis.addLimitLine(upper_limit);
         leftAxis.addLimitLine(lower_limit);
-        leftAxis.setAxisMaxValue(40);
-        leftAxis.setAxisMinValue(0);
-//leftAxis.setYOffset(20f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(false);
-//        XAxis RightAxis =chart.getXAxis();
-        // RightAxis.setDrawAxisLine(true);
-// limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
-
         chart.getAxisRight().setEnabled(false);
+       return view;
+    }
 
-        chart.setDescription("Class Test Graph");
-        chart.setNoDataTextDescription("You need to provide data for the chart.");
-        // set data
-        chart.setData(data);
+    private List<BarDataSet> getDataSet() {
+        ArrayList<BarDataSet> dataSets = null;
+//        colors = Arrays.asList(new Integer[]{Color.rgb(0, 255,0),Color.rgb(0, 255,0),
+//                Color.rgb(0, 255,0),Color.rgb(0, 255,0),Color.rgb(0, 255,0),Color.rgb(0, 255,0)});
+//        colors1 = Arrays.asList(new Integer[]{Color.rgb(0, 0, 255),Color.rgb(0, 0, 255),
+//                Color.rgb(0, 0, 255),Color.rgb(0, 0, 255),Color.rgb(0, 0, 255),Color.rgb(0, 0, 255)});
 
+        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+        BarEntry v1e1 = new BarEntry(0f, 0);
+        valueSet1.add(v1e1);
+        BarEntry v1e2 = new BarEntry(23f, 1);
+        valueSet1.add(v1e2);
+        BarEntry v1e3 = new BarEntry(31f, 2);
+        valueSet1.add(v1e3);
+        BarEntry v1e4 = new BarEntry(25f, 3);
+        valueSet1.add(v1e4);
+        BarEntry v1e5 = new BarEntry(34f, 4);
+        valueSet1.add(v1e5);
+        BarEntry v1e6 = new BarEntry(22.000f, 5);
+        valueSet1.add(v1e6);
+
+        ArrayList<BarEntry> valueSet2 = new ArrayList<>();
+        BarEntry v2e1 = new BarEntry(0.000f, 0);
+        valueSet2.add(v2e1);
+        BarEntry v2e2 = new BarEntry(29.000f, 1);
+        valueSet2.add(v2e2);
+        BarEntry v2e3 = new BarEntry(30.000f, 2);
+        valueSet2.add(v2e3);
+        BarEntry v2e4 = new BarEntry(36.000f, 3);
+        valueSet2.add(v2e4);
+        BarEntry v2e5 = new BarEntry(12.000f, 4);
+        valueSet2.add(v2e5);
+        BarEntry v2e6 = new BarEntry(31.000f, 5);
+        valueSet2.add(v2e6);
+
+
+//        for (int i=0;i<6;i++){
+//
+//            if(valueSet1.get(i).getVal()<=24){
+//                colors.set(i,Color.rgb(150,180,0));
+//            }
+//            if(valueSet2.get(i).getVal()<=24){
+//                colors1.set(i,Color.rgb(0,0,180));
+//            }
+//        }
+
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "ClassTest 1");
+        barDataSet1.setColor(getResources().getColor(R.color.colorAccent));
+        barDataSet1.setValueTextSize(12f);
+        BarDataSet barDataSet2 = new BarDataSet(valueSet2, "ClassTest 2");
+      // barDataSet2.setColors(ColorTemplate.COLORFUL_COLORS);
+        barDataSet2.setColor(getResources().getColor(R.color.purple));
+        barDataSet2.setValueTextSize(12f);
+        dataSets = new ArrayList<>();
+        dataSets.add(barDataSet1);
+        dataSets.add(barDataSet2);
+
+        return dataSets;
+    }
+
+    private List<String> getXAxisValues() {
+        ArrayList<String> xAxis = new ArrayList<>();
+        xAxis.add("Subject");
+        xAxis.add("Subject");
+        xAxis.add("Subject");
+        xAxis.add("Subject");
+        xAxis.add("Subject");
+        xAxis.add("Subject");
+        return xAxis;
     }
 }

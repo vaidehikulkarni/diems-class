@@ -37,9 +37,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MarksView"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
