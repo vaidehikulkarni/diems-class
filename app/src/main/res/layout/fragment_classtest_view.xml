@@ -59,7 +59,45 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="Graph View:"
+                android:textColor="@color/Black"
+                android:textStyle="bold" />
 
+            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="org.diems.diemsapp.GraphView">
+
+                <!--<com.github.mikephil.charting.charts.BarChart-->
+                <!--android:id="@+id/barchart"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="350dp">-->
+
+                <!--</com.github.mikephil.charting.charts.BarChart>-->
+                <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--xmlns:tools="http://schemas.android.com/tools"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+                <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+                <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+                <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+                <!--tools:context=".MainActivity">-->
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/chart"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+                <!--</RelativeLayout>-->
+            </LinearLayout>
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -356,38 +394,8 @@
 
             </TableLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:text="Graph View:"
-                android:textColor="@color/Black"
-                android:textStyle="bold" />
 
 
-            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="org.diems.diemsapp.GraphView">
-
-                <!--<com.github.mikephil.charting.charts.BarChart-->
-                    <!--android:id="@+id/barchart"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="350dp">-->
-
-                <!--</com.github.mikephil.charting.charts.BarChart>-->
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart"
-                    android:layout_width="368dp"
-                    android:layout_height="495dp"
-                    tools:layout_editor_absoluteY="8dp"
-                    tools:layout_editor_absoluteX="8dp" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
