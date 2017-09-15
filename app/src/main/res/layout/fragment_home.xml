@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/WhiteSmoke"
     android:orientation="vertical">
 
     <ScrollView
@@ -15,114 +15,131 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <ViewFlipper
+                android:id="@+id/view_flipper"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent">
+                android:layout_height="fill_parent">
 
-                <ViewFlipper
-                    android:id="@+id/view_flipper"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/diems1" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/diems1" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/diems2" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/diems2" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/sindhutai" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/sindhutai" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/students" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/students" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/diems5" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/diems5" />
-
-                </ViewFlipper>
-
-                <!--<android.support.v4.view.ViewPager-->
-                <!--android:id="@+id/pager"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="200dp"-->
-                <!--android:layout_alignParentTop="true" />-->
-            </RelativeLayout>
+            </ViewFlipper>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
                 android:weightSum="1">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:text="Vision"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.23"
-                    app:contentPadding="16dp"
+                    android:layout_margin="16dp"
                     android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:contentPadding="16dp">
 
-                    <TextView
-                        android:id="@+id/vision_diems"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/visiondiems"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-                </android.support.v7.widget.CardView>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
-                    android:text="Mission"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="Vision"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/grey" />
+
+                        <TextView
+                            android:id="@+id/vision_diems"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visiondiems"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="10dp"
-                    app:contentPadding="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mission"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@color/grey" />
 
                     <TextView
                         android:id="@+id/mission_diems"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginTop="10dp"
                         android:text="@string/missiondiems"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+                    </LinearLayout>
+
                 </android.support.v7.widget.CardView>
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

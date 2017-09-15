@@ -1,112 +1,139 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.diems.diemsapp.AboutDiems"
-    android:background="@color/white">
+    android:background="@color/materialGrey"
+    tools:context="org.diems.diemsapp.AboutDiems">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv5"
+            android:layout_margin="16dp"
+            android:layout_marginTop="0dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:contentPadding="16dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginTop="0dp"
-                app:contentPadding="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-                <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/textView25"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/about_diems"
+                    android:textAlignment="center"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="148dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/logosmall" />
 
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/textView25"
+        <android.support.v7.widget.CardView
+            android:id="@+id/c67"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:contentPadding="16dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/about_diems"
-                android:textAlignment="center"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="About DIEMS"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="148dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/logosmall" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/grey" />
 
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/aboutDiems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/about_diems1"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/Black" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/c67"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:contentPadding="16dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginTop="0dp"
-                app:contentPadding="10dp"
-                android:paddingTop="0dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/aboutDiems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/about_diems1"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/Black" />
-</android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Objective"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/grey" />
 
+                <TextView
+                    android:id="@+id/objdiems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/objdiems"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Objective"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginTop="0dp"
-                app:contentPadding="10dp"
-                android:paddingTop="0dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
-            <TextView
-                android:id="@+id/objdiems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/objdiems"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
-
-          </android.support.v7.widget.CardView>
-
-        </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+    </LinearLayout>
+</ScrollView>

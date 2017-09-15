@@ -1,145 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/materialGrey"
-    tools:context="org.diems.diemsapp.RedhatAcademy"
-    android:orientation="vertical">
+    tools:context="org.diems.diemsapp.RedhatAcademy">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:weightSum="1">
-
-            <!--<com.google.android.youtube.player.YouTubeThumbnailView-->
-                <!--android:id="@+id/youtubeThumbnailView"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="205dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginBottom="10dp"/>-->
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
 
             <ImageView
                 android:id="@+id/imageview2"
                 android:layout_width="match_parent"
                 android:layout_height="205dp"
-                android:src="@drawable/redhat"
-                android:contentDescription="Video Thumbnail" />
+                android:contentDescription="Video Thumbnail"
+                android:src="@drawable/redhat" />
+        </android.support.v7.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Glimpses:"
-                android:textAlignment="textStart"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/c31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:contentPadding="16dp">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/c31"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Glimpses:"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/grey" />
 
                 <ImageView
                     android:id="@+id/imageredhat5"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
                     android:src="@drawable/redhat5" />
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv4"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/grey" />
 
                 <ImageView
                     android:id="@+id/imageredhat1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:src="@drawable/redhat1" />
-            </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv1"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/grey" />
 
                 <ImageView
                     android:id="@+id/imageredhat2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:src="@drawable/redhat2" />
-            </android.support.v7.widget.CardView>
 
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/cv2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:clickable="true"-->
-            <!--android:foreground="?android:attr/selectableItemBackground">-->
-
-
-            <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/imageredhat3"-->
-            <!--android:src="@drawable/redhat3"-->
-            <!--android:layout_weight="0.29" />-->
-            <!--</android.support.v7.widget.CardView>-->
-
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/c32"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginBottom="20dp"-->
-            <!--android:clickable="true"-->
-            <!--android:foreground="?android:attr/selectableItemBackground">-->
-
-            <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/imageredhat4"-->
-            <!--android:src="@drawable/redhat4" />-->
-
-            <!--</android.support.v7.widget.CardView>-->
-
-        </LinearLayout>
-
-
-    </ScrollView>
-
-
-</LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>
