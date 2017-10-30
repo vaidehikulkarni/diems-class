@@ -25,18 +25,17 @@ import com.afollestad.materialdialogs.MaterialDialog;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String accessToken = "";
+    static UserData userData = null;
     public static String IP = org.diems.diemsapp.IP.baseAddress;
     FragmentManager fragmentManager;
     RelativeLayout rl;
     NavigationView navigationView;
-    static MenuItem profile, notification, signin, signout,aboutapp;
-    static String loginType;
+    static MenuItem profile, notification, signin, signout, aboutapp;
     static Menu actionBarMenu, navigationBarMenu;
     static ActionBar actionBar;
     FragmentTransaction transaction;
     DrawerLayout drawer;
-    static TextView name_user;
+    static public TextView name_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
 
-        loginType = "staff";
+//        userData = new UserData("", "test user", "4d7d719ac0cf3d78ea8a94701913fe47", "staff");
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         notification = menu.findItem(R.id.notification);
         signin = menu.findItem(R.id.sign_in);
         signout = menu.findItem(R.id.sign_out);
-        aboutapp=menu.findItem(R.id.about_app);
+        aboutapp = menu.findItem(R.id.about_app);
         checksignin();
 
         return true;
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.about_app:
-                startActivity(new Intent(this,AboutApp.class));
+                startActivity(new Intent(this, AboutApp.class));
                 break;
             case R.id.sign_in:
                 transaction.replace(R.id.login, new SignInFragment())
@@ -133,7 +132,9 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(new Intent(this, Contact.class));
 //                break;
             case R.id.notification:
-                startActivity(new Intent(this, NotificationActivity.class));
+                Intent intent0 = new Intent(this, NotificationActivity.class);
+//                intent0.putExtra("type","normal");
+                startActivity(intent0);
                 break;
             case R.id.profile:
                 Intent intent = new Intent(this, Profile.class);
@@ -148,14 +149,14 @@ public class MainActivity extends AppCompatActivity
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                fragmentManager.popBackStack("login", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                fragmentManager.popBackStackImmediate("login", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 transaction
                                         .replace(R.id.login, new HomeFragment())
                                         .addToBackStack(null)
                                         .commit();
                                 Toast.makeText(MainActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
-                                loginType = "";
-                                accessToken = "";
+                                userData = null;
+                                name_user.setText("Guest User");
                                 checksignin();
                             }
                         })
@@ -200,12 +201,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_class_test:
 
-                if (loginType.equals("student")) {
+                if (userData.getLoginType().equals("student")) {
                     transaction
                             .replace(R.id.login, new ClassTestStudentFragment())
                             .addToBackStack(null)
                             .commit();
-                } else if (loginType.equals("staff")) {
+                } else if (userData.getLoginType().equals("staff")) {
                     transaction
                             .replace(R.id.login, new ClassTestFragment())
                             .addToBackStack(null)
@@ -218,12 +219,12 @@ public class MainActivity extends AppCompatActivity
                 onOptionsItemSelected(signout);
                 break;
             case R.id.nav_dashboard:
-                if (loginType.equals("student")) {
+                if (userData.getLoginType().equals("student")) {
                     transaction
                             .replace(R.id.login, new StudentDashboard())
                             .addToBackStack(null)
                             .commit();
-                } else if (loginType.equals("staff")) {
+                } else if (userData.getLoginType().equals("staff")) {
                     transaction
                             .replace(R.id.login, new StaffDashboard())
                             .addToBackStack(null)
@@ -233,6 +234,12 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_upload:
                 transaction
                         .replace(R.id.login, new UploadNotice())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.nav_bin:
+                transaction
+                        .replace(R.id.login, new TrashFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -259,15 +266,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     static public void checksignin() {
-        switch (loginType) {
-            case "":
-               aboutapp.setVisible(true);
-                profile.setVisible(false);
-                signout.setVisible(false);
-                signin.setVisible(true);
-                navigationBarMenu.setGroupVisible(R.id.nav_account, false);
-                navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
-                break;
+
+        if (userData == null) {
+            aboutapp.setVisible(true);
+            profile.setVisible(false);
+            signout.setVisible(false);
+            signin.setVisible(true);
+            navigationBarMenu.setGroupVisible(R.id.nav_account, false);
+            navigationBarMenu.setGroupVisible(R.id.nav_admin, false);
+            return;
+        }
+
+        switch (userData.getLoginType()) {
             case "student":
                 aboutapp.setVisible(true);
                 profile.setVisible(true);

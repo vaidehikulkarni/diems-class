@@ -61,7 +61,7 @@ public class ClassTestList extends Fragment {
         marksTeacherList = new ArrayList<>();
         marksSubjectList = new ArrayList<>();
 
-        marksTeacherAdapter = new MarksTeacherAdapter(marksTeacherList, recyclerView, getActivity());
+        marksTeacherAdapter = new MarksTeacherAdapter(marksTeacherList, recyclerView, getActivity(), getFragmentManager());
         marksSubjectAdapter = new MarksSubjectAdapter(marksSubjectList, recyclerView);
 
         if (bundle.getString("type").equals("teacher"))
@@ -73,9 +73,9 @@ public class ClassTestList extends Fragment {
         if (bundle.getString("type").equals("teacher")) {
 
             if (bundle.getString("name").equals("my_class"))
-                url = MainActivity.IP + "/api/staff/class?access_token=" + MainActivity.accessToken;
+                url = MainActivity.IP + "/api/staff/class?access_token=" + MainActivity.userData.getAccessToken();
             else
-                url = MainActivity.IP + "/api/staff/mentees?access_token=" + MainActivity.accessToken;
+                url = MainActivity.IP + "/api/staff/mentees?access_token=" + MainActivity.userData.getAccessToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
@@ -115,7 +115,7 @@ public class ClassTestList extends Fragment {
             ));
             requestQueue.add(stringRequest);
         } else if (bundle.getString("type").equals("subject")) {
-            url = MainActivity.IP + "/api/staff/subjects/" + bundle.getString("id") + "?access_token=" + MainActivity.accessToken;
+            url = MainActivity.IP + "/api/staff/subjects/" + bundle.getString("id") + "?access_token=" + MainActivity.userData.getAccessToken();
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override

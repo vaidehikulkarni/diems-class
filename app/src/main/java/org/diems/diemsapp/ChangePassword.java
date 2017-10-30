@@ -88,7 +88,7 @@ public class ChangePassword extends Fragment {
                     return;
                 }
 
-                String url = MainActivity.IP + "/api/changepass?access_token=" + MainActivity.accessToken;
+                String url = MainActivity.IP + "/api/changepass?access_token=" + MainActivity.userData.getAccessToken();
 
                 JSONObject json = new JSONObject();
                 try {
@@ -110,7 +110,7 @@ public class ChangePassword extends Fragment {
                         try {
                             progressDialog.dismiss();
                             if (response.getString("status").equals("202")) {
-                                MainActivity.accessToken = response.getString("access_token");
+                                MainActivity.userData.setAccessToken(response.getString("access_token"));
                                 Toast.makeText(getActivity(), response.getString("message"), Toast.LENGTH_SHORT).show();
                                 getActivity().onBackPressed();
                             }

@@ -121,7 +121,7 @@ public class SignInFragment extends Fragment {
 
                     switch (sp.getSelectedItem().toString()) {
                         case "Admin Login":
-                            json.put("u_type", "admin");
+                            json.put("u_type", "notice-admin");
                             break;
                         case "Staff Login":
                             json.put("u_type", "staff");
@@ -141,7 +141,8 @@ public class SignInFragment extends Fragment {
                                     manager.popBackStack("sign in", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     FragmentTransaction transaction = manager
                                             .beginTransaction()
-                                            .setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
+                                            .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
+                                            .addToBackStack("login");
                                     switch (userType) {
                                         case "student":
                                             transaction
@@ -158,11 +159,14 @@ public class SignInFragment extends Fragment {
                                             break;
                                     }
                                     transaction
-                                            .addToBackStack("login")
                                             .commit();
-                                    MainActivity.name_user.setText(response.getString("username"));
-                                    MainActivity.loginType = userType;
-                                    MainActivity.accessToken = response.getString("access_token");
+
+                                    MainActivity.userData = new UserData(
+                                            "id",
+                                            response.getString("username"),
+                                            response.getString("access_token"),
+                                            userType);
+
                                     MainActivity.checksignin();
 
                                 } else {
@@ -176,6 +180,7 @@ public class SignInFragment extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            dialog.dismiss();
                             Toast.makeText(getActivity(), "Could not connect to server. Please try again later", Toast.LENGTH_SHORT).show();
                         }
                     });

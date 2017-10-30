@@ -148,12 +148,12 @@ public class UploadNotice extends Fragment {
                     cont = false;
                 }
 
-                if (endDate.getText().equals("")) {
-                    if (!errorString.equals(""))
-                        errorString += "\n";
-                    errorString += "Please Select End Date";
-                    cont = false;
-                }
+//                if (endDate.getText().equals("")) {
+//                    if (!errorString.equals(""))
+//                        errorString += "\n";
+//                    errorString += "Please Select End Date";
+//                    cont = false;
+//                }
 
                 if (!cont) {
                     if (!errorString.equals("")) {
@@ -194,10 +194,13 @@ public class UploadNotice extends Fragment {
                     jsonBody.put("class", classsp.getSelectedItem().toString());
                     jsonBody.put("branch", branch.getSelectedItem().toString());
                     jsonBody.put("division", division.getSelectedItem().toString());
-                    jsonBody.put("u_type", MainActivity.loginType);
-                    jsonBody.put("end_date", formatDate(endDate.getText().toString(), "dd/mm/yyyy", "yyyy/mm/dd"));
+                    jsonBody.put("u_type", MainActivity.userData.getLoginType());
+                    if (endDate.getText().toString().equals(""))
+                        jsonBody.put("end_date", null);
+                    else
+                        jsonBody.put("end_date", formatDate(endDate.getText().toString(), "dd/mm/yyyy", "yyyy/mm/dd"));
 
-                    String url = MainActivity.IP + "/api/notices?access_token=" + MainActivity.accessToken;
+                    String url = MainActivity.IP + "/api/notices?access_token=" + MainActivity.userData.getAccessToken();
                     final JsonObjectRequest json_request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

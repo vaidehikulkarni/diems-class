@@ -1,133 +1,217 @@
 package org.diems.diemsapp;
 
 
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+
 import java.util.ArrayList;
 
 import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class ClassTestStudentFragment extends Fragment {
 
-  //  BarChart barChart;
-  List<Integer> colors,colors1;
+    JSONArray marksArray;
+    LinearLayout content;
+    RequestQueue requestQueue;
+    ProgressBar progressBar;
+    TextView name, rollNo;
+    BarChart chart;
+
     public ClassTestStudentFragment() {
         // Required empty public constructor
     }
-    LineChart chart;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         MainActivity.actionBar.setTitle("Class Test");
         MainActivity.navigationBarMenu.findItem(R.id.nav_class_test).setChecked(true);
         View view = inflater.inflate(R.layout.fragment_classtest_view, container, false);
-        BarChart chart = (BarChart) view.findViewById(R.id.chart);
+        content = (LinearLayout) view.findViewById(R.id.content);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        name = (TextView) view.findViewById(R.id.name);
+        rollNo = (TextView) view.findViewById(R.id.rollNo);
+        chart = (BarChart) view.findViewById(R.id.chart);
+        requestQueue = Volley.newRequestQueue(getActivity());
+
+        String url = MainActivity.IP + "/api/students/marks?access_token=" + MainActivity.userData.getAccessToken();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    if(res.getString("status").equals("200")) {
+                        marksArray = res.getJSONArray("marks");
+                        name.setText(res.getString("name"));
+                        rollNo.setText(res.getString("roll_no"));
+                        createChart(chart);
+                        content.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), res.getString("error"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        requestQueue.add(stringRequest);
+        return view;
+    }
+
+    private  void  createChart(BarChart chart) {
         chart.getAxisLeft().setAxisMaxValue(45f);
-        BarData data = new BarData(getXAxisValues(), getDataSet());
+        BarData data = null;
+        try {
+            data = new BarData(getXAxisValues(), getDataSet());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         chart.setData(data);
-       // chart.setDescription("Class Test Marks");
-        chart.animateXY(0,2000);
+        // chart.setDescription("Class Test Marks");
+        chart.animateY(2000);
         chart.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
         chart.invalidate();
 
         LimitLine lower_limit = new LimitLine(24f, "Min Marks");
         lower_limit.setLineWidth(2f);
         lower_limit.enableDashedLine(10f, 10f, 0f);
-      lower_limit.setTextSize(10f);
+        lower_limit.setTextSize(10f);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.removeAllLimitLines();
         leftAxis.addLimitLine(lower_limit);
         leftAxis.setDrawLimitLinesBehindData(true);
         chart.getAxisRight().setEnabled(false);
-       return view;
+        chart.setScaleEnabled(false);
+        chart.setDescription(null);
+        chart.setDoubleTapToZoomEnabled(false);
     }
 
-    private List<BarDataSet> getDataSet() {
-        ArrayList<BarDataSet> dataSets = null;
-//        colors = Arrays.asList(new Integer[]{Color.rgb(0, 255,0),Color.rgb(0, 255,0),
-//                Color.rgb(0, 255,0),Color.rgb(0, 255,0),Color.rgb(0, 255,0),Color.rgb(0, 255,0)});
-//        colors1 = Arrays.asList(new Integer[]{Color.rgb(0, 0, 255),Color.rgb(0, 0, 255),
-//                Color.rgb(0, 0, 255),Color.rgb(0, 0, 255),Color.rgb(0, 0, 255),Color.rgb(0, 0, 255)});
+    private List<BarDataSet> getDataSet() throws JSONException {
+        ArrayList<BarDataSet> dataSets;
 
         ArrayList<BarEntry> valueSet1 = new ArrayList<>();
-        BarEntry v1e1 = new BarEntry(0f, 0);
-        valueSet1.add(v1e1);
-        BarEntry v1e2 = new BarEntry(23f, 1);
-        valueSet1.add(v1e2);
-        BarEntry v1e3 = new BarEntry(31f, 2);
-        valueSet1.add(v1e3);
-        BarEntry v1e4 = new BarEntry(25f, 3);
-        valueSet1.add(v1e4);
-        BarEntry v1e5 = new BarEntry(34f, 4);
-        valueSet1.add(v1e5);
-        BarEntry v1e6 = new BarEntry(22.000f, 5);
-        valueSet1.add(v1e6);
+
+        for (int i = 0; i < marksArray.length(); i++) {
+            try {
+                BarEntry barEntry = new BarEntry(Float.valueOf(marksArray
+                        .getJSONObject(i)
+                        .getJSONArray("class_test")
+                        .getJSONObject(0)
+                        .getString("obt_marks")), i);
+
+                valueSet1.add(barEntry);
+            } catch (NumberFormatException e) {
+                valueSet1.add(new BarEntry(0f, i));
+            }
+        }
 
         ArrayList<BarEntry> valueSet2 = new ArrayList<>();
-        BarEntry v2e1 = new BarEntry(0.000f, 0);
-        valueSet2.add(v2e1);
-        BarEntry v2e2 = new BarEntry(29.000f, 1);
-        valueSet2.add(v2e2);
-        BarEntry v2e3 = new BarEntry(30.000f, 2);
-        valueSet2.add(v2e3);
-        BarEntry v2e4 = new BarEntry(36.000f, 3);
-        valueSet2.add(v2e4);
-        BarEntry v2e5 = new BarEntry(12.000f, 4);
-        valueSet2.add(v2e5);
-        BarEntry v2e6 = new BarEntry(31.000f, 5);
-        valueSet2.add(v2e6);
+        for (int i = 0; i < marksArray.length(); i++) {
+            try {
+                BarEntry barEntry = new BarEntry(Float.valueOf(marksArray
+                        .getJSONObject(i)
+                        .getJSONArray("class_test")
+                        .getJSONObject(1)
+                        .getString("obt_marks")), i);
 
-
-//        for (int i=0;i<6;i++){
-//
-//            if(valueSet1.get(i).getVal()<=24){
-//                colors.set(i,Color.rgb(150,180,0));
-//            }
-//            if(valueSet2.get(i).getVal()<=24){
-//                colors1.set(i,Color.rgb(0,0,180));
-//            }
-//        }
-
+                valueSet2.add(barEntry);
+            } catch (NumberFormatException e) {
+                valueSet2.add(new BarEntry(0f, i));
+            }
+        }
 
         BarDataSet barDataSet1 = new BarDataSet(valueSet1, "ClassTest 1");
-        barDataSet1.setColor(getResources().getColor(R.color.colorAccent));
+        int color1 = getMaterialColor("A400");
+        barDataSet1.setColor(color1);
         barDataSet1.setValueTextSize(12f);
         BarDataSet barDataSet2 = new BarDataSet(valueSet2, "ClassTest 2");
-      // barDataSet2.setColors(ColorTemplate.COLORFUL_COLORS);
-        barDataSet2.setColor(getResources().getColor(R.color.purple));
+        int color2;
+        do {
+            color2 = getMaterialColor("A400");
+        }
+        while (color2 == color1);
+        barDataSet2.setColor(color2);
         barDataSet2.setValueTextSize(12f);
         dataSets = new ArrayList<>();
-        dataSets.add(barDataSet1);
         dataSets.add(barDataSet2);
+        dataSets.add(barDataSet1);
 
         return dataSets;
     }
 
-    private List<String> getXAxisValues() {
+    private List<String> getXAxisValues() throws JSONException {
         ArrayList<String> xAxis = new ArrayList<>();
-        xAxis.add("Subject");
-        xAxis.add("Subject");
-        xAxis.add("Subject");
-        xAxis.add("Subject");
-        xAxis.add("Subject");
-        xAxis.add("Subject");
+
+        for (int i = 0; i < marksArray.length(); i++) {
+            String subject = marksArray.getJSONObject(i).getString("subject_name");
+            xAxis.add(subject);
+        }
+
         return xAxis;
+    }
+
+    private int getMaterialColor(String typeColor)
+    {
+        int returnColor = Color.BLACK;
+        int arrayId = getResources().getIdentifier("mdcolor_" + typeColor, "array", getActivity().getPackageName());
+
+        if (arrayId != 0)
+        {
+            TypedArray colors = getResources().obtainTypedArray(arrayId);
+            int index = (int) (Math.random() * colors.length());
+            returnColor = colors.getColor(index, Color.BLACK);
+            colors.recycle();
+        }
+        return returnColor;
     }
 }

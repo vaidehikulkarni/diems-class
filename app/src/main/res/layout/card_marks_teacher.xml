@@ -52,7 +52,7 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <LinearLayout
                 android:id="@+id/table"
@@ -106,7 +106,16 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"/>
+                    android:clickable="true" />
+
+                <Button
+                    android:id="@+id/viewGraph"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/colorAccent"
+                    android:text="View Graph"
+                    android:textColor="@color/white" />
             </LinearLayout>
         </FrameLayout>
 

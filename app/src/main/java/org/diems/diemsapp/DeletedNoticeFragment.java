@@ -6,15 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,17 +37,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDashBoard extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class DeletedNoticeFragment extends Fragment {
 
     private AnimatedExpandableListView listView;
     TextView textView;
     boolean empty = true;
-    boolean responseRecieved;
     List<GroupItem> items;
     View view;
-    JSONArray jsonArray;
 
-    public AdminDashBoard() {
+    public DeletedNoticeFragment() {
 
     }
 
@@ -62,54 +61,18 @@ public class AdminDashBoard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false);
+        view = inflater.inflate(R.layout.fragment_deleted_notice, container, false);
         textView = (TextView) view.findViewById(R.id.empty);
-        final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+//        final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
         items = new ArrayList<>();
-        MainActivity.actionBar.setTitle("Dashboard");
-        MainActivity.navigationBarMenu.findItem(R.id.nav_admin_dashboard).setChecked(true);
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = MainActivity.IP + "/api/notices/self?access_token=" + MainActivity.userData.getAccessToken();
+        Log.d(TAG, "onCreateView: " + getArguments().toString());
 
-        progressBar.setVisibility(View.VISIBLE);
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    jsonArray = new JSONArray(response);
-                    progressBar.setVisibility(View.GONE);
-                    setUpListView();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(stringRequest);
-
-        FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.animator.fade_in, R.animator.fade_out)
-                        .replace(R.id.login, new UploadNotice())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        try {
+            setUpListView(new JSONArray(getArguments().getString("array")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -128,7 +91,6 @@ public class AdminDashBoard extends Fragment {
     private static class ChildHolder {
         TextView body;
         ImageView image;
-        Button btnRemove;
         ProgressBar progressBar;
     }
 
@@ -136,9 +98,7 @@ public class AdminDashBoard extends Fragment {
         TextView title;
     }
 
-    /**
-     * Adapter for our marksTeacherList of {@link GroupItem}s.
-     */
+
     private class ExampleAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
         private LayoutInflater inflater;
 
@@ -171,7 +131,6 @@ public class AdminDashBoard extends Fragment {
                 convertView = inflater.inflate(R.layout.list_item, parent, false);
                 holder.body = (TextView) convertView.findViewById(R.id.textBody);
                 holder.image = (ImageView) convertView.findViewById(R.id.noticeImage);
-                holder.btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
                 holder.progressBar = (ProgressBar) convertView.findViewById(R.id.noticeProgressBar);
                 convertView.setTag(holder);
             } else {
@@ -179,7 +138,6 @@ public class AdminDashBoard extends Fragment {
             }
 
             holder.body.setText(Html.fromHtml(item.bodyText));
-            holder.btnRemove.setVisibility(View.VISIBLE);
             holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -189,39 +147,6 @@ public class AdminDashBoard extends Fragment {
                     startActivity(intent);
                 }
             });
-
-            holder.btnRemove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String url = MainActivity.IP + "/api/notices/" + item.id + "?access_token=" + MainActivity.userData.getAccessToken();
-
-                    StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject res = new JSONObject(response);
-                                if (res.getString("status").equals("200")) {
-                                    Toast.makeText(getActivity(), res.getString("message"), Toast.LENGTH_SHORT).show();
-                                    getFragmentManager()
-                                            .beginTransaction()
-                                            .replace(R.id.login, new AdminDashBoard())
-                                            .commit();
-                                } else
-                                    Toast.makeText(getActivity(), res.getString("error"), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-
-                        }
-                    });
-                    Volley.newRequestQueue(getActivity()).add(stringRequest);
-                }
-            });
-
 
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
@@ -307,7 +232,7 @@ public class AdminDashBoard extends Fragment {
             textView.setVisibility(View.VISIBLE);
     }
 
-    void setUpListView() {
+    void setUpListView(JSONArray jsonArray) {
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject js = jsonArray.getJSONObject(i);

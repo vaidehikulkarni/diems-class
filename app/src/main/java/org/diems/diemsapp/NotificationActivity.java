@@ -38,6 +38,7 @@ import java.util.List;
 public class NotificationActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
 
     private ViewPager viewPager;
+    private TabLayout tabLayout;
     public static JSONObject jsonObject;
     ProgressBar progressBar;
     String[] dept = {"All", "FE", "CSE", "E&TC", "CIVIL", "MECH", "MBA", "STAFF"};
@@ -54,7 +55,7 @@ public class NotificationActivity extends AppCompatActivity implements TabLayout
 
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         viewPager = (ViewPager) findViewById(R.id.pager);
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         jsonObject = new JSONObject();
         // Instantiate the RequestQueue.

@@ -157,7 +157,7 @@ public class ClassTestFragment extends Fragment {
             }
         });
 
-        String url = MainActivity.IP + "/api/staff?access_token=" + MainActivity.accessToken;
+        String url = MainActivity.IP + "/api/staff?access_token=" + MainActivity.userData.getAccessToken();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
